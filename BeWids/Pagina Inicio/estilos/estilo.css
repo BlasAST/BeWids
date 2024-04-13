@@ -2,8 +2,76 @@
 body{
     margin: 0;
     padding: 0;
+    background-color: #453745;
 }
-img{
+.cabecera img:first-of-type{
+    display: block;
     width: 100px;
     height: 100px;
+    margin: 0 auto;
 }
+.cabecera{
+    background-color:#2B2C30;
+}
+.cabecera button:first-child{
+    float: left;
+    margin: 30px 0 0 40px;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+}
+.cabecera img:last-child{
+    width: 80px;
+    float: right;
+    margin: -90px 20px;
+}
+
+.hamburgesa::before{
+    content: "";
+    display: block;
+    width: 40px;
+    height: 4px;
+    background-color:#BF1B4B;
+    box-shadow:0 -15px#BF1B4B;
+}
+.hamburgesa::after{
+    content: "";
+    display: block;
+    width: 40px;
+    height: 4px;
+    background-color: #BF1B4B;
+    transform: translateY(10px);
+}
+.bperfil,.bsesiones{
+    display: block;
+    margin: 10px auto;
+    background-color: #BF1B4B;
+    border: 0;
+    padding: 0 40px;
+    border-radius: 40px;
+
+}
+.bperfil{display: none;}
+.perfil img{
+    width: 200px;
+    height: 300px;
+    border-radius: 100%;
+    margin: 40px;
+}
+.perfil .parte1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+.parte1 p{width: 300px;}
+.sesiones{display: none;}
+.footer *{
+    background-color: #BF1B4B;
+    display: block;
+}
+
+
