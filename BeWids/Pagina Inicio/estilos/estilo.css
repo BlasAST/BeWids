@@ -1,8 +1,7 @@
-
+body,ul{margin: 0;padding: 0;}
 body{
-    margin: 0;
-    padding: 0;
-    background-color: #453745;
+    /* background-color: #8f9da2; */
+    background-color: #d6e0e5;
 }
 .cabecera img:first-of-type{
     display: block;
@@ -11,7 +10,8 @@ body{
     margin: 0 auto;
 }
 .cabecera{
-    background-color:#2B2C30;
+    /* background-color:#2B2C30; */
+    background-color:#0b191f;
 }
 .cabecera button:first-child{
     float: left;
@@ -33,15 +33,18 @@ body{
     display: block;
     width: 40px;
     height: 4px;
-    background-color:#BF1B4B;
-    box-shadow:0 -15px#BF1B4B;
+    /* background-color:#BF1B4B; */
+    background-color:#000000;
+    /* box-shadow:0 -15px#BF1B4B; */
+    box-shadow:0 -15px#000000;
 }
 .hamburgesa::after{
     content: "";
     display: block;
     width: 40px;
     height: 4px;
-    background-color: #BF1B4B;
+    /* background-color: #BF1B4B; */
+    background-color: #000000;
     transform: translateY(10px);
 }
 .bperfil,.bsesiones{
@@ -55,8 +58,8 @@ body{
 }
 .bperfil{display: none;}
 .perfil img{
-    width: 200px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     border-radius: 100%;
     margin: 40px;
 }
@@ -68,10 +71,24 @@ body{
 
 }
 .parte1 p{width: 300px;}
-.sesiones{display: none;}
+.sesiones{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sesiones li{
+    background-color: #0b191f;
+    list-style: none;
+    color: white;
+    margin: 10px;
+    padding: 5% 50px;
+    text-align: center;
+}
+/* .sesiones{display: none;} */
 .footer *{
     background-color: #BF1B4B;
     display: block;
 }
+
 
 
