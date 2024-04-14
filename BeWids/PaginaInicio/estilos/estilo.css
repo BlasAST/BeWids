@@ -2,49 +2,53 @@ body,ul{margin: 0;padding: 0;}
 body{
     /* background-color: #8f9da2; */
     background-color: #d6e0e5;
+    font-family: "Open Sans", sans-serif;
 }
-.cabecera img:first-of-type{
-    display: block;
+.cabecera div{
     width: 100px;
     height: 100px;
     margin: 0 auto;
+    background-image: url(../../imagenes/imagenLogo2.png);
+    background-position: center;
+    background-size: 250px;
 }
 .cabecera{
     /* background-color:#2B2C30; */
     background-color:#0b191f;
+    display: flex;
+    align-items: center;
 }
-.cabecera button:first-child{
-    float: left;
-    margin: 30px 0 0 40px;
-    width: 40px;
-    height: 40px;
+.hamburgesa{
+    margin-left: 20px;
+    width: 30px;
+    height: 30px;
     background-color: transparent;
     border: 0;
     padding: 0;
 }
 .cabecera img:last-child{
-    width: 80px;
-    float: right;
-    margin: -90px 20px;
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
 }
 
 .hamburgesa::before{
     content: "";
     display: block;
-    width: 40px;
+    width: 30px;
     height: 4px;
     /* background-color:#BF1B4B; */
-    background-color:#000000;
+    background-color:white;
     /* box-shadow:0 -15px#BF1B4B; */
-    box-shadow:0 -15px#000000;
+    box-shadow:0 -14px white;
 }
 .hamburgesa::after{
     content: "";
     display: block;
-    width: 40px;
+    width: 30px;
     height: 4px;
     /* background-color: #BF1B4B; */
-    background-color: #000000;
+    background-color: white;
     transform: translateY(10px);
 }
 .bperfil,.bsesiones{
@@ -52,11 +56,12 @@ body{
     margin: 10px auto;
     background-color: #BF1B4B;
     border: 0;
-    padding: 0 40px;
+    padding: 0 80px;
     border-radius: 40px;
 
 }
 .bperfil{display: none;}
+.perfil p{align-self: center;}
 .perfil img{
     width: 250px;
     height: 250px;
@@ -81,14 +86,44 @@ body{
     list-style: none;
     color: white;
     margin: 10px;
-    padding: 5% 50px;
+    padding: 5% 200px;
     text-align: center;
 }
-/* .sesiones{display: none;} */
-.footer *{
-    background-color: #BF1B4B;
-    display: block;
+.perfil{
+    display: flex;
+    flex-direction: column;
 }
+.noVisible{
+    margin-left: 10%;
+}
+
+/* .sesiones{display: none;} */
+.footer{
+    background-color: #0b191f;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: start;
+}
+
+.footer :first-child{
+    flex: 0 1 100%; 
+    text-align: center;
+    background-color: #BF1B4B;
+    color: white;
+    margin: 0;
+    font-size: 20px;
+}
+.footer :nth-child(n):not(:first-child){
+    flex: 0 1 50%;
+}
+.footer a {
+    font-size: 15px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #BF1B4B;
+}
+
 
 
 
