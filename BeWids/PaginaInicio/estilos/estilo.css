@@ -1,4 +1,4 @@
-body,ul{margin: 0;padding: 0;}
+body,ul,div,button,h1,h2,h6,a,li,img,header,footer{margin: 0;padding: 0;}
 body{
     /* background-color: #8f9da2; */
     background-color: #d6e0e5;
@@ -17,9 +17,10 @@ body{
     background-color:#0b191f;
     display: flex;
     align-items: center;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 .hamburgesa{
-    margin-left: 20px;
     width: 30px;
     height: 30px;
     background-color: transparent;
@@ -29,7 +30,6 @@ body{
 .cabecera img:last-child{
     width: 50px;
     height: 50px;
-    margin-right: 20px;
 }
 
 .hamburgesa::before{
@@ -51,6 +51,10 @@ body{
     background-color: white;
     transform: translateY(10px);
 }
+main{
+    width: min(1200px,100%);
+    margin: 0 auto;
+}
 .bperfil,.bsesiones{
     display: block;
     margin: 10px auto;
@@ -62,11 +66,14 @@ body{
 }
 .bperfil{display: none;}
 .perfil p{align-self: center;}
+.perfil :first-child{
+    margin: 20px 0;
+    text-align: center;
+}
 .perfil img{
     width: 250px;
     height: 250px;
     border-radius: 100%;
-    margin: 40px;
 }
 .parte1{
     display: flex;
@@ -111,17 +118,15 @@ body{
     text-align: center;
     background-color: #BF1B4B;
     color: white;
-    margin: 0;
     font-size: 20px;
 }
-.footer :nth-child(n):not(:first-child){
-    flex: 0 1 50%;
-}
 .footer a {
+    flex: 0 1 50%;
     font-size: 15px;
     margin-top: 10px;
     text-decoration: none;
     color: #BF1B4B;
+    text-align: center;
 }
 
 
