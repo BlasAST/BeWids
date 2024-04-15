@@ -1,9 +1,11 @@
+@import url(../../Paleta/paleta.css);
 body,ul,div,button,h1,h2,h6,a,li,img,header,footer{margin: 0;padding: 0;}
 body{
     /* background-color: #8f9da2; */
-    background-color: #d6e0e5;
+    background-color: var(--color-fondo);
     font-family: "Open Sans", sans-serif;
 }
+/* Logo mediante css para no perder calidad */
 .cabecera div{
     width: 100px;
     height: 100px;
@@ -14,12 +16,13 @@ body{
 }
 .cabecera{
     /* background-color:#2B2C30; */
-    background-color:#0b191f;
+    background-color:var(--color-secundario);
     display: flex;
     align-items: center;
-    padding-left: 2%;
-    padding-right: 2%;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
 }
+/* boton de abrir menu en movil? */
 .hamburgesa{
     width: 30px;
     height: 30px;
@@ -27,6 +30,7 @@ body{
     border: 0;
     padding: 0;
 }
+/* imagen izquierda */
 .cabecera img:last-child{
     width: 50px;
     height: 50px;
@@ -55,12 +59,18 @@ main{
     width: min(1200px,100%);
     margin: 0 auto;
 }
+/* Colocacion movil quitando este flex? */
+.contenedor{display: flex;}
+
+/*  */
+/*  */
+
 .bperfil,.bsesiones{
     display: block;
     margin: 10px auto;
-    background-color: #BF1B4B;
+    background-color: var(--color-terciario);
     border: 0;
-    padding: 0 80px;
+    padding: 0 40px;
     border-radius: 40px;
 
 }
@@ -75,6 +85,7 @@ main{
     height: 250px;
     border-radius: 100%;
 }
+/* imagenPerfil y lateral */
 .parte1{
     display: flex;
     flex-direction: row;
@@ -83,17 +94,20 @@ main{
 
 }
 .parte1 p{width: 300px;}
+/* Listado de sesiones */
+/* sesiones cerradas?????? */
 .sesiones{
-    display: flex;
+    display: none;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
 }
 .sesiones li{
-    background-color: #0b191f;
+    background-color: var(--color-secundario);
     list-style: none;
     color: white;
     margin: 10px;
-    padding: 5% 200px;
+    padding: 5% 100px;
     text-align: center;
 }
 .perfil{
@@ -104,9 +118,10 @@ main{
     margin-left: 10%;
 }
 
+/* Información tipica de contactos */
 /* .sesiones{display: none;} */
 .footer{
-    background-color: #0b191f;
+    background-color: var(--color-secundario);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -116,7 +131,7 @@ main{
 .footer :first-child{
     flex: 0 1 100%; 
     text-align: center;
-    background-color: #BF1B4B;
+    background-color: var(--color-terciario);
     color: white;
     font-size: 20px;
 }
@@ -125,7 +140,7 @@ main{
     font-size: 15px;
     margin-top: 10px;
     text-decoration: none;
-    color: #BF1B4B;
+    color: var(--color-terciario);
     text-align: center;
 }
 
