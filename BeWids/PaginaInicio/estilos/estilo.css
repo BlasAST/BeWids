@@ -1,4 +1,4 @@
-@import url(../../Paleta/paleta.css);
+@import url(../../Paleta/estilosBase.css);
 body,ul,div,button,h1,h2,h6,a,li,img,header,footer{margin: 0;padding: 0;}
 body{
     /* background-color: #8f9da2; */
@@ -6,55 +6,7 @@ body{
     font-family: "Open Sans", sans-serif;
 }
 /* Logo mediante css para no perder calidad */
-.cabecera div{
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    background-image: url(../../imagenes/imagenLogo2.png);
-    background-position: center;
-    background-size: 250px;
-}
-.cabecera{
-    /* background-color:#2B2C30; */
-    background-color:var(--color-secundario);
-    display: flex;
-    align-items: center;
-    padding-left: 1.5%;
-    padding-right: 1.5%;
-}
-/* boton de abrir menu en movil? */
-.hamburgesa{
-    width: 30px;
-    height: 30px;
-    background-color: transparent;
-    border: 0;
-    padding: 0;
-}
-/* imagen izquierda */
-.cabecera img:last-child{
-    width: 50px;
-    height: 50px;
-}
 
-.hamburgesa::before{
-    content: "";
-    display: block;
-    width: 30px;
-    height: 4px;
-    /* background-color:#BF1B4B; */
-    background-color:white;
-    /* box-shadow:0 -15px#BF1B4B; */
-    box-shadow:0 -14px white;
-}
-.hamburgesa::after{
-    content: "";
-    display: block;
-    width: 30px;
-    height: 4px;
-    /* background-color: #BF1B4B; */
-    background-color: white;
-    transform: translateY(10px);
-}
 main{
     width: min(1200px,100%);
     margin: 0 auto;
@@ -120,29 +72,7 @@ main{
 
 /* Información tipica de contactos */
 /* .sesiones{display: none;} */
-.footer{
-    background-color: var(--color-secundario);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    text-align: start;
-}
 
-.footer :first-child{
-    flex: 0 1 100%; 
-    text-align: center;
-    background-color: var(--color-terciario);
-    color: white;
-    font-size: 20px;
-}
-.footer a {
-    flex: 0 1 50%;
-    font-size: 15px;
-    margin-top: 10px;
-    text-decoration: none;
-    color: var(--color-terciario);
-    text-align: center;
-}
 
 
 
