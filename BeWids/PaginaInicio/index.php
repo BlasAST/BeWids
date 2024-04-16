@@ -1,7 +1,7 @@
     <?php
     include_once '../vistas/cabecera.php';
     ?>
-    <link rel="stylesheet" href="estilos/estilo.css">
+    <link rel="stylesheet" href="estilos/estiloInicio.css">
 </head>
 
 <body>
