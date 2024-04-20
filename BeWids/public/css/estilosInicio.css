@@ -1,0 +1,78 @@
+
+body,ul,div,button,h1,h2,h6,a,li,img,header,footer{margin: 0;padding: 0;}
+body{
+    /* background-color: #8f9da2; */
+    background-color: var(--color-fondo);
+    font-family: "Open Sans", sans-serif;
+}
+/* Logo mediante css para no perder calidad */
+
+main{
+    width: min(1200px,100%);
+    margin: 0 auto;
+}
+/* Colocacion movil quitando este flex? */
+.contenedor{display: flex;}
+
+/*  */
+/*  */
+
+.bperfil,.bsesiones{
+    display: block;
+    margin: 10px auto;
+    background-color: var(--color-terciario);
+    border: 0;
+    padding: 0 40px;
+    border-radius: 40px;
+
+}
+.bperfil{display: none;}
+.perfil p{align-self: center;}
+.perfil :first-child{
+    margin: 20px 0;
+    text-align: center;
+}
+.perfil img{
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+}
+/* imagenPerfil y lateral */
+.parte1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+.parte1 p{width: 300px;}
+/* Listado de sesiones */
+/* sesiones cerradas?????? */
+.sesiones{
+    display: none;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+}
+.sesiones li{
+    background-color: var(--color-secundario);
+    list-style: none;
+    color: white;
+    margin: 10px;
+    padding: 5% 100px;
+    text-align: center;
+}
+.perfil{
+    display: flex;
+    flex-direction: column;
+}
+.noVisible{
+    margin-left: 10%;
+}
+
+/* Información tipica de contactos */
+/* .sesiones{display: none;} */
+
+
+
+
