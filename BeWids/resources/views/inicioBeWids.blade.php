@@ -1,4 +1,4 @@
-    <!-- @include('partials.ini') -->
+    @include('partials.ini')
     <link rel="stylesheet" href="{{ asset('css/estilosInicio.css')}}">
 </head>
 
