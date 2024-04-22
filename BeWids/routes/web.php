@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Registrarse;
+use App\Http\Controllers\InicioSesion;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
 Route::get('/',function(){
-    return view('inicioBeWids');
+    return view('home');
 });
+
+Route::get('/iniciar',[InicioSesion::class,'crear'])->name('inicioSesion.index');
+Route::get('/registrarse',[Registrarse::class,'crear'])->name('registro.index');
