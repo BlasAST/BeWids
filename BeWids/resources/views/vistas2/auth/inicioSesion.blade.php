@@ -13,6 +13,9 @@
             <a href="">He olvidado mi contraseña</a>
             <p>¿No tienes cuenta? <a href="">Registrate</a></p>
             <input type="submit" name="inicio" value="INICIAR SESIÓN">
+            @error('message')
+                <p>*error</p>
+                @endError
         </form>
     </div>
 @endsection
