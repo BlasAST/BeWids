@@ -8,12 +8,15 @@ body{
     --color-fondo:#d6e0e5;
     --color-secundario:#0b191f;
     --color-terciario:#BF1B4B;
+    --grande:3vw;
+    --pequenio:1vw;
+    --mediano:2vw;
 }
 .cabecera div:first-child{
     width: 100px;
     height: 100px;
     margin: 0 auto;
-    background-image: url(../imagenes/imagenLogo2.png);
+    background-image: url(../imagenes/imagenesBase/imagenLogo2.png);
     background-position: center;
     background-size: 250px;
 }
@@ -22,8 +25,8 @@ body{
     background-color:var(--color-secundario);
     display: flex;
     align-items: center;
-    padding-left: 1.5%;
-    padding-right: 1.5%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
 }
 /* boton de abrir menu en movil? */
 .hamburgesa{
@@ -78,9 +81,15 @@ body{
 .footer a {
     margin: 0;
     flex: 0 1 45%;
-    font-size: 20px;
     margin-top: 10px;
     text-decoration: none;
-    color: var(--color-terciario);
+    /* color: var(--color-terciario); */
+    color:  rgb(255, 255, 255);
     
 }
+
+/* Tamaños Fuentes */
+h2{
+    font-size: var(--mediano);
+}
+a{font-size: var(--pequenio);}

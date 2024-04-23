@@ -1,26 +1,23 @@
 body{
     background-color: var(--color-fondo);
-    font-size: large;
+    
 }
 .margen{
     margin: 0 20px;
 }
-
 .cabecera{
     justify-content: space-between;
+
 }
 .cabecera div:first-child{
-    margin: 0 0 0 15%;
-}
-.cabecera div:last-child{
-    width: 300px;
+    margin: 0 ;
 }
 .cabecera div:last-child a{
     margin: 0 1%;
 }
 .hero{
     height: 400px;
-    background-image: url(../imagenes/imagenHero.jpg);
+    background-image: url(../imagenes/imagenesHome/imagenHero.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -29,15 +26,33 @@ body{
     align-items: center;
     margin: 0 -20px;
 }
-.hero h2{
-    display: inline-block;
-    width: 600px;
-    margin: 0 auto;
+.hero h2{margin: 0 auto;}
+
+.contenedor div:not(.hero){
+    height: 40rem;
 }
-.contenedor > h2 {
-    width: 450px;
+.contenedor div:nth-child(3){
     margin-top: 10%;
+    background-image: url(../imagenes/imagenesHome/imagenPersonasSombras.jpg);
+    background-position: left;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
-.contenedor > h2:nth-child(even){
-    margin-left: auto;
+.contenedor div:nth-child(4){
+    background-image: url(../imagenes/imagenesHome/imagenCampo.jpg);
+     background-position: right;
+    background-size: 70% 100%;
+    background-repeat: no-repeat;
+}
+.contenedor div:nth-child(5){
+    background-image: url(../imagenes/imagenesHome/imagenEnCiudad.jpg);
+     background-position: left;
+    background-size: 70% 100%;
+    background-repeat: no-repeat;
+}
+.contenedor div:nth-child(6){
+    background-image: url(../imagenes/imagenesHome/imagenPareja.jpg);
+     background-position: right;
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
 }

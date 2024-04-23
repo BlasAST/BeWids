@@ -25,10 +25,12 @@
             <div class="hero">
                 <h2>Te ayudamos a organizarte mejor con otras personas</h2>
             </div>
-            <h2>Planificate mejor con tus personas cercanas</h2>
-            <h2>Aportar vuestras ideas y opiniones</h2>
-            <h2>Crear encuestas para saber lo que la mayoría quiere</h2>
-            <h2>Busca eventos y organiza planes cerca de ti</h2>
+            <div><h2>¿Para que sirve esta aplicación?</h2></div>
+
+            <div><h2>Planificate mejor con tus personas cercanas</h2></div>
+            <div><h2>Aportar vuestras ideas y opiniones</h2></div>
+            <div><h2>Crear encuestas para saber lo que la mayoría quiere</h2></div>
+            <div><h2>Busca eventos y organiza planes cerca de ti</h2></div>
         </div>
     </div>
 </main>

@@ -10,7 +10,6 @@
         rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/estilosBase.css')}}">
     <link rel="stylesheet" href="@yield('rutaEstilos')">
-
     <script src="@yield('rutaJs')"></script>
 
 </head>
