@@ -10,23 +10,38 @@
              @csrf
             <div>
                 <label for="name">Usuario</label>
-                <input type="text" name="name" placeholder="Indica tu usuario">
+                <div class="contInput">
+                    <input type="text" name="name" placeholder="Indica tu usuario">
+                    <div class="borde"></div>
+                </div>
             </div>
             <div>
                 <label for="email">Email</label>
-                <input type="email" name="email" placeholder="Indica tu correo electrónico">
+                <div class="contInput">
+                    <input type="email" name="email" placeholder="Indica tu correo electrónico">
+                    <div class="borde"></div>
+                </div>
             </div>
             <div>
                 <label for="email2">Repetir Email</label>
-                <input type="email" name="email2" placeholder="Repite tu correo electrónico">
+                <div class="contInput">
+                    <input type="email" name="email2" placeholder="Repite tu correo electrónico">
+                    <div class="borde"></div>
+                </div>
             </div>
             <div>
                 <label for="password">Contraseña</label>
-                <input type="password" name="password" placeholder="Indica tu contraseña">
+                <div class="contInput">
+                    <input type="password" name="password" placeholder="Indica tu contraseña">
+                    <div class="borde"></div>
+                </div>
             </div>
             <div>
                 <label for="pass2">Repetir Contraseña</label>
-                <input type="password" name="pass2" placeholder="Tepite tu contraseña">
+                <div class="contInput">
+                    <input type="password" name="pass2" placeholder="Tepite tu contraseña">
+                    <div class="borde"></div>
+                </div>
                 <a href="{{route('inicioSesion.index')}}">¿Ya tienes cuenta?</a>
             </div>
             <input type="submit" name="registro" value="CREAR CUENTA">
