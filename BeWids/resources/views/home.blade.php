@@ -4,14 +4,19 @@
 @section('rutaEstilos','css/estilosHome.css')
 @section('contenido')
 
+
 <header>
     <div class="cabecera">
         
         <div></div>
         <div>
-            <a href="{{route('inicioSesion.index')}}">Iniciar Sesión</a>
-            <a href="{{route('registro.index')}}">Registrarse</a>
-    </div>
+              <a href="{{route('inicioSesion.index')}}">Iniciar Sesión</a>
+              <a href="{{route('registro.index')}}">Registrarse</a>
+              <br>
+              <a href="{{route('perfil', 'botones')}}">Perfil</a>
+              <a href="{{route('perfil', 'inicio')}}">Iniciar</a>
+              <a href="{{route('perfil', 'crear')}}">Crear Cuentar</a>
+        </div>
     </div>
 </header>
 <main>
@@ -31,4 +36,5 @@
 
 @include('partials.footer')
 @endsection
+
 
