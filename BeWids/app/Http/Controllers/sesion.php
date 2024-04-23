@@ -8,10 +8,11 @@ use App\Models\User;
 class sesion extends Controller
 {
     public function comprobar($dir){
+        var_dump('Hola desde cont sesion');
         if(auth()->check()){
-            return redirect()->to('inicioBeWids');
+            return redirect()->to('vistas2\inicioBeWids');
         }else{
-            return redirect()->to('sesion',['dir' => $dir]);
+            return redirect()->to('vistas2\sesion',['dir' => $dir]);
         }
     }
     public function formulario(){
