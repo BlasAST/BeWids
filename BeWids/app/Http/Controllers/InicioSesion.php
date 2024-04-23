@@ -10,7 +10,7 @@ class InicioSesion extends Controller
         return view('vistas2.auth.inicioSesion');
     }
     public function iniciar(){
-        if(!auth()->attempt(request(['email','password']))){
+        if(!auth()->attempt(request(['email','password']),request('recordar'))){
             return back()->withErrors([
                 'message' => 'pepe pepon'
             ]);

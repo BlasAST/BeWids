@@ -65,7 +65,7 @@ form > div{
     border-top-width: 0px;
     padding-bottom: 5px;
 }
-input:not([type='submit']){
+input:not([type='submit']):not([type='checkbox']){
     padding: 5px 0;
 
     text-indent: 2%;
@@ -95,7 +95,7 @@ input::placeholder{
     color: rgba(255, 255, 255, 0.39);
     font-size: larger;
 }
-label{
+form > div >label{
     margin-bottom: 15px;
     font-size: larger;
     text-decoration-line: underline;

@@ -21,6 +21,12 @@
                     <input type="password" name="password" placeholder="Indica tu contraseña">
                     <div class="borde"></div>
                 </div>
+            </div>
+            <div>
+                <div>
+                    <label for="recordar">Recordar sesión</label>
+                    <input type="checkbox" name="recordar">
+                </div>
                 <a href="">He olvidado mi contraseña</a>
                 <p>¿No tienes cuenta? <a href="{{route('registro.index')}}">Registrate</a></p>
             </div>

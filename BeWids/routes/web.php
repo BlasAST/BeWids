@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Registrarse;
 use App\Http\Controllers\InicioSesion;
+use App\Http\Controllers\perfil;
 use App\Http\Controllers\sesion;
+use App\Http\Controllers\inicio;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,11 +23,10 @@ use App\Http\Controllers\sesion;
 //     return view('welcome');
 // });
 
-Route::get('/',function(){
-    return view('home');
-});
+Route::get('/',[inicio::class,'index']);
+Route::get('/perfil',[perfil::class,'index'])->name('perfil');
 
-Route::get('/perfil/{$dir}',[sesion::class,'comprobar'])->name('perfil');
+Route::get('/sesion/{$dir}',[sesion::class,'comprobar'])->name('sesion');
 
 Route::get('/iniciar',[InicioSesion::class,'mostrar'])->name('inicioSesion.index');
 Route::get('/registrarse',[Registrarse::class,'mostrar'])->name('registro.index');

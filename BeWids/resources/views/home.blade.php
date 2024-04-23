@@ -13,9 +13,9 @@
               <a href="{{route('inicioSesion.index')}}">Iniciar Sesión</a>
               <a href="{{route('registro.index')}}">Registrarse</a>
               <br>
-              <a href="{{route('perfil', 'botones')}}">Perfil</a>
-              <a href="{{route('perfil', 'inicio')}}">Iniciar</a>
-              <a href="{{route('perfil', 'crear')}}">Crear Cuentar</a>
+              <a href="{{route('sesion', 'botones')}}">Perfil</a>
+              <a href="{{route('sesion', 'inicio')}}">Iniciar</a>
+              <a href="{{route('sesion', 'crear')}}">Crear Cuentar</a>
         </div>
     </div>
 </header>
