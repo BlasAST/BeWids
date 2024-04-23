@@ -1,0 +1,43 @@
+body{
+    background-color: var(--color-fondo);
+    font-size: large;
+}
+.margen{
+    margin: 0 20px;
+}
+
+.cabecera{
+    justify-content: space-between;
+}
+.cabecera div:first-child{
+    margin: 0 0 0 15%;
+}
+.cabecera div:last-child{
+    width: 300px;
+}
+.cabecera div:last-child a{
+    margin: 0 1%;
+}
+.hero{
+    height: 400px;
+    background-image: url(../imagenes/imagenHero.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    display: flex;
+    align-items: center;
+    margin: 0 -20px;
+}
+.hero h2{
+    display: inline-block;
+    width: 600px;
+    margin: 0 auto;
+}
+.contenedor > h2 {
+    width: 450px;
+    margin-top: 10%;
+}
+.contenedor > h2:nth-child(even){
+    margin-left: auto;
+}
