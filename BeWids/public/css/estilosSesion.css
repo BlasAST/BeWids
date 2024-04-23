@@ -1,0 +1,87 @@
+body,div,form,h1,p,button,label,input,a{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-image: linear-gradient(45deg,#35313B,#453745 25%, #613C4C 50%,#453745 75%,#35313B 100%);
+    background-repeat: no-repeat;
+    min-height: 100dvh;
+}
+body > div{
+    width: 50%;
+    background-color: gray;
+    margin: 50px auto;
+    padding: 50px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 40px;
+    background-color: rgba(214, 224, 229, 0.29);
+    color: white;
+}
+button{
+    padding: 35px 0;
+    margin: 35px 0;
+    border-radius: 50px;
+}
+h1{
+    text-align: center;
+}
+body>div>p{
+    text-align:center;
+    margin: 20px 0;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    justify-content: space-evenly;
+    margin: 20px 0;
+}
+form div{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 30px;
+}
+input:not([type='submit']){
+    text-indent: 2%;
+    border-radius: 0 0 20px 20px;
+    border: 2px solid white;
+    border-top: none;
+    border-left-width: 0.1px;
+    border-right-width: 0.1px;
+    
+    /* border-style: solid;
+    border-width: 2px;
+    border-color: white; */
+    /*background: linear-gradient(to top, rgba(214, 224, 229, 0.29) 0 50%, transparent 50% 100%) padding-box, linear-gradient(to top, white 0 50%, transparent 50% 100%) border-box ;*/
+    border-image-slice: 1;
+    background-color: inherit;
+    padding: 0 0 10px;
+    color: white;
+}
+input::placeholder{
+    color: rgba(255, 255, 255, 0.39);
+}
+label{
+    margin-bottom: 15px;
+    font-size: larger;
+    text-decoration-line: underline;
+    text-decoration-color: white;
+    text-decoration-thickness: 2px;
+}
+a{
+    color: rgba(214, 105, 138, 1);
+}
+input[type='submit']{
+    background-color: rgba(214, 105, 138, 1);
+    border: 0;
+    color: white;
+    padding: 20px 0;
+    border-radius: 15px;
+}
+a:first-of-type{
+    margin: 10px 0 5px;
+}
