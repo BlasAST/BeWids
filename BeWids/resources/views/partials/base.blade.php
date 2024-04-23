@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('titulo')</title>
     <link rel="stylesheet" href="{{asset('css/estilosBase.css')}}">
-    <link rel="stylesheet" href="yield('rutaEstilos')">
+    <link rel="stylesheet" href="@yield('rutaEstilos')">
+    <script src="@yield('rutaJs')"></script>
 </head>
 <body>
     @yield('contenido')
