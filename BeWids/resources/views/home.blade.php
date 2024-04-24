@@ -58,6 +58,19 @@
                     <p>Encuentra eventos o planes cercanos y comprueba si alguien se anima</p>
                 </div>
             </div>
+            <div class="eleccion">
+                <button>Registrarse</button>
+                <p>o</p>
+                <button>Iniciar Sesion</button>
+            </div>
+            <div class="muestraBreve">
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <div class="contenido1">contenido1</div>
+                <div class="contenido2">contenido2</div>
+                <div class="contenido3">contenido3</div>
+            </div>
         </div>
     </div>
 </main>

@@ -52,26 +52,38 @@ body{
 }
 .contenedor div:nth-child(n+2) p,
 .contenedor div:nth-child(n+2) h2{
-    width: 40vw;
+    
     text-align: center;
-}
+} 
 .contenedor div:nth-child(n+2) p{
     color: crimson;
     font-weight: bold;
-    text-shadow: 0px 0px 4px rgb(0, 0, 0);
+    /* text-shadow: 0px 0px 4px rgb(0, 0, 0); */
 }
-.contenedor div:nth-child(3){
+.contenedor> div:nth-child(3){
     background-image: url(../imagenes/imagenesHome/imagenPersonasSombras.jpg);  
 }
-.contenedor div:nth-child(4){
+.contenedor> div:nth-child(3) div{
+    width: 500px;
+}
+.contenedor> div:nth-child(4){
     background-image: url(../imagenes/imagenesHome/imagenCampo.jpg);
     background-size: 70% 100%; 
 }
-.contenedor div:nth-child(5){
+.contenedor> div:nth-child(4) div{
+    width: 300px;
+}
+.contenedor> div:nth-child(5){
     background-image: url(../imagenes/imagenesHome/imagenEnCiudad.jpg);
     height: 60vw;
     background-size: 70% 100%; 
 }
-.contenedor div:nth-child(6){
+.contenedor> div:nth-child(5) div{
+    width: 300px;
+}
+.contenedor> div:nth-child(6){
     background-image: url(../imagenes/imagenesHome/imagenPareja.jpg);
+}
+.contenedor> div:nth-child(6) div{
+    width: 400px;
 }
