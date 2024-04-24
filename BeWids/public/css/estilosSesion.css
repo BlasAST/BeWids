@@ -102,6 +102,18 @@ form > div >label{
     text-decoration-color: white;
     text-decoration-thickness: 2px;
 }
+.ojo{
+    position: absolute;
+    width: 10%;
+    height: 100%;
+    right: 0%;
+    bottom: 0%;
+    margin: 0;
+    background-image: url(../imagenes/imagenesSesion/ojoA.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 a{
     color: rgba(214, 105, 138, 1);
 }
@@ -111,7 +123,11 @@ input[type='submit']{
     color: white;
     padding: 20px 0;
     border-radius: 15px;
+    margin: 10px 0 20px;
 }
 a:first-of-type{
     margin: 10px 0 5px;
+}
+h3{
+    text-align: center;
 }

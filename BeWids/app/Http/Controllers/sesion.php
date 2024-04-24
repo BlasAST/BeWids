@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class sesion extends Controller
 {
@@ -32,5 +33,9 @@ class sesion extends Controller
         $user = User::create(request(['name','email','password']));
         auth()->login($user);
         return redirect()->to('/');
+    }
+    public function cerrar(){
+        Auth::logout();
+        return back();
     }
 }

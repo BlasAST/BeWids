@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/',[inicio::class,'index']);
 Route::get('/perfil',[perfil::class,'index'])->name('perfil');
+Route::get('/logOut',[sesion::class,'cerrar'])->name('cerrarSesion');
+Route::get('/home', [inicio::class,'home']);
 
 Route::get('/sesion/{$dir}',[sesion::class,'comprobar'])->name('sesion');
 
