@@ -1,9 +1,10 @@
-    @include('partials.ini')
-    <link rel="stylesheet" href="{{ asset('css/estilosInicio.css')}}">
-</head>
+@extends('partials.base')
 
-<body>
-   @include('partials.cabecera')
+@section('titulo','BeWids')
+@section('rutaEstilos','css/estilosInicio.css')
+@section('contenido')
+
+@extends('partials.header')
     <main>
         <div class="contenedor">
             <button class="bperfil">
@@ -12,7 +13,7 @@
             <div class="perfil">
                 <h1>!Bienvenido [Nombre de usuario]!</h1>
                 <div class="parte1">
-                    <img src="{{asset('imagenes/alvaro.jpg')}}" alt="">
+                    <img src="{{asset('imagenes/imagenesPerfil/alvaro.jpg')}}" alt="">
                     <div>
                         <h1>Nombre de usuario</h1>
                         <h3>Nombre: Nombre Fijo</h3>
@@ -53,4 +54,5 @@
         </div>
     </main>
     @include('partials.footer')
+    @endsection
    
