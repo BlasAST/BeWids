@@ -12,6 +12,7 @@
         <div>
               <a href="{{route('inicioSesion.index')}}">Iniciar Sesión</a>
               <a href="{{route('registro.index')}}">Registrarse</a>
+              <a href="{{route('cerrarSesion')}}">Cerrar Sesión</a>
               <br>
               <a href="{{route('sesion', 'botones')}}">Perfil</a>
               <a href="{{route('sesion', 'inicio')}}">Iniciar</a>

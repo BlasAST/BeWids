@@ -9,9 +9,12 @@ class inicio extends Controller
 {
     public function index(){
         var_dump(Auth::check());
-        // if(Auth::check()){
-        //     return view('vistas2/inicioBeWids');
-        // }
+        if(Auth::check()){
+            return view('vistas2/inicioBeWids');
+        }
+        return view('home');
+    }
+    public function home(){
         return view('home');
     }
 }

@@ -33,14 +33,18 @@
                 <label for="password">Contraseña</label>
                 <div class="contInput">
                     <input type="password" name="password" placeholder="Indica tu contraseña">
-                    <div class="borde"></div>
+                    <div class="borde">
+                        <figure class="ojo"></figure>
+                    </div>
                 </div>
             </div>
             <div>
                 <label for="pass2">Repetir Contraseña</label>
                 <div class="contInput">
                     <input type="password" name="pass2" placeholder="Tepite tu contraseña">
-                    <div class="borde"></div>
+                    <div class="borde">
+                        <figure class="ojo"></figure>
+                    </div>
                 </div>
                 <a href="{{route('inicioSesion.index')}}">¿Ya tienes cuenta?</a>
             </div>

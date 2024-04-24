@@ -6,6 +6,26 @@ function iniciar(){
     console.log(inputs)
     inputs.forEach(e=>e.addEventListener('focus',inputFocus));
     inputs.forEach(e=>e.addEventListener('blur',inputBlur));
+    var cerrar = document.querySelectorAll('.cerrar');
+    cerrar[0] && cerrar[0].addEventListener('click',cerrarSesion);
+    document.querySelectorAll('.ojo').forEach(e=>e.addEventListener('click',contraseña));
+}
+
+function contraseña(evt){
+    var input = evt.target.parentElement.previousElementSibling;
+    if(input.type == 'password'){
+        input.type = 'text';
+        evt.target.style.backgroundImage = "url('../imagenes/imagenesSesion/ojoC.png')";
+        input.select();
+    }else{
+        input.type = 'password';
+        evt.target.style.backgroundImage = "url('../imagenes/imagenesSesion/ojoA.png')";
+        input.select();
+    }
+}
+
+function cerrarSesion(){
+    window.location.href = 'logOut';
 }
 
 function inputFocus(evt){
