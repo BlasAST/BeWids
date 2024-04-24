@@ -8,17 +8,17 @@ body{
     --color-fondo:#d6e0e5;
     --color-secundario:#0b191f;
     --color-terciario:#BF1B4B;
-    --grande:3vw;
-    --pequenio:1vw;
-    --mediano:2vw;
+    --grande:40px;
+    --pequenio:14px;
+    --mediano:24px;
 }
-.cabecera div:first-child{
-    width: 100px;
+.logo{
+    width: 200px;
     height: 100px;
     margin: 0 auto;
     background-image: url(../imagenes/imagenesBase/imagenLogo2.png);
     background-position: center;
-    background-size: 250px;
+    background-size: 300px;
 }
 .cabecera{
     /* background-color:#2B2C30; */
@@ -37,7 +37,7 @@ body{
     padding: 0;
 }
 /* imagen izquierda */
-.cabecera img:last-child{
+.ajustes{
     width: 50px;
     height: 50px;
 }
@@ -89,7 +89,6 @@ body{
 }
 
 /* Tamaños Fuentes */
-h2{
-    font-size: var(--mediano);
-}
+h2{font-size: var(--grande);}
 a{font-size: var(--pequenio);}
+p{font-size: var(--mediano);}
