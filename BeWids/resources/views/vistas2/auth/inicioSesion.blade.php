@@ -1,6 +1,7 @@
 @extends('partials.base')
 @section('rutaEstilos','css/estilosSesion.css')
 @section('rutaJs','js/sesion.js')
+@extends('partials.header')
 
 @section('contenido')
     <div class="inicio">

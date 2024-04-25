@@ -28,7 +28,7 @@ Route::get('/perfil',[perfil::class,'index'])->name('perfil');
 Route::get('/logOut',[sesion::class,'cerrar'])->name('cerrarSesion');
 Route::get('/home', [inicio::class,'home']);
 
-Route::get('/sesion/{$dir}',[sesion::class,'comprobar'])->name('sesion');
+Route::get('/sesion/{dir}',[sesion::class,'comprobar'])->name('sesion');
 
 Route::get('/iniciar',[InicioSesion::class,'mostrar'])->name('inicioSesion.index');
 Route::get('/registrarse',[Registrarse::class,'mostrar'])->name('registro.index');

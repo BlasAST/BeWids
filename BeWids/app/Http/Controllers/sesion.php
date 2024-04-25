@@ -11,9 +11,9 @@ class sesion extends Controller
     public function comprobar($dir){
         var_dump('Hola desde cont sesion');
         if(auth()->check()){
-            return redirect()->to('vistas2\inicioBeWids');
+            return redirect()->to('vistas2/inicioBeWids');
         }else{
-            return redirect()->to('vistas2\sesion',['dir' => $dir]);
+            return view('vistas2/sesion',['dir' => $dir]);
         }
     }
     public function formulario(){
