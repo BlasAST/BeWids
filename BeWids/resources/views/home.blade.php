@@ -59,23 +59,42 @@
                     <p>Encuentra eventos o planes cercanos y comprueba si alguien se anima</p>
                 </div>
             </div>
-            <div class="eleccion">
+            <div id="eleccion">
                 <button>Registrarse</button>
                 <p>o</p>
                 <button>Iniciar Sesion</button>
             </div>
-            <div class="muestraBreve">
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <div class="contenido1">contenido1</div>
-                <div class="contenido2">contenido2</div>
-                <div class="contenido3">contenido3</div>
+            <div id="muestraBreve">
+                <div>
+                    <button>Buscador</button>
+                    <button>Agenda</button>
+                    <button>Contabilidad</button>
+                </div>
+                <div class="contenido1">
+                    <h2>Mediante la recopilación de la información de varias paginas
+                        ofrecemos un servicio en el que unificamos eventos o actecimientos
+                        que vayan a tener lugar cerca de ti, permitiendo buscar por distintas
+                        categorias y poniendolos a tu disposición para poder decidir en grupo
+                        que se desea hacer
+                    </h2>
+                </div>
+                <div class="contenido2">
+                <h2>Agenda, toda la información o Planificaciones que se hayan
+                    realizado estarán a vuestra disposición en un calendario
+                    en el que podrás ver la información de toda las personas de la
+                    sesion o de ti exclusivamente</h2>
+                </div>
+                <div class="contenido3">
+                    <h2>
+                        Permitimos que los usuarios de cada sesión lleven de una forma más organizada
+                        y sencilla sus gastos y beneficios para reducir la cantidad de problemas y 
+                        evitar confusiones
+                    </h2>
+                </div>
             </div>
         </div>
     </div>
 </main>
-
 
 @include('partials.footer')
 @endsection
