@@ -1,9 +1,9 @@
 @extends('partials.base')
-@section('rutaEstilos','css/estilosSesion.css')
-@section('rutaJs','js/sesion.js')
-@extends('partials.header')
+@section('rutaEstilos','../css/estilosSesion.css')
+@section('rutaJs','../js/sesion.js')
 
 @section('contenido')
+@extends('partials.header')
 
         <div class="botones">
             <h1>NUEVO EN BEWIDS?!</h1>
