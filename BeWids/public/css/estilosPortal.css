@@ -1,0 +1,99 @@
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            background-image: url(imagenFondo.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 50%;
+            height: 100vh;
+            background-color: #2B2C30;
+        }
+
+        .contenedor {
+            width: 100%;
+            height: 100vh;
+            grid-template-columns: repeat(20, 5%);
+            grid-template-rows: repeat(20, 5%);
+            display: grid;
+        }
+
+        /* hecho a 1024px */
+        .contenedor>div {
+            background-color: black;
+            width: 100%;
+        }
+
+        .inicio {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            text-align: center;
+        }
+
+        .listo{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            transform: scaleX(1);
+            font-size: 70px;
+            font-weight: 500;
+            /* animation: bewids 15s 4s 1; */
+            z-index: 1;
+            transition: trasform 2s ;
+            transform: scaleX(1);
+
+        }
+
+        .listo:hover{
+            transform: scaleX(3);
+        }
+
+        #calendario {
+            grid-area: 2/8/6/13;
+        }
+
+        #ajusteyCierre {
+            grid-area: 1/16/1/21;
+            height: 20px;
+        }
+
+        #contabilidad {
+            grid-area: 5/2/14/5;
+        }
+
+        #buscador {
+            grid-area: 2/16/13/20;
+        }
+
+        #planifi {
+            grid-area: 15/6/19/10;
+        }
+
+        #chatyEncuestas {
+            grid-area: 18/2/20/5;
+        }
+
+        #mapa {
+            grid-area: 14/12/20/20;
+        }
+
+        #enlace {
+            grid-area: 20/span 5/20/21;
+            width: 100%;
+            height: 20px;
+            align-self: flex-end;
+        }
+        @keyframes bewids {
+            20%{
+                transform: scaleX(0);
+            }
+        }

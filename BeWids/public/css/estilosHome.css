@@ -106,9 +106,12 @@ body{
     font-size: var(--mediano);
 }
 .contenedor button{
-    font-size: var(--mediano);
     background-color: transparent;
     border: 0;
+    padding: 10px;
+}
+.contenedor a{
+    font-size: var(--mediano);
     color: var(--color-terciario);
 }
 .contenedor button:hover{

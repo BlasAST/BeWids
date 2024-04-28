@@ -11,6 +11,8 @@
               <a href="{{route('cerrarSesion')}}">Cerrar Sesión</a>
               <br>
               <a href="{{route('sesion', 'botones')}}">Perfil</a>
+
+              <!-- No entiendo el sentido de estas -->
               <a href="{{route('sesion', 'inicio')}}">Iniciar</a>
               <a href="{{route('sesion', 'crear')}}">Crear Cuentar</a>
 @endsection
@@ -35,7 +37,6 @@
                     otras personas de la sesión</p>
                 </div>
                  
-                <!-- <h2>Planificate mejor con tus personas cercanas</h2> -->
             </div>
             <div>
                 <div>
@@ -60,9 +61,9 @@
                 </div>
             </div>
             <div id="eleccion">
-                <button>Registrarse</button>
+                <button ><a href="{{route('registro.index')}}">Registrarse</a></button>
                 <p>o</p>
-                <button>Iniciar Sesion</button>
+                <button><a href="{{route('inicioSesion.index')}}">Iniciar Sesion</a></button>
             </div>
             <div id="muestraBreve">
                 <div>

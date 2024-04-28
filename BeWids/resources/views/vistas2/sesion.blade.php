@@ -138,4 +138,4 @@
             <input type="submit" name="registro" value="CREAR CUENTA">
         </form>
     </div> --}}
-@endsection
+    @endsection
