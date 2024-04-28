@@ -2,8 +2,9 @@
         <div class="cabecera">
             <button class="hamburgesa"></button>
             <div class="logo"></div>
-            <img class="ajustes" src="{{ asset('imagenes/imagenesBasic/ajustes2.png')}}" alt="">
+            <img src="{{ asset('imagenes/imagenesBase/perfil.svg')}}" alt="">
             @yield('contenidoCabecera')
         </div>
+
 </header>
 
