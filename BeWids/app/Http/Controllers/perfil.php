@@ -8,6 +8,6 @@ class perfil extends Controller
 {
     public function index(){
         var_dump('Hola desde cont perfil');
-        return view('inicioBeWids');
+        return view('vistas2/inicioBeWids');
     }
 }
