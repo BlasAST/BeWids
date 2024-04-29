@@ -5,19 +5,20 @@
 @section('contenido')
 @extends('partials.header')
 
-        <div class="botones">
+    @if(!Auth::check())
+        <div class="botones @if(!$dir) mostrar @endif">
             <h1>NUEVO EN BEWIDS?!</h1>
-            <p>Inicia sesión o crea una cuenta BeWids para poder disfrutar de nuestras funcionalidades y empezar a organizarte. A que espperas!</p>
-            <button>INICIAR SESIÓN</button>
-            <button>CREAR CUENTA</button>
+            <p>Inicia sesión o crea una cuenta BeWids para poder disfrutar de nuestras funcionalidades y empezar a organizarte. A que esperas!</p>
+            <button class="botonIniciar">INICIAR SESIÓN</button>
+            <button class="botonCrear">CREAR CUENTA</button>
         </div>
 
-        <div class="inicio">
-            @if(!Auth::check())
+        <div class="inicio @if($dir == 'iniciar') mostrar @endif">
                 <h1>INICIAR SESIÓN</h1>
                 <p>Si ya tienes una cuenta con nosotros, indica tus credenciales y accede a tus sesiones</p>
-                <form action="{{route('inicioSesion.index')}}" method="POST">
+                <form action="{{route('sesionF')}}" method="POST">
                     @csrf
+                    <input type="hidden" value="iniciar" name="tipo">
                     <div>
                         <label for="email">Email</label>
                         <div class="contInput">
@@ -39,29 +40,24 @@
                             <input type="checkbox" name="recordar">
                             <label for="recordar">Recordar sesión</label>
                         </div>
-                        <a href="">He olvidado mi contraseña</a>
-                        <p>¿No tienes cuenta? <a href="{{route('registro.index')}}">Registrate</a></p>
+                        <p><a href="">He olvidado mi contraseña</a></p>
+                        <p>¿No tienes cuenta? <a href="" class="botonCrear">Registrate</a></p>
                     </div>
                     @error('message')
-                        <p>{{$message}}</p>
+                        <p class="error">{{$message}}</p>
                     @endError
                     <input type="submit" name="inicio" value="INICIAR SESIÓN">
                     <p><a href="{{url()->previous()}}">volver</a> a la pagina anterior</p>
                 </form>
-            @else
-                <h1>Ya estás loggeado</h1>
-                <h3>Para iniciar sesión cierra la sesión actual antes</h2>
-                <button class="cerrarSesion">CERRAR SESIÓN</button>
-                <p><a href="{{url()->previous()}}">volver</a> a la pagina anterior</p>
-            @endif
         </div>
       
 
-        <div class="registro">
+        <div class="crear @if($dir == 'registrar') mostrar @endif">
             <h1>CREAR CUENTA</h1>
             <p>Crea una cuenta con nosotros para descubrir los servicios que ofrecemos</p>
-            <form action="{{route('registro.index')}}" method="POST">
+            <form action="{{route('sesionF')}}" method="POST">
                 @csrf
+                <input type="hidden" value="crear" name="tipo">
                 <div>
                     <label for="name">Usuario</label>
                     <div class="contInput">
@@ -100,11 +96,20 @@
                             <figure class="ojo"></figure>
                         </div>
                     </div>
-                    <a href="{{route('inicioSesion.index')}}">¿Ya tienes cuenta?</a>
+                    <p><a href="" class="botonIniciar">¿Ya tienes cuenta?</a></p>
                 </div>
                 <input type="submit" name="registro" value="CREAR CUENTA">
             </form>
         </div>
+    @else
+        <div class="cerrar">
+            <h1>Ya estás loggeado</h1>
+            <h3>Para iniciar sesión cierra la sesión actual antes</h2>
+            <button class="cerrarSesion">CERRAR SESIÓN</button>
+            <p><a href="{{url()->previous()}}">volver</a> a la pagina anterior</p>
+        </div>
+        
+    @endif
         
     
     {{-- <div class="inicio">

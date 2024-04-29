@@ -2,19 +2,20 @@
 
 @section('titulo','BeWids')
 @section('rutaEstilos','css/estilosHome.css')
+@section('rutaJs','js/basic.js')
 @section('contenido')
 @extends('partials.header')
 
 @section('contenidoCabecera')
-              <a href="{{route('inicioSesion.index')}}">Iniciar Sesión</a>
+              {{-- <a href="{{route('inicioSesion.index')}}">Iniciar Sesión</a>
               <a href="{{route('registro.index')}}">Registrarse</a>
               <a href="{{route('cerrarSesion')}}">Cerrar Sesión</a>
               <br>
-              <a href="{{route('sesion', 'botones')}}">Perfil</a>
+              <a href="{{route('sesion', '')}}">Perfil</a>
 
               <!-- No entiendo el sentido de estas -->
-              <a href="{{route('sesion', 'inicio')}}">Iniciar</a>
-              <a href="{{route('sesion', 'crear')}}">Crear Cuentar</a>
+              <a href="{{route('sesion', 'iniciar')}}">Iniciar</a>
+              <a href="{{route('sesion', 'registrar')}}">Crear Cuentar</a> --}}
 @endsection
 
 <main>
@@ -60,10 +61,9 @@
                     <p>Encuentra eventos o planes cercanos y comprueba si alguien se anima</p>
                 </div>
             </div>
-            <div id="eleccion">
-                <button ><a href="{{route('registro.index')}}">Registrarse</a></button>
-                <p>o</p>
-                <button><a href="{{route('inicioSesion.index')}}">Iniciar Sesion</a></button>
+            <div id="eleccion" class="botonesSesion">
+                <button>Registrarse</button>
+                <button>Iniciar Sesión</button>
             </div>
             <div id="muestraBreve">
                 <div>
