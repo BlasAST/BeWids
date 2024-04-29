@@ -11,14 +11,30 @@ body{
 body > div{
     width: 50%;
     background-color: gray;
+    display: flex;
     margin: 50px auto;
     padding: 50px 50px;
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
     border-radius: 40px;
     background-color: rgba(214, 224, 229, 0.29);
     color: white;
+}
+.mostrar{
+    display: flex;
+    margin: 50px auto;
+    transition: all 2s ease;
+}
+body > div:not(.mostrar):not(.cerrar){
+    display: none;
+    transition: all 2s ease;
+
+}
+.inicio:not(.mostrar){
+    margin-left: -50%;
+}
+.crear:not(.mostrar){
+    margin-right: -50%;
 }
 button{
     padding: 35px 0;
