@@ -21,7 +21,7 @@ class sesion extends Controller
     }
     public function formulario(){
         if(request('tipo') == 'iniciar'){
-            if(!auth()->attempt(request(['email','password']))){
+            if(!auth()->attempt(request(['email','password']),request('recordar'))){
                 return back()->withErrors([
                     'message' => 'Correo o contraseña incorrectos'
                 ]);
