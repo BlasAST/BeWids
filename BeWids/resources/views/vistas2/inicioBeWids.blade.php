@@ -11,7 +11,7 @@
                 <h1>Perfil</h1>
             </button>
             <div class="perfil">
-                <h1>!Bienvenido [Nombre de usuario]!</h1>
+                <h1>!Bienvenido {{Auth::user()->name}}!</h1>
                 <div class="parte1">
                     <img src="{{asset('imagenes/imagenesPerfil/alvaro.jpg')}}" alt="">
                     <div>

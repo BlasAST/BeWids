@@ -4,7 +4,6 @@ body{
     /* background-color: #8f9da2; */
     background-color: var(--color-fondo);
     font-family: "Open Sans", sans-serif;
-    background-color: var(--color-secundario);
 }
 /* Logo mediante css para no perder calidad */
 
