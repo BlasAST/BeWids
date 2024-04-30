@@ -29,7 +29,7 @@
                     <div>
                         <label for="password">Contraseña</label>
                         <div class="contInput">
-                            <input type="password" name="password" placeholder="Indica tu contraseña">
+                            <input class="pass" type="password" name="password" placeholder="Indica tu contraseña">
                             <div class="borde">
                                 <figure class="ojo"></figure>
                             </div>
@@ -38,11 +38,12 @@
                     <div>
                         <div>
                             <input type="checkbox" name="recordar">
-                            <label for="recordar">Recordar sesión</label>
+                            <label for="recordar" name="recordar">Recordar sesión</label>
                         </div>
                         <p><a href="">He olvidado mi contraseña</a></p>
                         <p>¿No tienes cuenta? <a href="" class="botonCrear">Registrate</a></p>
                     </div>
+                    <p class="error"></p>
                     @error('message')
                         <p class="error">{{$message}}</p>
                     @endError
@@ -82,7 +83,7 @@
                 <div>
                     <label for="password">Contraseña</label>
                     <div class="contInput">
-                        <input type="password" name="password" placeholder="Indica tu contraseña">
+                        <input class="pass" type="password" name="password" placeholder="Indica tu contraseña">
                         <div class="borde">
                             <figure class="ojo"></figure>
                         </div>
@@ -91,13 +92,14 @@
                 <div>
                     <label for="pass2">Repetir Contraseña</label>
                     <div class="contInput">
-                        <input type="password" name="pass2" placeholder="Tepite tu contraseña">
+                        <input class="pass" type="password" name="pass2" placeholder="Tepite tu contraseña">
                         <div class="borde">
                             <figure class="ojo"></figure>
                         </div>
                     </div>
                     <p><a href="" class="botonIniciar">¿Ya tienes cuenta?</a></p>
                 </div>
+                <p class="error"></p>
                 <input type="submit" name="registro" value="CREAR CUENTA">
             </form>
         </div>
