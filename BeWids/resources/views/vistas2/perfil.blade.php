@@ -1,10 +1,20 @@
 @extends('partials.base')
-
 @section('titulo','BeWids')
-@section('rutaEstilos','css/estilosInicio.css')
+@section('rutaEstilos','css/estilosPerfil.css')
+@section('rutaJs','js/perfil.js')
+
+@section('contenidoCabecera')
+<div class="ajustes">
+    <h1>Cerrar Sesion</h1>
+</div>
+<img src="{{asset('imagenes/imagenesBasic/ajustes.png')}}" alt="">
+@endsection
+
 @section('contenido')
 
 @extends('partials.header')
+
+   
     <main>
         <div class="contenedor">
             <button class="bperfil">
@@ -15,10 +25,8 @@
                 <div class="parte1">
                     <img src="{{asset('imagenes/imagenesPerfil/alvaro.jpg')}}" alt="">
                     <div>
-                        <h1>Nombre de usuario</h1>
                         <h3>Nombre: Nombre Fijo</h3>
-                        <h3>Edad: 20</h3>
-                        <h3>Mis actividades:<a href="">ver más</a></h3>
+                        <h3>Edad: </h3>
                         <p>Descripcion Breve: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam nulla,
                             natus corrupti quod delectus porro nihil eum sed incidunt vero cum culpa quis aliquid,
                             beatae sit obcaecati minus, repellat reiciendis!</p>
@@ -27,8 +35,8 @@
 
                 <p>La siguiente información no estará disponibles para los usuarios por defecto</p>
                 <div class="noVisible">
-                    <h6>Numero de grupos a los que perteneces</h6>
-                    <p>Fecha de Nacimiento</p>
+                    <h3>Numero de grupos a los que perteneces</h3>
+                    <h3>Fecha de nacimiento: 20</h3>
                     <p>Numero de contacto</p>
                     <p>Provincia</p>
                 </div>
