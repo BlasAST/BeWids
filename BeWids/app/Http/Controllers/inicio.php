@@ -11,7 +11,7 @@ class inicio extends Controller
 
         var_dump(Auth::check());
         if(Auth::check()){
-            return view('vistas2/inicioBeWids');
+            return view('vistas2/perfil');
         }
 
         return view('home');

@@ -2,18 +2,12 @@ body{
     background-color: var(--colo-fondo);
 
 }
+header{
+     position: fixed; 
+    width: 100%; 
+    }
 .margen{
     margin: 0 20px;
-}
-.cabecera{
-    justify-content: space-between;
-    background-color: var(--color-secundario);
-}
-.cabecera div:first-child{
-    margin: 0 ;
-}
-.cabecera div:last-child a{
-    margin: 0 1%;
 }
 
 /* Colocacion apartir del header */
