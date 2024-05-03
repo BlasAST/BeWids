@@ -26,6 +26,8 @@ class sesion extends Controller
                     'message' => 'Correo o contraseña incorrectos'
                 ]);
             }
+            // Regenera el ID de la sesión después de una autenticación exitosa.
+        session()->regenerate();
             return redirect()->to('/');
         }else{
             $user = User::create(request(['name','email','password']));
