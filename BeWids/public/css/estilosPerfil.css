@@ -1,23 +1,41 @@
+body,
+ul,
+div,
+button,
+h1,
+h2,
+h6,
+a,
+li,
+img,
+header,
+footer {
+    margin: 0;
+    padding: 0;
+}
 
-body,ul,div,button,h1,h2,h6,a,li,img,header,footer{margin: 0;padding: 0;}
-body{
+body {
     /* background-color: #8f9da2; */
     background-color: var(--color-fondo);
     font-family: "Open Sans", sans-serif;
 }
+
 /* Logo mediante css para no perder calidad */
-header img{
+header img {
     width: 50px;
 }
-.icoPerfil{
+
+.icoPerfil {
     display: none;
 }
-main{
-    width: min(1200px,100%);
+
+main {
+    width: min(1200px, 100%);
     margin: 0 auto;
 }
+
 /* Colocacion movil quitando este flex? */
-.contenedor{
+.contenedor {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -25,7 +43,8 @@ main{
 }
 
 
-.bperfil,.bsesiones{
+.bperfil,
+.bsesiones {
     display: block;
     margin: 10px 10%;
     background-color: var(--color-terciario);
@@ -35,35 +54,49 @@ main{
     height: 700px;
     width: 200px;
 }
-.bperfil{display: none;}
-.sesiones{display: none;}
 
-.perfil{
+.bperfil {
+    display: none;
+}
+
+.sesiones {
+    display: none;
+}
+
+.perfil {
     display: flex;
     flex-direction: column;
 }
-.perfil >h1{text-align: center;margin-top: 10%;}
-.parte1{
+
+.perfil>h1 {
+    text-align: center;
+    margin-top: 10%;
+}
+
+.parte1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.parte1 img{
+
+.parte1 img {
     width: 250px;
     height: 250px;
     border-radius: 50%;
 }
-.parte1 > div{
+
+.parte1>div {
     width: 350px;
 }
 
-.sesiones{
+.sesiones {
     display: none;
-    
+
     flex-direction: column;
     align-items: center;
 }
-.sesiones li{
+
+.sesiones li {
     background-color: var(--color-secundario);
     list-style: none;
     color: white;
@@ -71,24 +104,45 @@ main{
     padding: 5% 100px;
     text-align: center;
 }
-.perfil{
+
+.perfil {
     display: flex;
     flex-direction: column;
 }
-.noVisible{
-    margin-left: 10%;
-} 
 
-.ajustes{
+.noVisible {
+    margin-left: 10%;
+}
+
+.ajustes {
+    display: none;
     position: absolute;
     background-color: inherit;
-    right: 0;
+    right: 2%;
     top: 100px;
     width: 400px;
     height: 400px;
+    color: white;
 }
 
+.ajustes.mostrar {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    text-align: center;
+}
 
+.ajustes>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
+.ajustes>div>* {
+    font-size: var(--mediano);
+    margin: 2%;
+}
 
-
+.ajustes>div>a {
+    color: white;
+}

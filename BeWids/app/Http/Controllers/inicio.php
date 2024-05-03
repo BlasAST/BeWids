@@ -11,7 +11,8 @@ class inicio extends Controller
 
         var_dump(Auth::check());
         if(Auth::check()){
-            return view('vistas2/perfil');
+            $user=Auth::user();
+            return view('vistas2/perfil',['user'=>$user]);
         }
 
         return view('home');
