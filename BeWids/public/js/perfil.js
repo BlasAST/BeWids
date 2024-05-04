@@ -12,7 +12,7 @@ function iniciar() {
 
     move(botonS, botonP);
     moveSettings();
-    info(botonP, perfil, inputsPerfil);
+    info(botonP,perfil, inputsPerfil);
 }
 
 
@@ -42,22 +42,43 @@ function moveSettings() {
     })
 }
 
-function info(botonP, perfil, inputs) {
+function info(botonP ,perfil, inputs) {
     let boton = document.querySelector('.editar');
     boton.addEventListener('click', () => {
-        boton.parentElement.parentElement.classList.remove('mostrar');
-        let padre = document.createElement('form');
-        padre.appendChild(perfil);
-        botonP.parentElement.insertBefore(padre, botonP);
-        inputs.forEach(input => input.style.display = 'block');
-        let enviar = document.createElement('button');
-        let tex = document.createTextNode('Guardar');
-        enviar.appendChild(tex);
-        padre.appendChild(enviar);
+    boton.parentElement.parentElement.classList.remove('mostrar');
+    let formulario=document.querySelector('form');
+    let boto=document.createElement('button');
+    let texto=document.createTextNode('Guardar');
+    boto.appendChild(texto);
+    boto.type='submit';
+    boto.className='guardar';
+    formulario.appendChild(boto);
+    inputs.forEach(input=>input.style.display='block');
+    boto.addEventListener('click',function(evt){guardarInformacion(evt,inputs)});
+        
     })
+  
+
+
 }
 
 
-function guardarInformacion(){
-    
+function guardarInformacion(evt,inputs){
+    evt.preventDefault();
+    let formularioVali = true;
+    for (let input of inputs) {
+        if (contieneCaracteresEspeciales(input.value)) {
+            alert('Uno o más campos contienen caracteres no permitidos');
+            formularioVali = false;
+            break;
+        }
+    }
+    if (formularioVali) {
+        console.log('Datos correctos');
+        evt.target.form.submit();
+    }
+}
+function contieneCaracteresEspeciales(cadena) {
+    var expresionRegular = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]/;
+    return expresionRegular.test(cadena);
 }
