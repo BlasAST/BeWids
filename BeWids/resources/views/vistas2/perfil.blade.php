@@ -24,7 +24,9 @@
         <button class="bperfil">
             <h1>Perfil</h1>
         </button>
+        <form action="AA" method="POST">
         <div class="perfil">
+            @csrf
             <h1>!Bienvenido {{$user->name}}!</h1>
             <div class="parte1">
                 <img src="{{asset('imagenes/imagenesPerfil/alvaro.jpg')}}" alt="">
@@ -43,6 +45,7 @@
                 <h3>Provincia <input type="text" name="provincia"></h3>
             </div>
         </div>
+        </form>
         <button class="bsesiones">
             <h1>Sesiones</h1>
         </button>
