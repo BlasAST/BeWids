@@ -47,19 +47,19 @@ function info(botonP ,perfil, inputs) {
     boton.addEventListener('click', () => {
     boton.parentElement.parentElement.classList.remove('mostrar');
     let formulario=document.querySelector('form');
-    let boto=document.createElement('button');
+    let boto;
+    if(!perfil.querySelector('.guardar')){
+    boto=document.createElement('button');
     let texto=document.createTextNode('Guardar');
     boto.appendChild(texto);
     boto.type='submit';
     boto.className='guardar';
-    formulario.appendChild(boto);
+    perfil.appendChild(boto);
+    }
     inputs.forEach(input=>input.style.display='block');
     boto.addEventListener('click',function(evt){guardarInformacion(evt,inputs)});
-        
     })
   
-
-
 }
 
 

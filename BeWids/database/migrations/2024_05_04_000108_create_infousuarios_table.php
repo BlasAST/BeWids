@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('infousuarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')
-                ->constrained('users');
-            $table->date('fecha_nacimiento');
+            $table->string('id_user')->nullable();
+            $table->date('fecha_nacimiento')->nullable();
             $table->string('descripcion')->nullable();
-            $table->string('numero_contacto');
-            $table->string('provincia');
+            $table->string('numero_contacto')->nullable();
+            $table->string('provincia')->nullable();
             $table->timestamps();
         });
     }
