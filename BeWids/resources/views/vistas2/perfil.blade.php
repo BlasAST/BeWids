@@ -24,14 +24,14 @@
         <button class="bperfil">
             <h1>Perfil</h1>
         </button>
-        <form action="AA" method="POST">
+        <form action="{{route('guardar')}}" method="POST">
+        @csrf
         <div class="perfil">
-            @csrf
             <h1>!Bienvenido {{$user->name}}!</h1>
             <div class="parte1">
                 <img src="{{asset('imagenes/imagenesPerfil/alvaro.jpg')}}" alt="">
                 <div>
-                    <h3>Nombre: <input type="text" name="nombreF" placeholder="Nombre identificativo"></h3>
+                    <h3>Nombre: {{$infoUsuario->id_user ??''}} <input type="text" name="nombreF" placeholder="Nombre identificativo"></h3>
                     <h4>Edad: </h4>
                     <p>Descripcion Breve: <input type="text" name="des" placeholder="Añadir una descripción"></p>
                 </div>
@@ -41,7 +41,7 @@
             <div class="noVisible">
                 <h3>Numero de grupos a los que perteneces</h3>
                 <h3>Fecha de nacimiento: <input type="date" name="fechaN"></h3>
-                <h3>Numero de contacto <input type="number"></h3>
+                <h3>Numero de contacto <input type="number" name="telefono"></h3>
                 <h3>Provincia <input type="text" name="provincia"></h3>
             </div>
         </div>

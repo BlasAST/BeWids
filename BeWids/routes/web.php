@@ -37,6 +37,8 @@ Route::get('/perfil/{dir}',[sesion::class,'comprobar'])->name('sesion');
 
 //ruta que envia el pulsar el icono de perfil
 Route::get('/perfil',[sesion::class,'comprobar']);
+Route::get('/',[perfil::class,'index']);
+Route::post('/',[perfil::class,'guardarDatos'])->name('guardar');
 Route::get('/out',[perfil::class,'cerrarSesion'])->name('cerrarSesion');
 
 //ruta que se envia al enviar un formulario
