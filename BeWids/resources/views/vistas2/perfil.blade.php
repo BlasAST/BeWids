@@ -31,17 +31,17 @@
             <div class="parte1">
                 <img src="{{asset('imagenes/imagenesPerfil/alvaro.jpg')}}" alt="">
                 <div>
-                    <h3>Nombre: {{$infoUsuario->id_user ??''}} <input type="text" name="nombreF" placeholder="Nombre identificativo"></h3>
+                    <h3>Nombre: {{$infoUsuario->id_user ??''}} <input type="text" name="nombre" placeholder="Nombre identificativo"></h3>
                     <h4>Edad: </h4>
-                    <p>Descripcion Breve: <input type="text" name="des" placeholder="Añadir una descripción"></p>
+                    <p>Descripcion Breve: <input type="text" name="descripcion" placeholder="Añadir una descripción"></p>
                 </div>
             </div>
 
             <p>La siguiente información no estará disponibles para los usuarios por defecto</p>
             <div class="noVisible">
                 <h3>Numero de grupos a los que perteneces</h3>
-                <h3>Fecha de nacimiento: <input type="date" name="fechaN"></h3>
-                <h3>Numero de contacto <input type="number" name="telefono"></h3>
+                <h3>Fecha de nacimiento: <input type="date" name="fecha_nacimiento"></h3>
+                <h3>Numero de contacto <input type="number" name="numero_contacto"></h3>
                 <h3>Provincia <input type="text" name="provincia"></h3>
             </div>
         </div>
@@ -50,6 +50,7 @@
             <h1>Sesiones</h1>
         </button>
         <div class="sesiones">
+            <h2>Crear sesion</h2>
             <h2>Sesiones activas</h2>
             <ul>
                 <li>Asede</li>
@@ -57,7 +58,6 @@
                 <li>Findes Fiesta</li>
                 <li>Cansones</li>
             </ul>
-            <h2>Sesiones anteriores</h2>
         </div>
         <!-- Perfil sin Ajustes -->
         <!-- Sesiones -->

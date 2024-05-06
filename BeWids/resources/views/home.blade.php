@@ -6,17 +6,6 @@
 @section('contenido')
 @extends('partials.header')
 
-@section('contenidoCabecera')
-              {{-- <a href="{{route('inicioSesion.index')}}">Iniciar Sesión</a>
-              <a href="{{route('registro.index')}}">Registrarse</a>
-              <a href="{{route('cerrarSesion')}}">Cerrar Sesión</a>
-              <br>
-              <a href="{{route('sesion', '')}}">Perfil</a>
-
-              <!-- No entiendo el sentido de estas -->
-              <a href="{{route('sesion', 'iniciar')}}">Iniciar</a>
-              <a href="{{route('sesion', 'registrar')}}">Crear Cuentar</a> --}}
-@endsection
 
 <main>
     <div class="margen">

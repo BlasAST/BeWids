@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('infousuarios', function (Blueprint $table) {
             $table->id();
             $table->string('id_user')->nullable();
+            $table->string('nombre')->require();
             $table->date('fecha_nacimiento')->nullable();
             $table->string('descripcion')->nullable();
             $table->string('numero_contacto')->nullable();
