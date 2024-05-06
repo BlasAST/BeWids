@@ -9,7 +9,6 @@ use App\Models\infousuario;
 class perfil extends Controller
 {
     public function index(){
-        var_dump('Hola desde cont perfil');
         $user = Auth::user();
         $infoUsuario = Infousuario::where('id_user', $user->id)->first();
         return view('vistas2/perfil',['user'=>$user,'infoUsuario'=>$infoUsuario]);
@@ -28,15 +27,16 @@ class perfil extends Controller
         return redirect()->route('login'); // Asegúrate de tener una ruta de login definida
     }
         $data = [
-            'id_user' => $request->nombreF ?? null,
-            'fecha_nacimiento' => $request->fechaN ?? null,
-            'descripcion' => $request->des ?? null,
-            'numero_contacto' => $request->telefono ?? null,
+            'id_user' =>Auth::user()->id,
+            'nombre' => $request ->nombre ?? null,
+            'fecha_nacimiento' => $request->fecha_nacimiento ?? null,
+            'descripcion' => $request->descripcion ?? null,
+            'numero_contacto' => $request->numero_contacto ?? null,
             'provincia' => $request->provincia ?? null
         ];
 
         Infousuario::updateOrCreate(
-            ['id_user' => $request->nombreF],
+            ['id_user' => $request->id_user],
             $data
         );
 

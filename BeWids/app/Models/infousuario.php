@@ -11,6 +11,7 @@ class infousuario extends Model
     use HasFactory;
      protected $fillable=[
         'id_user',
+        'nombre',
         'fecha_nacimiento',
         'descripcion',
         'numero_contacto',
