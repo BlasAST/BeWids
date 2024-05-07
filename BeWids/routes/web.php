@@ -23,22 +23,26 @@ use Illuminate\Support\Facades\Auth;
 //     return view('welcome');
 // });
 
-Route::get('/',[inicio::class,'index']);
+Route::get('/',[inicio::class,'index'])->name('base');
 // Router::get('/portal',[inicio::class,'portal']);
 //Route::get('/perfil',[perfil::class,'index'])->name('perfil');
 
 //ruta que envian los botones de cerrar sesión
-Route::get('perfil/cerrar',[sesion::class, 'cerrar']);
+Route::get('perfil/cerrar',[sesion::class, 'cerrar'])->name('cerrarS');
 
-Route::get('/home', [inicio::class,'home']);
+Route::get('/home', [inicio::class,'home'])->name('casa');
 
 //ruta que envian los botones de iniciar sesión y registrar, indicando en {dir} cual es el caso
 Route::get('/perfil/{dir}',[sesion::class,'comprobar'])->name('sesion');
 
 //ruta que envia el pulsar el icono de perfil
 Route::get('/perfil',[sesion::class,'comprobar']);
-Route::get('/redi',[perfil::class,'index']);
-Route::post('/',[perfil::class,'guardarDatos'])->name('guardar');
+// Ruta para obtener información
+Route::get('/info',[perfil::class,'index'])->name('perfil');
+
+// ruta POST que introduce los datos en tabla infousuarios;
+Route::post('/guardar',[perfil::class,'guardarDatos'])->name('guardar');
+// ruta para cerrar la sesion desde perfil
 Route::get('/out',[perfil::class,'cerrarSesion'])->name('cerrarSesion');
 
 //ruta que se envia al enviar un formulario

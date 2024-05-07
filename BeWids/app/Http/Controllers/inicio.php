@@ -11,7 +11,7 @@ class inicio extends Controller
 
         if(Auth::check()){
             $user=Auth::user();
-            return view('vistas2/perfil',['user'=>$user]);
+            return redirect()->route('perfil');
         }
 
         return view('home');
