@@ -24,27 +24,27 @@
         <button class="bperfil">
             <h1>Perfil</h1>
         </button>
-        <form action="{{route('guardar')}}" method="POST">
+        <form class="formPerfil" action="{{route('guardar')}}" method="POST">
         @csrf
-        <div class="perfil">
-            <h1>!Bienvenido {{$user->name}}!</h1>
-            <div class="parte1">
-                <img src="{{asset('imagenes/imagenesPerfil/alvaro.jpg')}}" alt="">
-                <div>
-                    <h3>Nombre: {{$infoUsuario->id_user ??''}} <input type="text" name="nombre" placeholder="Nombre identificativo"></h3>
-                    <h4>Edad: </h4>
-                    <p>Descripcion Breve: <input type="text" name="descripcion" placeholder="Añadir una descripción"></p>
+            <div class="perfil">
+                <h1>!Bienvenido {{$user->name}}!</h1>
+                <div class="parte1">
+                    <img src="{{asset('imagenes/imagenesPerfil/alvaro.jpg')}}" alt="">
+                    <div>
+                        <h3>Nombre: {{$infoUsuario->id_user ??''}} <input type="text" name="nombre" placeholder="Nombre identificativo"></h3>
+                        <h4>Edad: </h4>
+                        <p>Descripcion Breve: <input type="text" name="descripcion" placeholder="Añadir una descripción"></p>
+                    </div>
+                </div>
+
+                <p>La siguiente información no estará disponibles para los usuarios por defecto</p>
+                <div class="noVisible">
+                    <h3>Numero de grupos a los que perteneces</h3>
+                    <h3>Fecha de nacimiento: <input type="date" name="fecha_nacimiento"></h3>
+                    <h3>Numero de contacto <input type="number" name="numero_contacto"></h3>
+                    <h3>Provincia <input type="text" name="provincia"></h3>
                 </div>
             </div>
-
-            <p>La siguiente información no estará disponibles para los usuarios por defecto</p>
-            <div class="noVisible">
-                <h3>Numero de grupos a los que perteneces</h3>
-                <h3>Fecha de nacimiento: <input type="date" name="fecha_nacimiento"></h3>
-                <h3>Numero de contacto <input type="number" name="numero_contacto"></h3>
-                <h3>Provincia <input type="text" name="provincia"></h3>
-            </div>
-        </div>
         </form>
         <button class="bsesiones">
             <h1>Sesiones</h1>
@@ -58,6 +58,16 @@
                 <li>Findes Fiesta</li>
                 <li>Cansones</li>
             </ul>
+            <button class="crearPortal">Crear Portal</button>
+            <form class="formPortal" action="" method="">
+                <label for="portal">Nombre del portal:</label>
+                <input type="text" name="portal">
+                <label for="nombre">Tu nombre dentro del portal</label>
+                <input type="text" name="nombre">
+                <p>Puedes añadir participantes para que cuando la gente se una indiquen quienes son, aunque también puedes dejarlo para mas tarde o que cada uno añada su nombre en el portal</p>
+                <button type="button">Agregar participante</button>
+                <input type="submit" name="enviar" value="Crear">
+            </form>
         </div>
         <!-- Perfil sin Ajustes -->
         <!-- Sesiones -->

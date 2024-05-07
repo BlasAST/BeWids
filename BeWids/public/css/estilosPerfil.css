@@ -91,16 +91,18 @@ main {
 
 .sesiones {
     display: none;
-
     flex-direction: column;
     align-items: center;
+}
+.sesiones ul{
+    width: 100%;
 }
 
 .sesiones li {
     background-color: var(--color-secundario);
     list-style: none;
     color: white;
-    margin: 10px;
+    margin: 10px 0;
     padding: 5% 100px;
     text-align: center;
 }
@@ -145,4 +147,19 @@ main {
 
 .ajustes>div>a {
     color: white;
+}
+.crearPortal{
+    width: 50%;
+    background-color: var(--color-terciario);
+    color: white;
+    border-radius: 25px;
+    border: none;
+    font-size: larger;
+    padding: 20px 0;
+    margin: 20px 0;
+
+}
+.formPortal{
+    display: none;
+    flex-direction: column;
 }
