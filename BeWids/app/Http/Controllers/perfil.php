@@ -10,8 +10,11 @@ class perfil extends Controller
 {
     public function index(){
         $user = Auth::user();
-        $infoUsuario = Infousuario::where('id_user', $user->id)->first();
-        return view('vistas2/perfil',['user'=>$user,'infoUsuario'=>$infoUsuario]);
+        if ($user) {
+            $infoUsuario = Infousuario::where('id_user', $user->id)->first();
+            return view('vistas2/perfil', ['user' => $user, 'infoUsuario' => $infoUsuario]);
+        }
+        return redirect()->route('base');
     }
     public function cerrarSesion(){
         Auth::logout();
@@ -19,16 +22,11 @@ class perfil extends Controller
     }
 
     public function guardarDatos(Request $request){
-        // Asegurar que el usuario esté autenticado
     $user = Auth::user();
 
-    // Si el usuario no está autenticado, redirigir a una página de error o de inicio de sesión
-    if (!$user) {
-        return redirect()->route('login'); // Asegúrate de tener una ruta de login definida
-    }
         $data = [
             'id_user' =>Auth::user()->id,
-            'nombre' => $request ->nombre ?? null,
+            'nombre' => $request ->nombre ?? '',
             'fecha_nacimiento' => $request->fecha_nacimiento ?? null,
             'descripcion' => $request->descripcion ?? null,
             'numero_contacto' => $request->numero_contacto ?? null,
@@ -36,10 +34,9 @@ class perfil extends Controller
         ];
 
         Infousuario::updateOrCreate(
-            ['id_user' => $request->id_user],
+            ['id_user' => Auth::user()->id],
             $data
         );
-
-        return redirect()->to('/');
+        return redirect()->route('perfil');
     }
 }
