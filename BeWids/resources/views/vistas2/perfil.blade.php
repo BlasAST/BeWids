@@ -24,7 +24,7 @@
         <button class="bperfil">
             <h1>Perfil</h1>
         </button>
-        <form action="{{route('guardar')}}" method="POST">
+        <form class="formPerfil" action="{{route('guardar')}}" method="POST">
         @csrf
         <div class="perfil">
             <h1>!Bienvenido {{$user->name}}!</h1>
@@ -58,6 +58,16 @@
                 <li>Findes Fiesta</li>
                 <li>Cansones</li>
             </ul>
+            <button class="crearPortal">Crear Portal</button>
+            <form class="formPortal" action="" method="">
+                <label for="portal">Nombre del portal:</label>
+                <input type="text" name="portal">
+                <label for="nombre">Tu nombre dentro del portal</label>
+                <input type="text" name="nombre">
+                <p>Puedes añadir participantes para que cuando la gente se una indiquen quienes son, aunque también puedes dejarlo para mas tarde o que cada uno añada su nombre en el portal</p>
+                <button type="button">Agregar participante</button>
+                <input type="submit" name="enviar" value="Crear">
+            </form>
         </div>
         <!-- Perfil sin Ajustes -->
         <!-- Sesiones -->

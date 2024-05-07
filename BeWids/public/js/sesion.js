@@ -1,19 +1,19 @@
 console.log('JS iniciado');
 document.addEventListener('DOMContentLoaded', iniciar);
-var inputs
-var divIniciar
-var divCrear
-var divMostrar
-var inputUsuario
-var inputCorreoI
-var inputCorreoC
-var inputCorreo2C
-var inputPassI
-var inputPassC
-var inputPass2C
-var errorCrear
-var errorIniciar
-var error
+let inputs
+let divIniciar
+let divCrear
+let divMostrar
+let inputUsuario
+let inputCorreoI
+let inputCorreoC
+let inputCorreo2C
+let inputPassI
+let inputPassC
+let inputPass2C
+let errorCrear
+let errorIniciar
+let error
 
 function iniciar(){
     inputs = document.querySelectorAll('input');
@@ -36,7 +36,7 @@ function iniciar(){
     divIniciar = document.querySelector('.inicio');
     divCrear = document.querySelector('.crear');
     divMostrar = document.querySelector('.mostrar');
-    var cerrar = document.querySelectorAll('.cerrarSesion');
+    let cerrar = document.querySelectorAll('.cerrarSesion');
     cerrar[0] && cerrar[0].addEventListener('click',cerrarSesion);
     document.querySelectorAll('.ojo').forEach(e=>e.addEventListener('click',contraseña));
     document.querySelectorAll('.botonIniciar').forEach(e=>e.addEventListener('click',cambiar));
@@ -95,7 +95,7 @@ function validarContrasenia(){
 }
 
 function validarPass(evt){
-    var valor = evt.target.value;
+    let valor = evt.target.value;
     if(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(valor)){
         evt.target.parentElement.style.borderColor = 'green';
         evt.target.nextElementSibling.style.borderColor = 'green';
@@ -126,7 +126,7 @@ function cambiar(evt){
 }
 
 function contraseña(evt){
-    var input = evt.target.parentElement.previousElementSibling;
+    let input = evt.target.parentElement.previousElementSibling;
     if(input.type == 'password'){
         input.type = 'text';
         evt.target.style.backgroundImage = "url('../imagenes/imagenesSesion/ojoC.png')";
