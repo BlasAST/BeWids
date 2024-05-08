@@ -16,10 +16,6 @@ class perfil extends Controller
         }
         return redirect()->route('base');
     }
-    public function cerrarSesion(){
-        Auth::logout();
-        return redirect() ->to('/');
-    }
 
     public function guardarDatos(Request $request){
     $user = Auth::user();

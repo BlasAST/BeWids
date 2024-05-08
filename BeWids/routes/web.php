@@ -28,25 +28,24 @@ Route::get('/',[inicio::class,'index'])->name('base');
 //Route::get('/perfil',[perfil::class,'index'])->name('perfil');
 
 //ruta que envian los botones de cerrar sesión
-Route::get('perfil/cerrar',[sesion::class, 'cerrar'])->name('cerrarS');
+Route::get('/cuenta/cerrar',[sesion::class, 'cerrar'])->name('cerrarS');
 
 Route::get('/home', [inicio::class,'home'])->name('casa');
 
 //ruta que envian los botones de iniciar sesión y registrar, indicando en {dir} cual es el caso
-Route::get('/perfil/{dir}',[sesion::class,'comprobar'])->name('sesion');
+Route::get('/cuenta/{dir}',[sesion::class,'comprobar'])->name('sesion');
 
 //ruta que envia el pulsar el icono de perfil
-Route::get('/perfil',[sesion::class,'comprobar']);
+Route::get('/cuenta',[sesion::class,'comprobar']);
 // Ruta para obtener información
-Route::get('/info',[perfil::class,'index'])->name('perfil');
+Route::get('/perfil',[perfil::class,'index'])->name('perfil');
 
 // ruta POST que introduce los datos en tabla infousuarios;
 Route::post('/guardar',[perfil::class,'guardarDatos'])->name('guardar');
-// ruta para cerrar la sesion desde perfil
-Route::get('/out',[perfil::class,'cerrarSesion'])->name('cerrarSesion');
+
 
 //ruta que se envia al enviar un formulario
-Route::post('/perfil',[sesion::class,'formulario'])->name('sesionF');
+Route::post('/cuenta',[sesion::class,'formulario'])->name('sesionF');
 
 // Route::get('/iniciar',[InicioSesion::class,'mostrar'])->name('inicioSesion.index');
 // Route::get('/registrarse',[Registrarse::class,'mostrar'])->name('registro.index');
