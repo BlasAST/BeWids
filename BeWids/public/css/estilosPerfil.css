@@ -38,21 +38,20 @@ main {
 .contenedor {
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
-    height: 850px;
+    align-items:stretch;
+    width: 100%;
 }
 
 
 .bperfil,
 .bsesiones {
     display: block;
-    margin: 10px 10%;
+    margin: 10px;
     background-color: var(--color-terciario);
     border: 0;
-    padding: 0 40px;
+    /* padding: 0 40px; */
+    flex-basis: 15%;
     border-radius: 40px;
-    height: 700px;
-    width: 200px;
 }
 
 .bperfil {
@@ -64,18 +63,17 @@ main {
 }
 
 .perfil {
-    display: flex;
-    flex-direction: column;
+    flex-basis: 80%;
 }
 
 .perfil>h1 {
     text-align: center;
-    margin-top: 10%;
+    margin: 10% 0;
 }
 
 .parte1 {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -86,31 +84,24 @@ main {
 }
 
 .parte1>div {
-    width: 350px;
+    /* width: 350px; */
 }
 
 .sesiones {
     display: none;
     flex-direction: column;
     align-items: center;
+    flex-basis: 80%;
 }
-.sesiones ul{
-    width: 100%;
-}
-
-.sesiones li {
+.sesiones div{
+    width: 80%;
     background-color: var(--color-secundario);
-    list-style: none;
     color: white;
     margin: 10px 0;
-    padding: 5% 100px;
+    padding: 20px 0;
     text-align: center;
 }
 
-.perfil {
-    display: flex;
-    flex-direction: column;
-}
 
 .noVisible {
     margin-left: 10%;
@@ -162,4 +153,30 @@ main {
 .formPortal{
     display: none;
     flex-direction: column;
+    align-items: center;
+}
+.formPortal input{
+    border-radius: 25px;
+    border: 1px solid var(--color-secundario);
+    padding: 5px 0;
+    width: 60%;
+}
+.formPortal label{
+    margin: 20px 0 10px;
+}
+.formPortal p{
+    font-size:medium;
+    width: 80%;
+    color: rgba(0, 0, 0, 0.8);
+}
+.formPortal button{
+    color: white;
+    padding: 5px 10px;
+    background-color: var(--color-secundario);
+    border: none;
+}
+.formPortal :last-child{
+    background: var(--color-terciario);
+    margin: 10px 0;
+    color: white;
 }

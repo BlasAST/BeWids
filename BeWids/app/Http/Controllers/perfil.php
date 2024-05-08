@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\infousuario;
+use App\Models\Portales;
 
 class perfil extends Controller
 {
@@ -22,7 +23,7 @@ class perfil extends Controller
     }
 
     public function guardarDatos(Request $request){
-    $user = Auth::user();
+        $user = Auth::user();
 
         $data = [
             'id_user' =>Auth::user()->id,
@@ -38,5 +39,12 @@ class perfil extends Controller
             $data
         );
         return redirect()->route('perfil');
+    }
+
+    public function crearPortal(){
+        // $portal = new Portales();
+        // $portal->nombre = request('portal');
+
+        var_dump(request());
     }
 }
