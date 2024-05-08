@@ -20,7 +20,4 @@ class inicio extends Controller
 
         return view('home');
     }
-    public function portal(){
-        return view('portal');
-    }
 }

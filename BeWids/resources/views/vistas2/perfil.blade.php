@@ -8,7 +8,7 @@
 <div class="ajustes">
     <div>
         <button class="editar">Editar Perfil</button>
-        <a href="{{route('cerrarSesion')}}">Cerrar Sesion</a>
+        <a href="{{route('cerrarS')}}">Cerrar Sesion</a>
     </div>
 </div>
 <img src="{{asset('imagenes/imagenesBasic/ajustes.png')}}" alt="" class="bajustes">
