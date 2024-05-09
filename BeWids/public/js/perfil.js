@@ -15,10 +15,15 @@ function iniciar() {
     document.querySelector('.crearPortal').addEventListener('click',mostrarForm);
     document.querySelector('.sesiones form button').addEventListener('click',aniadirParticipante);
     formPortal = document.querySelector('.formPortal');
+    document.querySelectorAll('.portal').forEach(e=>e.addEventListener('click',enviarPortal));
 
     move(botonS, botonP);
     moveSettings();
     info(botonP,perfil, inputsPerfil);
+}
+
+function enviarPortal(evt){
+    evt.target.firstElementChild.submit()
 }
 
 function mostrarForm(evt){
@@ -105,10 +110,10 @@ function aniadirParticipante(evt){
 }
 function crearInput(){
     let label = document.createElement('label');
-    label.appendChild(document.createTextNode('Añadir participante nº'+contParticipantes))
-    label.setAttribute('for','participante'+contParticipantes);
+    label.appendChild(document.createTextNode('Añadir participante nº'+contParticipantes++))
+    label.setAttribute('for','participantes[]');
     let nodo = document.createElement('input');
-    nodo.setAttribute('name','participante'+contParticipantes++);
+    nodo.setAttribute('name','participantes[]');
     nodo.setAttribute('type','text');
     return [label,nodo];
 }

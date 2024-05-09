@@ -1,10 +1,11 @@
 @extends('partials.base')
 @section('rutaEstilos','css/estilosPortal.css')
-@section('rutaJs','js/sesion.js')
 @extends('partials.header')
 
 @section('contenido')
         <h1>Benefits With friends</h1>
+        <h1>{{session('portal')->nombre ?? $portal->nombre}}</h1>
+        <h1>{{session('portal')->id ?? $portal->id}}</h1>
     </div>
     <div class="contenedor">
         <div id="calendario">calendario</div>
