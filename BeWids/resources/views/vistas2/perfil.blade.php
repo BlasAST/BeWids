@@ -51,12 +51,18 @@
         </button>
         <div class="sesiones">
             <h2>Sesiones activas</h2>
-            <div>Asede</div>
-            <div>Vacaciones</div>
-            <div>Findes Fiesta</div>
-            <div>Cansones</div>
+            @foreach ($portales as $portal)
+                <div class="portal">
+                    <form method="POST" action="/portal">
+                        @csrf
+                        <input type="hidden" name="portal" value="{{json_encode($portal)}}">
+                    </form>
+                    {{$portal->nombre}} 
+                </div>  
+            @endforeach
             <button class="crearPortal">Crear Portal</button>
-            <form class="formPortal" action="{{route('/perfil')}}" method="POST">
+            <form class="formPortal" action="{{route('crearP')}}" method="POST">
+                @csrf
                 <label for="portal">Nombre del portal:</label>
                 <input type="text" name="portal">
                 <label for="nombre">Tu nombre dentro del portal:</label>

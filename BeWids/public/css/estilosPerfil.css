@@ -1,4 +1,6 @@
 body,
+form,
+input,
 ul,
 div,
 button,
@@ -58,10 +60,6 @@ main {
     display: none;
 }
 
-.sesiones {
-    display: none;
-}
-
 .perfil {
     flex-basis: 80%;
 }
@@ -92,6 +90,7 @@ main {
     flex-direction: column;
     align-items: center;
     flex-basis: 80%;
+    min-height: 80dvh;
 }
 .sesiones div{
     width: 80%;
@@ -160,6 +159,7 @@ main {
     border: 1px solid var(--color-secundario);
     padding: 5px 0;
     width: 60%;
+    text-indent: 2%;
 }
 .formPortal label{
     margin: 20px 0 10px;
@@ -177,6 +177,9 @@ main {
 }
 .formPortal :last-child{
     background: var(--color-terciario);
-    margin: 10px 0;
+    margin: 9px 0 10px;
     color: white;
+}
+.portal form{
+    height: 1px;
 }

@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Registrarse;
 use App\Http\Controllers\InicioSesion;
-use App\Http\Controllers\perfil;
-use App\Http\Controllers\sesion;
-use App\Http\Controllers\inicio;
+use App\Http\Controllers\Perfil;
+use App\Http\Controllers\Sesion;
+use App\Http\Controllers\Inicio;
+use App\Http\Controllers\Portal;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -23,30 +24,33 @@ use Illuminate\Support\Facades\Auth;
 //     return view('welcome');
 // });
 
-Route::get('/',[inicio::class,'index'])->name('base');
+Route::get('/',[Inicio::class,'index'])->name('base');
 // Router::get('/portal',[inicio::class,'portal']);
 //Route::get('/perfil',[perfil::class,'index'])->name('perfil');
 
 //ruta que envian los botones de cerrar sesión
-Route::get('/cuenta/cerrar',[sesion::class, 'cerrar'])->name('cerrarS');
+Route::get('/cuenta/cerrar',[Sesion::class, 'cerrar'])->name('cerrarS');
 
-Route::get('/home', [inicio::class,'home'])->name('casa');
+Route::get('/home', [Inicio::class,'home'])->name('casa');
 
 //ruta que envian los botones de iniciar sesión y registrar, indicando en {dir} cual es el caso
-Route::get('/cuenta/{dir}',[sesion::class,'comprobar'])->name('sesion');
+Route::get('/cuenta/{dir}',[Sesion::class,'comprobar'])->name('sesion');
 
 //ruta que envia el pulsar el icono de perfil
-Route::get('/cuenta',[sesion::class,'comprobar']);
+Route::get('/cuenta',[Sesion::class,'comprobar']);
 // Ruta para obtener información
-Route::get('/perfil',[perfil::class,'index'])->name('perfil');
+Route::get('/perfil',[Perfil::class,'index'])->name('perfil');
 
 // ruta POST que introduce los datos en tabla infousuarios;
-Route::post('/guardar',[perfil::class,'guardarDatos'])->name('guardar');
+Route::post('/guardar',[Perfil::class,'guardarDatos'])->name('guardar');
 
 
 //ruta que se envia al enviar un formulario
-Route::post('/cuenta',[sesion::class,'formulario'])->name('sesionF');
+Route::post('/cuenta',[Sesion::class,'formulario'])->name('sesionF');
+Route::post('/perfil',[Perfil::class, 'crearPortal'])->name('crearP');
 
+Route::get('/portal',[Portal::class, 'index']);
+Route::post('/portal',[Portal::class, 'irPortal']);
 // Route::get('/iniciar',[InicioSesion::class,'mostrar'])->name('inicioSesion.index');
 // Route::get('/registrarse',[Registrarse::class,'mostrar'])->name('registro.index');
 // Route::post('/iniciar',[InicioSesion::class,'iniciar']);
