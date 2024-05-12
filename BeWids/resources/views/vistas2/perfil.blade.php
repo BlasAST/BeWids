@@ -51,6 +51,9 @@
         </button>
         <div class="sesiones">
             <h2>Sesiones activas</h2>
+            @if (count($portales)==0)
+                <h1>No estas en ningún portal</h1>
+            @endif
             @foreach ($portales as $portal)
                 <div class="portal">
                     <form method="POST" action="/portal">

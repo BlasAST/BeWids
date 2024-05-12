@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nombre_en_portal');
             $table->timestamps();
 
+            $table->unique(['id_portal','nombre_en_portal']);
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('set null');
         });

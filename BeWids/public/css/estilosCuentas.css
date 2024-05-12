@@ -1,0 +1,35 @@
+.gastos{
+    display: flex;
+    justify-content: space-evenly;
+}
+.gastos > div{
+    flex-basis: 45%;
+    border: 2px solid black;
+}
+.gasto{
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: aqua;
+    margin: 10px auto;
+}
+.gasto > p{
+    flex-basis: 45%;
+    font-size: small;
+}
+.gastos h1{
+    text-align: center;
+}
+.gastos form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.gastos input:not([type='checkbox']){
+    width: 80%;
+}
+.participantes{
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+}
