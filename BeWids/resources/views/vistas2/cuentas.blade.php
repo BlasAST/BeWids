@@ -2,23 +2,34 @@
 @section('rutaEstilos','../css/estilosCuentas.css')
 @section('rutaJs','../js/cuentas.js')
 
+
 @section('contenido')
+@include('partials.header')
+
 @php
     $gastos = Session::get('gastos');
+    $reembolsos = Session::get('reembolsos');
     $participantes = Session::get('participantes');
     $tipos = ['Supermercado','Alcohol','Cine','Conciento','ropa','pepe'];
 @endphp
-<header>
+{{-- <header>
     <span>Gastos</span>
     <span>Gráficos</span>
     <span>Cuentas</span>
     <span>Notificaciones</span>
-</header>
+</header> --}}
 
 {{-- GASTOS --}}
 <main>
-    <div class="gastos">
+    <div class="categorias">
+        <span id="gastos"><p class="selected">Gastos</p></span>
+        <span id="graficos"><p>Gráficos</p></span>
+        <span id="cuentas"><p>Cuentas</p></span>
+        <span id="notificaciones"><p>Notificaciones</p></span>
+    </div>
+    <div class="gastos mostrar">
         <div>
+
             @foreach ($gastos as $gasto)
                 <div class="gasto">
                     <p>{{$gasto->titulo}}</p>
@@ -47,7 +58,7 @@
                 </div>
                 <div>
                     <label for="cantidad">Cantidad</label>
-                    <input type="number" step="0.01" name="cantidad">
+                    <input type="number" step="0.01" min="0" name="cantidad">
                 </div>
                 {{-- <div>
                     <select name="divisa">
@@ -65,7 +76,9 @@
                     <label for="pagador">Pagado por:</label>
                     <select name="pagador">
                         @foreach($participantes as $user)
-                            <option value="{{$user->nombre_en_portal}}">{{$user->nombre_en_portal}}</option>
+                            <option value="{{$user->nombre_en_portal}}" @if(Auth::id() == $user->id_usuario)
+                                selected
+                            @endif>{{$user->nombre_en_portal}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -85,4 +98,22 @@
             </form>
         </div>
     </div>
+    <div class="graficos">graficos</div>
+    <div class="cuentas">
+        <div>
+            <h1>No se hay nada que reembolsar actualmente</h1>
+        </div>
+        <div>
+            @if (count($reembolsos) == 0)
+                <h1>No se ha realizado ningún reembolso aún</h1>
+            @endif
+            @foreach ($reembolsos as $reembolso)
+                <div class="reembolso">
+                    <p>Reembolso de {{$reembolso->pagado_por}} a {{$reembolso->participantes}}</p>
+                    <p>{{abs($reembolso->cantidad)}}</p>
+                </div>
+            @endforeach
+        </div>
+    </div>
+    <div class="notificaciones">Notificaciones</div>
 </main>
