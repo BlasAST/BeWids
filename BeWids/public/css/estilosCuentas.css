@@ -1,35 +1,100 @@
-.gastos{
+
+main > div:not(:first-child){
+    display: none;
+}
+.mostrar{
+    display: flex !important;
+}
+.selected{
+    border-bottom: 5px solid white;
+}
+.gastos, .cuentas{
     display: flex;
     justify-content: space-evenly;
+    padding-top: 30px;
+    flex-grow: 1;
+    color: white;
+
 }
-.gastos > div{
-    flex-basis: 45%;
-    border: 2px solid black;
+.gastos > div, .cuentas>div{
+    flex-basis: 50%;
 }
-.gasto{
+.gastos > div:last-child, .cuentas>div:last-child{
+    border-left: 2px solid white;
+}
+.gasto, .reembolso{
     width: 70%;
     display: flex;
     flex-wrap: wrap;
-    background-color: aqua;
+    background-color: var(--color-secundario);
     margin: 10px auto;
 }
 .gasto > p{
     flex-basis: 45%;
     font-size: small;
 }
-.gastos h1{
+.gastos h1, .cuentas h1{
     text-align: center;
 }
 .gastos form{
-    width: 100%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+.gastos form > div{
     display: flex;
     flex-direction: column;
 }
-.gastos input:not([type='checkbox']){
-    width: 80%;
+.gastos label{
+    margin: 10px 0 5px;
 }
+.gastos input:not([type='checkbox']), .gastos select{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+}
+.gastos option{
+    background-color: var(--color-secundario) ;
+}
+
+.gastos input:focus{
+    outline: none;
+}
+
+
 .participantes{
     border: 1px solid gray;
     display: flex;
     flex-direction: column;
+}
+main{
+    background-color: #453745;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.categorias{
+    width: 100%;
+    display: flex;
+    background-color: var(--color-secundario);
+    color: white;
+
+}
+.categorias span{
+    padding: 30px 0;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    font-size: var(--mediano);
+}
+.categorias span:hover{
+    color: var(--color-terciario);
+}
+.categorias p{
+    height: 100%;
+    font-size:inherit;
 }
