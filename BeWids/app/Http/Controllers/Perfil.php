@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\infousuario;
 use App\Models\Participantes;
 use App\Models\Portales;
+use Illuminate\Support\Facades\Session;
+
+// SELECT * FROM personas where id in (Select id_empleado from empleados where dept = mantemientos)
 
 class perfil extends Controller
 {
@@ -44,6 +47,7 @@ class perfil extends Controller
         $portal = new Portales();
         $portal->nombre = request('portal');
         $portal->save();
+        Session::put('portal',$portal);
         
         $participante = new Participantes();
         $participante->id_portal = $portal->id;
@@ -62,6 +66,6 @@ class perfil extends Controller
                 }
             }
         }
-        return redirect()->to('/portal')->with('portal',$portal);
+        return redirect()->to('/portal');
     }
 }

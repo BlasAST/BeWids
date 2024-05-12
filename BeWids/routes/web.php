@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Contabilidad;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Registrarse;
 use App\Http\Controllers\InicioSesion;
@@ -51,6 +52,9 @@ Route::post('/perfil',[Perfil::class, 'crearPortal'])->name('crearP');
 
 Route::get('/portal',[Portal::class, 'index']);
 Route::post('/portal',[Portal::class, 'irPortal']);
+
+Route::get('/contabilidad',[Contabilidad::class, 'index'])->middleware('contabilidad');
+Route::post('/contabilidad',[Contabilidad::class, 'aniadirGasto'])->name('aniadirGasto');
 // Route::get('/iniciar',[InicioSesion::class,'mostrar'])->name('inicioSesion.index');
 // Route::get('/registrarse',[Registrarse::class,'mostrar'])->name('registro.index');
 // Route::post('/iniciar',[InicioSesion::class,'iniciar']);

@@ -23,7 +23,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
-            $table->foreign('pagado_por')->references('nombre_en_portal')->on('participantes')->onDelete('cascade');
 
         });
     }

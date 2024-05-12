@@ -1,16 +1,21 @@
 @extends('partials.base')
 @section('rutaEstilos','css/estilosPortal.css')
+@section('rutaJs','js/portal.js')
 @extends('partials.header')
 
 @section('contenido')
-        <h1>Benefits With friends</h1>
-        <h1>{{session('portal')->nombre ?? $portal->nombre}}</h1>
-        <h1>{{session('portal')->id ?? $portal->id}}</h1>
-    </div>
+    @php
+        $portal = Session::get('portal');
+    @endphp
+    <h1>Benefits With friends</h1>
+    <h1>{{$portal->nombre}}</h1>
+    <h1>{{$portal->id}}</h1>
     <div class="contenedor">
         <div id="calendario">calendario</div>
         <div id="ajusteyCierre">Ajustes y cierre de Sesion</div>
-        <div id="contabilidad">contabilidad</div>
+        <div id="contabilidad">contabilidad
+            <button class="btnGastos">GASTOS</button>
+        </div>
         <div id="buscador">buscador de eventos</div>
         <div id="chatyEncuestas">chat y encuestas</div>
         <div id="planifi">planificacion</div>
