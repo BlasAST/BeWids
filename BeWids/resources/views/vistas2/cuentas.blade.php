@@ -1,6 +1,9 @@
 @extends('partials.base')
 @section('rutaEstilos','../css/estilosCuentas.css')
+@section('rutaEstilos2','../css/estilosBaseServicios.css')
+@section('rutaJs','../js/basicServicios.js')
 @section('rutaJs','../js/cuentas.js')
+
 
 
 @section('contenido')

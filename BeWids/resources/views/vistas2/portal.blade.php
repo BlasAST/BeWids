@@ -17,7 +17,9 @@
             <button class="btnGastos">GASTOS</button>
         </div>
         <div id="buscador">buscador de eventos</div>
-        <div id="chatyEncuestas">chat y encuestas</div>
+        <div id="chatyEncuestas">
+            <button class="btnCE">Chat y Encuestas</button>
+            chat y encuestas</div>
         <div id="planifi">planificacion</div>
         <div id="mapa">mapa</div>
         <div id="enlace">Enlace invitacion</div>

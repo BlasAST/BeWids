@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\chatYEncuestasController;
 use App\Http\Controllers\Contabilidad;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Registrarse;
@@ -59,3 +60,5 @@ Route::post('/contabilidad',[Contabilidad::class, 'aniadirGasto'])->name('aniadi
 // Route::get('/registrarse',[Registrarse::class,'mostrar'])->name('registro.index');
 // Route::post('/iniciar',[InicioSesion::class,'iniciar']);
 // Route::post('/registrarse',[Registrarse::class,'crear']);
+
+Route::get('/chat',[chatYEncuestasController::class, 'index']);
