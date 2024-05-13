@@ -50,6 +50,7 @@
                     <p>Encuentra eventos o planes cercanos y comprueba si alguien se anima</p>
                 </div>
             </div>
+
             <div id="eleccion" class="botonesSesion">
                 <button>Registrarse</button>
                 <button>Iniciar Sesión</button>
