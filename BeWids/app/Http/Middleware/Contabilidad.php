@@ -24,8 +24,6 @@ class Contabilidad
         Session::put('gastos',$gastos);
         $reembolsos = Gastos::where('id_portal',$portal->id)->where('cantidad','<',0)->get();
         Session::put('reembolsos',$reembolsos);
-        $deudas = Deudas::where('id_portal',$portal->id)->get();
-        Session::put('deudas',$deudas);
         $participantes = Participantes::where('id_portal',$portal->id)->get();
         Session::put('participantes',$participantes);
 
