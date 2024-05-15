@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gastos;
 use App\Models\Deudas;
+use App\Models\Participantes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -26,21 +27,35 @@ class Contabilidad extends Controller
             $parte = request('cantidad') / count(request('participantes'));
             foreach(request('participantes') as $participante){
                 $participantes .= $participante.";";
-                $deuda = new Deudas();
-                $deuda->id_portal = Session::get('portal')->id;
-                $deuda->participante = $participante;
-                $deuda->cantidad = $parte;
-                $deuda->save();
+                $persona = Participantes::where('id_portal',Session::get('portal')->id)->where('nombre_en_portal',$participante)->first();
+                $persona->deuda -= $parte;
+                $persona->save();
             }
         }
         $gasto->participantes = trim($participantes,';');
         $gasto->save();
 
-        $deuda = new Deudas();
-        $deuda->id_portal = Session::get('portal')->id;
-        $deuda->participante = request('pagador');
-        $deuda->cantidad = request('cantidad')*-1;
-        $deuda->save();
+        $pagador= Participantes::where('id_portal',Session::get('portal')->id)->where('nombre_en_portal',request('pagador'))->first();
+        $pagador->deuda += request('cantidad');
+        $pagador->save();
+        $participantes = Participantes::where('id_portal',Session::get('portal')->id)->get();
+        Session::put('participantes',$participantes);
+        //$deudas = $this->hacerCuentas();
         return redirect()->to('/contabilidad');
+    }
+
+    public function hacerCuentas(){
+        $$deudas = Participantes::selectRaw('nombre_en_portal, SUM(cantidad) as total')
+                ->where('id_portal', Session::get('portal')->id)
+                ->groupBy('nombre_en_portal')
+                ->get();
+        foreach($deudas as $deuda){
+            if($deuda->total > 0)
+                $pagar[$deuda->participante] = $deuda->total;
+            if($deuda->total <0)
+                $recibir[$deuda->participante] = $deuda->total;
+        }
+
+        return ($deudas);
     }
 }

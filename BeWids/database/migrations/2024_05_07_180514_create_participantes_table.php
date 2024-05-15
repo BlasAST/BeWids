@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_usuario')->nullable();
             $table->boolean('admin')->default(false);
             $table->string('nombre_en_portal');
+            $table->decimal('deuda')->default(0);
             $table->timestamps();
 
             $table->unique(['id_portal','nombre_en_portal']);

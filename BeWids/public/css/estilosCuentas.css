@@ -3,8 +3,7 @@ main > div:not(:first-child){
     display: none;
 }
 
-.gastos, .cuentas{
-    display: flex;
+.gastos, .cuentas, .graficos{
     justify-content: space-evenly;
     padding-top: 30px;
     flex-grow: 1;
@@ -63,4 +62,42 @@ main > div:not(:first-child){
     border: 1px solid gray;
     display: flex;
     flex-direction: column;
+}
+.graficos{
+    align-items: stretch;
+    padding-top: 60px;
+}
+.graficos>div{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: end;
+    align-items: center;
+}
+.barra{
+    flex-grow: 1;
+    border: 2px solid white;
+    width: 20px;
+    position: relative;
+    padding: 0;
+}
+.graficos figure{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-secundario);
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    margin: 0;
+}
+.graficos figure p{
+    font-size: 18px;
 }

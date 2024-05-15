@@ -14,6 +14,11 @@
     $reembolsos = Session::get('reembolsos');
     $participantes = Session::get('participantes');
     $tipos = ['Supermercado','Alcohol','Cine','Conciento','ropa','pepe'];
+    $deudaMayor = 0;
+    foreach ($participantes as $participante) {
+        if(abs($participante->deuda)>$deudaMayor)
+            $deudaMayor = abs($participante->deuda);
+    }
 @endphp
 {{-- <header>
     <span>Gastos</span>
@@ -32,7 +37,9 @@
     </div>
     <div class="gastos mostrar">
         <div>
-
+            @if (count($gastos) == 0)
+                <h1>No hay gastos todavía</h1>                
+            @endif
             @foreach ($gastos as $gasto)
                 <div class="gasto">
                     <p>{{$gasto->titulo}}</p>
@@ -101,7 +108,26 @@
             </form>
         </div>
     </div>
-    <div class="graficos">graficos</div>
+    <div class="graficos">
+        @foreach ($participantes as $participante)
+            @php
+                if($deudaMayor != 0) $porcentaje = (abs($participante->deuda)/$deudaMayor)*100;
+            @endphp
+            <div>
+                @if ($participante->deuda > 0)
+                    <div class="barra" style="background-image: linear-gradient(to top, #4465B8,var(--color-secundario) {{$porcentaje."%"}}, var(--color-secundario) 100%)">
+                        <figure style="color:#4465B8; bottom: {{$porcentaje - 5 . "%" }}" ><p>{{"+".$participante->deuda}}</p></figure>
+                    </div>
+                @endif
+                @if($participante->deuda < 0)
+                    <div class="barra" style="background-image: linear-gradient(to top, #D63865,var(--color-secundario) {{$porcentaje."%"}}, var(--color-secundario) 100%)">
+                        <figure style="color:#D63865; bottom: {{$porcentaje - 5 . "%"}}"><p>{{$participante->deuda}}</p></figure>
+                    </div>
+                @endif
+                <p>{{$participante->nombre_en_portal}}</p>
+            </div>
+        @endforeach
+    </div>
     <div class="cuentas">
         <div>
             <h1>No se hay nada que reembolsar actualmente</h1>
