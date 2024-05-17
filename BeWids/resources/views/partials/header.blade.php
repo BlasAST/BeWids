@@ -4,6 +4,8 @@
             <div class="logo"></div>
             <img class="icoPerfil" src="{{ asset('imagenes/imagenesBase/perfil.svg')}}" alt="">
             @yield('contenidoCabecera')
+            @livewireStyles
+            @livewireScripts
         </div>
 
 </header>

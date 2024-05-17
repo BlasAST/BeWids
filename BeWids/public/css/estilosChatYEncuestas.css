@@ -1,0 +1,18 @@
+
+.generico{
+    height: inherit;
+}
+.generico >*{
+    height: inherit;
+}
+.chat{
+    
+}
+.secciones{
+    flex: 1 0 20%;
+    background-color: #541530;
+}
+.chatActual{
+    flex: 1 0 78%;
+    display: flex;
+}

@@ -62,3 +62,4 @@ Route::post('/contabilidad',[Contabilidad::class, 'aniadirGasto'])->name('aniadi
 // Route::post('/registrarse',[Registrarse::class,'crear']);
 
 Route::get('/chat',[chatYEncuestasController::class, 'index']);
+Route::get('/encuestas',[chatYEncuestasController::class, 'index']);

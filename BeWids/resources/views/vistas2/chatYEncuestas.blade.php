@@ -1,5 +1,4 @@
 @extends('partials.base')
-
 @section('rutaEstilos','../css/estilosChatYEncuestas.css')
 @section('rutaEstilos2','../css/estilosBaseServicios.css')
 
@@ -8,11 +7,16 @@
 @section('contenido')
 @extends('partials.header')
 <main>
-<div class="categorias">
-        <span id="gastos"><p class="selected">Gastos</p></span>
-        <span id="graficos"><p>Gráficos</p></span>
-        <span id="cuentas"><p>Cuentas</p></span>
-        <span id="notificaciones"><p>Notificaciones</p></span>
+    <div class="categorias">
+        <span id="chat">
+            <p class="selected">Chat</p>
+        </span>
+        <span id="encuestas">
+            <p>Encuestas</p>
+        </span>
     </div>
+    <livewire:chat-y-encuestas/>
+    
 </main>
+
 @endsection

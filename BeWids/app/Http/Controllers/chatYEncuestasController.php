@@ -9,4 +9,10 @@ class chatYEncuestasController extends Controller
     public function index(){
         return view('/vistas2/chatYEncuestas');
     }
+
+    public function chats(){
+    }
+    public function encuestas(){
+
+    }
 }
