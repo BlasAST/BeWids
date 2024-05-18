@@ -1,5 +1,6 @@
+
 <div class="generico">
-<div class="chat mostrar">
+    <div class="chat mostrar">
         <div class="secciones">
             <div><input type="text" placeholder="Buscar Participante"></div>
             <div>
@@ -13,9 +14,13 @@
         </div>
 
         <div class="chatActual">
+
             <div class="enviarMensaje">
-                <input type="text">
-                <button>Enviar</button>
+                <input type="text" wire:model="mensaje">
+                <p>{{ $mensaje }}</p>
+                <!-- <button>Enviar</button> -->
+                
+                
             </div>
         </div>
 
