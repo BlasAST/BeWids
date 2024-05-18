@@ -9,6 +9,8 @@ use App\Http\Controllers\Perfil;
 use App\Http\Controllers\Sesion;
 use App\Http\Controllers\Inicio;
 use App\Http\Controllers\Portal;
+use App\Http\Controllers\Pruebas;
+use App\Livewire\Pruebas2;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -63,3 +65,4 @@ Route::post('/contabilidad',[Contabilidad::class, 'aniadirGasto'])->name('aniadi
 
 Route::get('/chat',[chatYEncuestasController::class, 'index']);
 Route::get('/encuestas',[chatYEncuestasController::class, 'index']);
+Route::get('/pruebas',[Pruebas::class, 'index']);

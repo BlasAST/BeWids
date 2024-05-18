@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="@yield('rutaEstilos2')">
         <script src="@yield('rutaJs')"></script>
         <script src="@yield('rutaJs2')"></script>
+       
 
     </head>
     <body>
