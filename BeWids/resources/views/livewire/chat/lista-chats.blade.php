@@ -11,7 +11,7 @@
             <h3>Mensajes:</h3>
             <br>
             <div class="chatItem">
-                <img src="https://picsum.photos/200/300" alt="">
+                <img src="https://picsum.photos/200" alt="">
                 <div class="infoUser">
                     <div class="itemsSup">
                         <div class="nombreChat">Ejemplo</div>
