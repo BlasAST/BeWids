@@ -3,13 +3,11 @@
         <div class="listaChats">
             @livewire('chat.lista-chats')
         </div>
-        <div class="chatBox">
+           <div class="chatMostrado">
             @livewire('chat.contenedor-mensajes')
             @livewire('chat.enviar-mensaje')
-        </div>
+           </div>
     </div>
-
-
 
 
 
