@@ -1,3 +1,4 @@
-<div>
-    {{-- The whole world belongs to you. --}}
+<div class="enviar">
+        <input type="text">
+        <button>Enviar</button>
 </div>

@@ -1,3 +1,8 @@
 <div>
-    <h1>Hijos de puta</h1>
+    <div class="headerChat">
+        <p>Cabecera</p>
+    </div>
+    <div class="mainChat">
+        Cuerpo del chat
+    </div>
 </div>

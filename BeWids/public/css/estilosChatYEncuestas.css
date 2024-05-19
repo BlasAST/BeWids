@@ -1,17 +1,94 @@
+.generico {
+    height: inherit;
+}
 
-.generico{
+.generico * {
+    margin: 0;
+}
+
+.generico>* {
     height: inherit;
 }
-.generico >*{
-    height: inherit;
-}
-.chat{
-    
-}
-.secciones{
-    flex: 1 0 20%;
+
+.listaChats {
+    flex: 1 0 29%;
     background-color: #541530;
+    border-right: 4px solid #0b191f;
 }
-.chatActual{
-    flex: 1 0 78%;
+
+.chatBox {
+    flex: 1 0 70%;
+    display: flex;
+    flex-direction: column;
+    border-left: none;
+}
+
+.chatBox>* {
+    border: 4px solid red;
+}
+
+.chatBox :first-child {
+    flex: 1 0 90%;
+}
+
+.chatBox :last-child {
+    flex: 1 0 4%;
+}
+
+.enviar {
+    display: flex;
+}
+
+.enviar input {
+    flex: 1 0 90%;
+    height: 100%;
+    font-size: 12px;
+    border: none;
+}
+
+.enviar button {
+    flex: 1 0 9%;
+    border: none;
+}
+
+/* Estilos de la listas */
+.lista_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 3px solid #0b191f;
+}
+
+.lista_header img {
+    width: 15%;
+    border-radius: 100%;
+    margin-right: 5%;
+}
+.chatItem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: teal;
+}
+.itemsSup{
+    display: flex;
+    justify-content: space-between;
+}
+.chatItem img{
+    width: 20%;
+    border-radius: 100%;
+}
+.sinLeer{
+    display: flex;
+    justify-content: start;
+}
+.sinLeer p{
+    background-color: white;
+    padding: 4%;
+    border-radius: 50%;
+}
+p{
+    font-size: var(--pequenio);
 }
