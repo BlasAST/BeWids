@@ -16,11 +16,10 @@
         <div class="chatActual">
 
             <div class="enviarMensaje">
-                <input type="text" wire:model="mensaje">
-                <p>{{ $mensaje }}</p>
-                <!-- <button>Enviar</button> -->
+                <input type="text" >
+                <button>Enviar</button> 
                 
-                
+                @livewire('chat.contenedor-mensajes')
             </div>
         </div>
 

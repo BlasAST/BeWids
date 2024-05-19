@@ -5,7 +5,7 @@
 @section('rutaJs','../js/chatYEncuestas.js')
 @section('rutaJs2','../js/basicServicios.js')
 @section('contenido')
-<!-- @extends('partials.header') -->
+@extends('partials.header') 
 <main>
     <div class="categorias">
         <span id="chat">
@@ -15,9 +15,8 @@
             <p>Encuestas</p>
         </span>
     </div>
-    <livewire:chat-y-encuestas/>
-    
-    
+    @livewire('chat.mainn')
+     
 </main>
 
 @endsection

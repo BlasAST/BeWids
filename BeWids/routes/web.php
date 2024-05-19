@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\chatYEncuestasController;
+use App\Http\Controllers\Chat_Y_Encuestas;
 use App\Http\Controllers\Contabilidad;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Registrarse;
@@ -9,8 +9,8 @@ use App\Http\Controllers\Perfil;
 use App\Http\Controllers\Sesion;
 use App\Http\Controllers\Inicio;
 use App\Http\Controllers\Portal;
-use App\Http\Controllers\Pruebas;
-use App\Livewire\Pruebas2;
+
+
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -63,6 +63,10 @@ Route::post('/contabilidad',[Contabilidad::class, 'aniadirGasto'])->name('aniadi
 // Route::post('/iniciar',[InicioSesion::class,'iniciar']);
 // Route::post('/registrarse',[Registrarse::class,'crear']);
 
-Route::get('/chat',[chatYEncuestasController::class, 'index']);
-Route::get('/encuestas',[chatYEncuestasController::class, 'index']);
-Route::get('/pruebas',[Pruebas::class, 'index']);
+// Route::get('/chat',ChatYEncuestas::class,'index')->name('chat');
+
+// Rutas Livewire
+Route::get('/chat',[Chat_Y_Encuestas::class, 'index'])->name('chat');
+
+
+
