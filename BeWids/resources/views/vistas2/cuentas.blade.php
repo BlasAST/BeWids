@@ -115,7 +115,7 @@
             @endphp
             <div>
                 @if ($participante->deuda > 0)
-                    <div class="barra" style="background-image: linear-gradient(to top, #4465B8,var(--color-secundario) {{$porcentaje."%"}}, var(--color-secundario) 100%)">
+                    <div class="barra" style="background-image: linear-gradient(to top, #D63865,var(--color-secundario) {{$porcentaje.'%'}}, var(--color-secundario) 100%)">
                         <figure style="color:#4465B8; bottom: {{$porcentaje - 5 . "%" }}" ><p>{{"+".$participante->deuda}}</p></figure>
                     </div>
                 @endif

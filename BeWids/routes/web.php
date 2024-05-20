@@ -53,7 +53,7 @@ Route::post('/guardar',[Perfil::class,'guardarDatos'])->name('guardar');
 Route::post('/cuenta',[Sesion::class,'formulario'])->name('sesionF');
 Route::post('/perfil',[Perfil::class, 'crearPortal'])->name('crearP');
 
-Route::get('/portal',[Portal::class, 'index']);
+Route::get('/portal',[Portal::class, 'index'])->name('portal');
 Route::post('/portal',[Portal::class, 'irPortal']);
 
 Route::get('/contabilidad',[Contabilidad::class, 'index'])->middleware('contabilidad');
