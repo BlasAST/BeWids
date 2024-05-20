@@ -1,7 +1,7 @@
 @extends('partials.base')
 @section('rutaEstilos','css/estilosPortal.css')
 @section('rutaJs','js/portal.js')
-@extends('partials.header')
+@include('partials.header')
 
 @section('contenido')
     @php

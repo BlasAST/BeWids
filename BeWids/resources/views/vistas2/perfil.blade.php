@@ -5,18 +5,11 @@
 
 @section('contenidoCabecera')
 
-<div class="ajustes">
-    <div>
-        <button class="editar">Editar Perfil</button>
-        <a href="{{route('cerrarS')}}">Cerrar Sesion</a>
-    </div>
-</div>
-<img src="{{asset('imagenes/imagenesBasic/ajustes.png')}}" alt="" class="bajustes">
 @endsection
 
 @section('contenido')
 
-@extends('partials.header')
+@include('partials.header')
 
 
 <main>
@@ -33,7 +26,7 @@
                     <div>
                         <h3>Nombre->{{$infoUsuario->nombre ??''}} <input type="text" name="nombre" placeholder="Nombre identificativo"></h3>
                         <h4>Edad: </h4>
-                        <p>Descripcion Breve->{{$infoUsuario->descripcion ??''}}<input type="text" name="descripcion" placeholder="Añadir una descripción"></p>
+                        <p>Descripcion Breve->{{$infoUsuario->descripcion ??''}}<input type="text" name="descripcion" placeholder="Añadir una descripción" value="{{$infoUsuario->descripcion ??''}}"></p>
                     </div>
                 </div>
 

@@ -146,3 +146,4 @@
     </div>
     <div class="notificaciones">Notificaciones</div>
 </main>
+@endsection
