@@ -18,7 +18,8 @@
         </div>
         <div id="buscador">buscador de eventos</div>
         <div id="chatyEncuestas">
-            <button class="btnCE">Chat y Encuestas</button>
+            <button class="btnCE">Chat y Encuestas</button> 
+            <!-- <a href="{{route(portal),['id'=>$portal->id]}"></a> -->
             chat y encuestas</div>
         <div id="planifi">planificacion</div>
         <div id="mapa">mapa</div>

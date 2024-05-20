@@ -5,7 +5,7 @@ let selected;
 let secciones;
 
 function iniciar(){
-    
+    // Modificado para que si se usa livewire busque en generico
     secciones = document.querySelectorAll('main > div:not(:first-child)');
     document.querySelectorAll('.categorias span').forEach(e=>e.addEventListener('click', categoria));
     cat = document.querySelector('.mostrar');

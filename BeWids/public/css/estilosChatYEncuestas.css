@@ -1,0 +1,160 @@
+.generico {
+    height: inherit;
+}
+
+.generico * {
+    margin: 0;
+}
+
+.generico>* {
+    height: inherit;
+}
+p{
+    font-size: var(--mediano);
+}
+
+.listaChats {
+    flex: 1 0 19%;
+    background-color: #541530;
+    border-right: 4px solid #0b191f;
+}
+
+.chatMostrado {
+    flex: 1 0 80%;
+    display: flex;
+    flex-direction: column;
+    border-left: none;
+}
+
+.chatMostrado>* {
+    border: 4px solid red;
+}
+
+.chatMostrado > :first-child {
+    flex: 1 0 90%;
+}
+
+.chatMostrado>:last-child {
+    flex: 1 0 4%;
+}
+
+.enviar:focus input{
+    background-color: gray;
+}
+.enviar form{
+    display: flex;
+    height: 100%;
+}
+
+.enviar form input {
+    flex: 1 0 90%;
+    height: 100%;
+    font-size: 20px;
+    border: none;
+}
+
+.enviar form button {
+    flex: 1 0 9%;
+    border: none;
+}
+
+
+/* Estilos de la listas */
+.lista_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 3px solid #0b191f;
+}
+
+
+
+img {
+    width: 15%;
+    border-radius: 100%;
+    margin-right: 5%;
+}
+
+.chatItem{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: teal;
+}
+.chatItem:hover{
+    background-color: rgb(24, 181, 181);
+    cursor:pointer ;
+}
+.itemsSup{
+    display: flex;
+    justify-content: space-between;
+}
+.chatItem img{
+    width: 20%;
+    border-radius: 100%;
+}
+.sinLeer{
+    display: flex;
+    justify-content: end;
+}
+.sinLeer p{
+    margin-top: 10px;
+    font-size: 15px;
+    background-color: white;
+    padding: 4%;
+    border-radius: 50%;
+}
+.mainChat{
+    display: flex;
+    flex-direction: column;
+    height: 100vw;
+    max-height: 900px;
+
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.mensaje{
+    margin-top: 5%;
+    background-color: aliceblue;
+    width: 60%;
+    padding: 5%;
+    margin-left: 5%;
+    border-radius: 50px;
+}
+.mensaje h6{
+    text-align: end;
+}
+.mensajeMe{
+    margin-top: 5%;
+    background-color: rgb(24, 76, 119);
+    color: white;
+    width: 60%;
+    padding: 5%;
+    align-self: self-end;
+    margin-right: 5%;
+    border-radius: 50px;
+}
+.mensajeMe h6{
+    text-align: start;
+}
+.headerChat{
+    background-color: white;
+    display: flex;
+    align-items: center;
+}
+
+.flecha{
+    width: 8%;
+
+}
+.cerrado{
+transform: rotate(180deg);
+}
+.fotoUser{
+    width: 8%;
+}

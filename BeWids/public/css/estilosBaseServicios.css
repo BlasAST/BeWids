@@ -1,4 +1,11 @@
-
+main > div:not(:first-child){
+    display: none;
+}
+/* Hecho para poder reutilizar el mismo codigo sin que afecte a livewire */
+/* porque todo lo que se traiga de livewire debe de estar entre una misma etiqueta */
+.generico > div{
+    display: none;
+}
 main{
     background-color: #453745;
     height: 100%;
