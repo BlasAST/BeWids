@@ -3,7 +3,7 @@
 @section('rutaJs','../js/sesion.js')
 
 @section('contenido')
-@extends('partials.header')
+@include('partials.header')
 
     @if(!Auth::check())
         <div class="botones @if(!$dir) mostrar @endif">

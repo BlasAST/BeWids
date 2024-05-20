@@ -105,7 +105,9 @@ main {
 .noVisible {
     margin-left: 10%;
 }
-
+.bajustes{
+    display: block;
+}
 .ajustes {
     display: none;
     position: absolute;

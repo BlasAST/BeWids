@@ -4,7 +4,7 @@
 @section('rutaEstilos','css/estilosHome.css')
 @section('rutaJs','js/basic.js')
 @section('contenido')
-@extends('partials.header')
+@include('partials.header')
 
 
 <main>

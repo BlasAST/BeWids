@@ -5,7 +5,7 @@
 @section('rutaJs','../js/chatYEncuestas.js')
 @section('rutaJs2','../js/basicServicios.js')
 @section('contenido')
-@extends('partials.header') 
+@include('partials.header') 
 <main>
     <div class="categorias">
         <span id="chat">
