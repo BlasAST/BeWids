@@ -38,18 +38,22 @@ p{
     flex: 1 0 4%;
 }
 
-.enviar {
+.enviar:focus input{
+    background-color: gray;
+}
+.enviar form{
     display: flex;
+    height: 100%;
 }
 
-.enviar input {
+.enviar form input {
     flex: 1 0 90%;
     height: 100%;
     font-size: 20px;
     border: none;
 }
 
-.enviar button {
+.enviar form button {
     flex: 1 0 9%;
     border: none;
 }

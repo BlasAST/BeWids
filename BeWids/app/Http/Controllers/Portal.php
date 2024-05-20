@@ -12,6 +12,7 @@ class Portal extends Controller
     }
     public function irPortal(){
         Session::put('portal',json_decode(request('portal')));
+        $portal=Session::get('portal');
         return view('vistas2/portal');
     }
 }

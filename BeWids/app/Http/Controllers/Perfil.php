@@ -66,6 +66,6 @@ class perfil extends Controller
                 }
             }
         }
-        return redirect()->to('/portal');
+        return redirect()->route('portal');
     }
 }

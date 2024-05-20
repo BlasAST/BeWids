@@ -1,4 +1,6 @@
 <div class="enviar">
+        <form action="">
         <input type="text">
-        <button>Enviar</button>
+        <button type="submit">Enviar</button>
+        </form>
 </div>

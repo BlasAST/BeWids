@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Participantes extends Model
 {
     use HasFactory;
+    public $fillable=[
+        
+    ];
 }

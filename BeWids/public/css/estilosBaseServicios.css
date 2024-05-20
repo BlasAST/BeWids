@@ -1,5 +1,4 @@
-main > div:not(:first-child),
-main >div:not('.generico'){
+main > div:not(:first-child){
     display: none;
 }
 /* Hecho para poder reutilizar el mismo codigo sin que afecte a livewire */
