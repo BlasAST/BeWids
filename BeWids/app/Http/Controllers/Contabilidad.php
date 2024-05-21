@@ -7,7 +7,7 @@ use App\Models\Deudas;
 use App\Models\Participantes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-
+use App\Services\Transacciones;
 use function PHPUnit\Framework\isEmpty;
 
 class Contabilidad extends Controller
@@ -43,8 +43,8 @@ class Contabilidad extends Controller
         $pagador->save();
         $participantes = Participantes::where('id_portal',Session::get('portal')->id)->get();
         Session::put('participantes',$participantes);
-        //$deudas = $this->hacerCuentas();
-        return redirect()->to('/contabilidad');
+        $deudas = $this->hacerCuentas();
+        //return redirect()->to('/contabilidad');
     }
 
     private function hacerCuentas(){
@@ -55,25 +55,51 @@ class Contabilidad extends Controller
             if($participante->deuda > 0)
                 $receptores[$participante->nombre_en_portal] = round($participante->deuda,2);
         }
+        
 
         $min = PHP_INT_MAX;
         $minTransacciones = [];
         $combP = $this->crearCombinaciones($pagadores);
         $combR = $this->crearCombinaciones($receptores);
+        $totalTransacciones = [];
         $transacciones = [];
-
-
+        $transaccionesFinales = [];
         foreach($combP as $pagar){
             foreach($combR as $recibir){
-                $transacciones[] = $this->generarTransacciones($pagar,$recibir);
-                // echo "<pre>";
-                // var_dump($transacciones);
-                // echo "</pre>";
-                
-                
+                $transaccion = new Transacciones($pagar,$recibir,$transacciones);
+                $vuelta = $transaccion->devolverTransaccion();
+                $totalTransacciones[] = $vuelta;
             }
         }
-        foreach($transacciones as $caso){
+        // echo "<pre>";
+        // var_dump($totalTransacciones);
+        // echo "</pre>";
+        do{
+            $nuevasTransacciones = [];
+            foreach($totalTransacciones as $unaTrans){
+                foreach($unaTrans["pagadores"] as $pagar){
+                    foreach($unaTrans["deudores"] as $recibir){
+                        $transaccion = new Transacciones($pagar,$recibir,$unaTrans["transacciones"]);
+                        $vuelta = $transaccion->devolverTransaccion();
+
+                        if(count($vuelta["pagadores"]) == 0||count($vuelta["deudores"]) == 0){
+                            $transaccionesFinales[] = $vuelta["transacciones"];
+                            echo "<pre>";
+                            var_dump($transaccionesFinales);
+                            echo "</pre>";
+                            return true;
+                        }else{
+                            $nuevasTransacciones[] = $vuelta ;
+                        }
+
+                    }
+                }
+            }
+            $totalTransacciones = $nuevasTransacciones;
+
+        }while(count($totalTransacciones));
+
+        foreach($transaccionesFinales as $caso){
             switch(true){
                 case count($caso) < $min:
                     $minTransacciones = [];
@@ -84,20 +110,21 @@ class Contabilidad extends Controller
                     // if(round(rand(0,1))){
                     //     $minTransacciones = [];
                     // }
-                    $minTransacciones[] = $transacciones;
+                    $minTransacciones[] = $caso;
                     
                     break;
                 default:
                     break;
             }
         }
-        do{
-            foreach($minTransacciones as $key => $opcion){
-                if(round(rand(0,1)) && count($minTransacciones) > 1){
-                   unset($minTransacciones[$key]);
-                } 
-            }
-        }while(count($minTransacciones) == 1);
+
+        // do{
+        //     foreach($minTransacciones as $key => $opcion){
+        //         if(round(rand(0,1)) && count($minTransacciones) > 1){
+        //            unset($minTransacciones[$key]);
+        //         } 
+        //     }
+        // }while(count($minTransacciones) == 1);
         echo "<pre>";
         var_dump($minTransacciones);
         echo "</pre>";
