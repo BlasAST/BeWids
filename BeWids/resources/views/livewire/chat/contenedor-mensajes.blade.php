@@ -1,3 +1,4 @@
+
 <div class="chatBox">
     <div class="headerChat">
         <div>
@@ -43,6 +44,8 @@
             </p>
         <h6>Hace 5 horas</h6>
         </div>
+</div>
+
         
     </div>
 </div>
