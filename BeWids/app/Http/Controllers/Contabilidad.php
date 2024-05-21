@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gastos;
 use App\Models\Deudas;
 use App\Models\Participantes;
+use App\Models\Reembolsos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Services\Transacciones;
@@ -44,7 +45,19 @@ class Contabilidad extends Controller
         $participantes = Participantes::where('id_portal',Session::get('portal')->id)->get();
         Session::put('participantes',$participantes);
         $deudas = $this->hacerCuentas();
-        //return redirect()->to('/contabilidad');
+        Reembolsos::where('id_portal', Session::get('portal')->id)->where("saldado",false)->delete();
+        foreach($deudas as $deuda){
+            $reembolso = new Reembolsos();
+            $reembolso -> id_portal = Session::get('portal')->id;
+            $reembolso -> pagador = $deuda["deudor"];
+            $reembolso -> receptor = $deuda["receptor"];
+            $reembolso -> cantidad = $deuda["cantidad"];
+            $reembolso -> save();
+            $reembolsos[] = $reembolso;
+        }
+        Session::put("reembolsosSin",Reembolsos::where('id_portal', Session::get('portal')->id)->where("saldado",false)->get());
+        Session::put("reembolsosPag",Reembolsos::where('id_portal', Session::get('portal')->id)->where("saldado",true)->get());
+        return redirect()->to('/contabilidad');
     }
 
     private function hacerCuentas(){
@@ -66,80 +79,122 @@ class Contabilidad extends Controller
         $transaccionesFinales = [];
         foreach($combP as $pagar){
             foreach($combR as $recibir){
-                $transaccion = new Transacciones($pagar,$recibir,$transacciones);
-                $vuelta = $transaccion->devolverTransaccion();
-                $totalTransacciones[] = $vuelta;
+                $transaccion = $this->generarTransacciones2($pagar,$recibir);//new Transacciones($pagar,$recibir,$transacciones);
+                // $vuelta = $transaccion->devolverTransaccion();
+                // $totalTransacciones[] = $vuelta;
+                switch(true){
+                    case count($transaccion) < $min:
+                        $minTransacciones = [];
+                        $minTransacciones[] = $transaccion;
+                        $min = count($transaccion);
+                        break;
+                    case count($transaccion) == $min:
+                        // if(round(rand(0,1))){
+                        //     $minTransacciones = [];
+                        // }
+                        $minTransacciones[] = $transaccion;
+                        
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         // echo "<pre>";
         // var_dump($totalTransacciones);
         // echo "</pre>";
-        do{
-            $nuevasTransacciones = [];
-            foreach($totalTransacciones as $unaTrans){
-                foreach($unaTrans["pagadores"] as $pagar){
-                    foreach($unaTrans["deudores"] as $recibir){
-                        $transaccion = new Transacciones($pagar,$recibir,$unaTrans["transacciones"]);
-                        $vuelta = $transaccion->devolverTransaccion();
-
-                        if(count($vuelta["pagadores"]) == 0||count($vuelta["deudores"]) == 0){
-                            $transaccionesFinales[] = $vuelta["transacciones"];
-                            echo "<pre>";
-                            var_dump($transaccionesFinales);
-                            echo "</pre>";
-                            return true;
-                        }else{
-                            $nuevasTransacciones[] = $vuelta ;
-                        }
-
-                    }
-                }
-            }
-            $totalTransacciones = $nuevasTransacciones;
-
-        }while(count($totalTransacciones));
-
-        foreach($transaccionesFinales as $caso){
-            switch(true){
-                case count($caso) < $min:
-                    $minTransacciones = [];
-                    $minTransacciones[] = $caso;
-                    $min = count($caso);
-                    break;
-                case count($caso) == $min:
-                    // if(round(rand(0,1))){
-                    //     $minTransacciones = [];
-                    // }
-                    $minTransacciones[] = $caso;
-                    
-                    break;
-                default:
-                    break;
-            }
-        }
-
         // do{
-        //     foreach($minTransacciones as $key => $opcion){
-        //         if(round(rand(0,1)) && count($minTransacciones) > 1){
-        //            unset($minTransacciones[$key]);
-        //         } 
+        //     $nuevasTransacciones = [];
+        //     foreach($totalTransacciones as $unaTrans){
+        //         foreach($unaTrans["pagadores"] as $pagar){
+        //             foreach($unaTrans["deudores"] as $recibir){
+        //                 $transaccion = new Transacciones($pagar,$recibir,$unaTrans["transacciones"]);
+        //                 $vuelta = $transaccion->devolverTransaccion();
+
+        //                 if(count($vuelta["pagadores"]) == 0||count($vuelta["deudores"]) == 0){
+        //                     $transaccionesFinales[] = $vuelta["transacciones"];
+        //                     echo "<pre>";
+        //                     var_dump($transaccionesFinales);
+        //                     echo "</pre>";
+        //                     return true;
+        //                 }else{
+        //                     $nuevasTransacciones[] = $vuelta ;
+        //                 }
+
+        //             }
+        //         }
         //     }
-        // }while(count($minTransacciones) == 1);
+        //     $totalTransacciones = $nuevasTransacciones;
+
+        // }while(count($totalTransacciones));
+
+        // foreach($transaccionesFinales as $caso){
+        //     switch(true){
+        //         case count($caso) < $min:
+        //             $minTransacciones = [];
+        //             $minTransacciones[] = $caso;
+        //             $min = count($caso);
+        //             break;
+        //         case count($caso) == $min:
+        //             // if(round(rand(0,1))){
+        //             //     $minTransacciones = [];
+        //             // }
+        //             $minTransacciones[] = $caso;
+                    
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }
+
+        do{
+            foreach($minTransacciones as $key => $opcion){
+                if(round(rand(0,1)) && count($minTransacciones) > 1){
+                   unset($minTransacciones[$key]);
+                } 
+            }
+        }while(count($minTransacciones) != 1);
         echo "<pre>";
-        var_dump($minTransacciones);
+        var_dump($minTransacciones[array_key_first($minTransacciones)]);
         echo "</pre>";
+        return $minTransacciones[array_key_first($minTransacciones)];
 
 
     }
 
-    private function generarTransacciones2($pagar, $recibir, $transacciones){
+    private function generarTransacciones2($pagar, $recibir){
 
 
 
         do{
-            
+            foreach ($recibir as $receptor => $cantidad){
+                $pagador = array_search($cantidad,$pagar);
+                if($pagador){
+                    $transacciones[] = ["deudor" => $pagador,"receptor"=>$receptor,'cantidad'=>$cantidad];
+                    unset($recibir[$receptor]);
+                    unset($pagar[$pagador]);
+                }
+            };
+            $pagador = array_key_first($pagar);
+            $receptor = array_key_first($recibir);
+            if(!$pagador&&!$receptor){
+                break;
+            }
+            if($pagar[$pagador] > $recibir[$receptor]){
+                $transacciones[] = ["deudor" => $pagador,"receptor"=>$receptor,'cantidad'=>$recibir[$receptor]];
+                $pagar[$pagador] = round($pagar[$pagador] - $recibir[$receptor],2);
+                unset($recibir[$receptor]);
+            }else{
+                $transacciones[] = ["deudor" => $pagador,"receptor"=>$receptor,'cantidad'=>$pagar[$pagador]];
+                $recibir[$receptor] = round($recibir[$receptor] - $pagar[$pagador],2);
+                unset($pagar[$pagador]);
+            }
+            if(!$pagador&&!$receptor){
+                break;
+            }
 
         }while(true);
+        return $transacciones;
 
 
 

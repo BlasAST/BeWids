@@ -11,7 +11,8 @@
 
 @php
     $gastos = Session::get('gastos');
-    $reembolsos = Session::get('reembolsos');
+    $reembolsosPorPagar = Session::get('reembolsosSin');
+    $reembolsosPagados = Session::get('reembolsosPag');
     $participantes = Session::get('participantes');
     $tipos = ['Supermercado','Alcohol','Cine','Conciento','ropa','pepe'];
     $deudaMayor = 0;
@@ -115,7 +116,7 @@
             @endphp
             <div>
                 @if ($participante->deuda > 0)
-                    <div class="barra" style="background-image: linear-gradient(to top, #D63865,var(--color-secundario) {{$porcentaje.'%'}}, var(--color-secundario) 100%)">
+                    <div class="barra" style="background-image: linear-gradient(to top, #4465B8,var(--color-secundario) {{$porcentaje.'%'}}, var(--color-secundario) 100%)">
                         <figure style="color:#4465B8; bottom: {{$porcentaje - 5 . "%" }}" ><p>{{"+".$participante->deuda}}</p></figure>
                     </div>
                 @endif
@@ -130,18 +131,31 @@
     </div>
     <div class="cuentas">
         <div>
-            <h1>No se hay nada que reembolsar actualmente</h1>
+            @if (count($reembolsosPorPagar)==0)
+                <h1>No se hay nada que reembolsar actualmente</h1>
+            @else
+                @foreach ($reembolsosPorPagar as $reembolso)
+                    <div class="reembolso">
+                        <p>{{$reembolso->pagador}} tiene que rembolsar a {{$reembolso->receptor}}</p>
+                        <p>Cantidad: {{abs($reembolso->cantidad)}}</p>
+                        <button id={{$reembolso -> id}}>Saldar deuda</button>
+                    </div>
+                @endforeach
+            @endif
+            
         </div>
         <div>
-            @if (count($reembolsos) == 0)
+            @if (count($reembolsosPagados)==0)
                 <h1>No se ha realizado ningún reembolso aún</h1>
+            @else
+                @foreach ($reembolsosPagados as $reembolso)
+                    <div class="reembolso">
+                        <p>Reembolso de {{$reembolso->pagador}} a {{$reembolso->receptor}}</p>
+                        <p>{{abs($reembolso->cantidad)}}</p>
+                    </div>
+                @endforeach
             @endif
-            @foreach ($reembolsos as $reembolso)
-                <div class="reembolso">
-                    <p>Reembolso de {{$reembolso->pagado_por}} a {{$reembolso->participantes}}</p>
-                    <p>{{abs($reembolso->cantidad)}}</p>
-                </div>
-            @endforeach
+            
         </div>
     </div>
     <div class="notificaciones">Notificaciones</div>
