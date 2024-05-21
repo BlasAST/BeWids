@@ -13,13 +13,14 @@
 .gastos > div:last-child, .cuentas>div:last-child{
     border-left: 2px solid white;
 }
-.gasto, .reembolso{
+.gasto{
     width: 70%;
     display: flex;
     flex-wrap: wrap;
     background-color: var(--color-secundario);
     margin: 10px auto;
 }
+
 .gasto > p{
     flex-basis: 45%;
     font-size: small;
@@ -63,6 +64,7 @@
 .graficos{
     align-items: stretch;
     padding-top: 60px;
+    height: 100%;
 }
 .graficos>div{
     flex-grow: 1;
@@ -97,4 +99,16 @@
 }
 .graficos figure p{
     font-size: 18px;
+}
+.reembolso{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-secundario);
+    margin: 10px auto;
+}
+.reembolso > p{
+    font-size: small;
+    text-align: center;
+    margin: 5px;
 }
