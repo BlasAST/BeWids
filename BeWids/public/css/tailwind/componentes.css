@@ -1,0 +1,8 @@
+@layer utilities {
+    
+    .lechugaOavion {
+        background-color: black;
+        margin: 200px;
+        color: white;
+    }
+}
