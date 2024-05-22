@@ -10,6 +10,9 @@ export default {
     extend: {
       colors:{
         'colorFondo': '#613C4C',
+      },
+      screens: {
+        'xsm':'70px',
       }
     },
   },
