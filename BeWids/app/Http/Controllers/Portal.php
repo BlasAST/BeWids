@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Participantes;
 use App\Models\Reembolsos;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class Portal extends Controller
@@ -13,9 +16,8 @@ class Portal extends Controller
     }
     public function irPortal(){
         Session::put('portal',json_decode(request('portal')));
-        Session::put("reembolsosSin",Reembolsos::where('id_portal', Session::get('portal')->id)->where("saldado",false)->get());
-        Session::put("reembolsosPag",Reembolsos::where('id_portal', Session::get('portal')->id)->where("saldado",true)->get());
         $portal=Session::get('portal');
+        Session::put('participanteUser',Participantes::where('id_usuario',Auth::user()->id)->where('id_portal',$portal->id)->first());
         return view('vistas2/portal');
     }
 }

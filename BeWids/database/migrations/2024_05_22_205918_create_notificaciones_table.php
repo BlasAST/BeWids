@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reembolsos', function (Blueprint $table) {
+        Schema::create('notificaciones', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('id_portal');
-            $table->string("pagador");
-            $table->string("receptor");
-            $table->decimal("cantidad");
-            //$table->boolean("solicitado");
-            $table->boolean("saldado")->default(false);
-
+            $table->unsignedBigInteger('id_reembolso');
+            $table->string("mensaje");
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reembolsos');
+        Schema::dropIfExists('notificaciones');
     }
 };
