@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gastos;
 use App\Models\Deudas;
+use App\Models\Notificaciones;
 use App\Models\Participantes;
 use App\Models\Reembolsos;
 use Illuminate\Http\Request;
@@ -55,9 +56,48 @@ class Contabilidad extends Controller
             $reembolso -> save();
             $reembolsos[] = $reembolso;
         }
-        Session::put("reembolsosSin",Reembolsos::where('id_portal', Session::get('portal')->id)->where("saldado",false)->get());
-        Session::put("reembolsosPag",Reembolsos::where('id_portal', Session::get('portal')->id)->where("saldado",true)->get());
+        
         return redirect()->to('/contabilidad');
+    }
+
+    public function solicitarReembolso(){
+        $reembolso = json_decode(request('reembolso'));
+        $reembolso = Reembolsos::where('id',$reembolso->id)->get();
+        $reembolso = $reembolso[0];
+        $notificacion = new Notificaciones();
+        $notificacion -> id_portal = Session::get("portal")->id;
+        $notificacion -> id_reembolso = $reembolso -> id;
+        $notificacion -> mensaje = "$reembolso->pagador solicita saldar una deuda con $reembolso->receptor de unos $reembolso->cantidad €";
+        $notificacion -> receptor = $reembolso->receptor;
+        $reembolso -> solicitado = true;
+        $notificacion -> save();
+        $reembolso ->save();
+        return redirect()->to('/contabilidad');
+    }
+
+    public function responderNotificacion(){
+        $noti = json_decode(request('notificacion'));
+        if(request('respuesta') == 'confirmar'){
+            $reembolso = Reembolsos::find($noti->id_reembolso);
+            $reembolso -> saldado = true;
+            $pagador = Participantes::where('id_portal', Session::get('portal')->id)->where('nombre_en_portal',$reembolso->pagador)->first();
+            $receptor = Participantes::where('id_portal', Session::get('portal')->id)->where('nombre_en_portal',$reembolso->receptor)->first();
+            $pagador->deuda += $reembolso->cantidad;
+            $receptor->deuda -= $reembolso->cantidad;
+            $reembolso->save();
+            $pagador->save();
+            $receptor->save();
+            Notificaciones::find($noti->id)->delete();
+        }else{
+            if(request('respuesta') == 'denegar'){
+                $reembolso = Reembolsos::find($noti->id_reembolso);
+                $reembolso -> solicitado = false;
+                $reembolso ->save();
+                Notificaciones::find($noti->id)->delete();
+            }
+        }
+        return redirect()->to('/contabilidad');
+
     }
 
     private function hacerCuentas(){
