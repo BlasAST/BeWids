@@ -12,8 +12,7 @@ class Chat_Y_Encuestas extends Controller
     public function index(){
         if(Auth::check()){
             
-        // return view('vistas2/chatYEncuestas');
-        return view('partials/basePortales');
+        return view('vistas2/chatYEncuestas');
         }
         return redirect()->route('base');
     }
