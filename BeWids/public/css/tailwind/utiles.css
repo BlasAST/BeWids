@@ -1,0 +1,10 @@
+@layer utilities{
+
+    .fondoBewids{
+        @apply bg-colorFondo 2xl:bg-[length:400px] xl:bg-[length:300px] 
+        lg:bg-[length:200px] md:bg-[length:200px] sm:bg-[length:150px] xsm:bg-[length:100px];
+        background-image: url(../../imagenes/imagenesBase/imagenFondo2.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+}

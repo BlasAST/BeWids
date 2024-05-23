@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="es" class="w-screen h-screen">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    @vite('resources/css/app.css')
+    <script src="@yield('rutaJs')"></script>
+    @vite('public/css/tailwindBase.css')
 </head>
-<body class="bg-colorFondo w-screen h-screen">
-<img src="{{asset('imagenes/imagenesBase/imagenFondo.png')}}" class="w-screen h-screen">
+<body class="fondoBewids">
+    <div class="contenedor h-screen grid grid-cols-12 grid-rows-12" >
+    @yield('contenido')
+    </div>
 </body>
 </html>

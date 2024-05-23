@@ -19,6 +19,7 @@
             grid-template-rows: repeat(20, 5%);
             display: grid;
         }
+        
 
         /* hecho a 1024px */
         .contenedor>div {

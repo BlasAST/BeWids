@@ -1,0 +1,6 @@
+/* Los imports deben de venir antes */
+@import 'tailwind/componentes.css';
+@import 'tailwind/utiles.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
