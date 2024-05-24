@@ -58,6 +58,8 @@ Route::post('/portal',[Portal::class, 'irPortal']);
 
 Route::get('/contabilidad',[Contabilidad::class, 'index'])->middleware('contabilidad');
 Route::post('/contabilidad',[Contabilidad::class, 'aniadirGasto'])->name('aniadirGasto');
+Route::post('/solicitarReembolso',[Contabilidad::class, 'solicitarReembolso'])->name('reembolso');
+Route::post('/responderNotificacion',[Contabilidad::class, 'ResponderNotificacion'])->name('responderNot');
 // Route::get('/iniciar',[InicioSesion::class,'mostrar'])->name('inicioSesion.index');
 // Route::get('/registrarse',[Registrarse::class,'mostrar'])->name('registro.index');
 // Route::post('/iniciar',[InicioSesion::class,'iniciar']);

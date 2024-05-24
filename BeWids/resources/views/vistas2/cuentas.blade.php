@@ -1,19 +1,27 @@
+
 @extends('partials.base')
 @section('rutaEstilos','../css/estilosCuentas.css')
 @section('rutaEstilos2','../css/estilosBaseServicios.css')
+
 @section('rutaJs','../js/basicServicios.js')
-@section('rutaJs','../js/cuentas.js')
+@section('rutaJs2','../js/cuentas.js')
 
 
 
 @section('contenido')
 @include('partials.header')
+@vite('resources/css/app.css')
 
 @php
+    use App\Models\Participantes;
+
     $gastos = Session::get('gastos');
+    $portal = Session::get('portal');
     $reembolsosPorPagar = Session::get('reembolsosSin');
-    $reembolsosPagados = Session::get('reembolsosPag');
+    $reembolsosPagados = Session::get('reembolsosPagados');
     $participantes = Session::get('participantes');
+    $participanteUser = Session::get('participanteUser');
+    $notificaciones = Session::get('notificaciones');
     $tipos = ['Supermercado','Alcohol','Cine','Conciento','ropa','pepe'];
     $deudaMayor = 0;
     foreach ($participantes as $participante) {
@@ -138,7 +146,16 @@
                     <div class="reembolso">
                         <p>{{$reembolso->pagador}} tiene que rembolsar a {{$reembolso->receptor}}</p>
                         <p>Cantidad: {{abs($reembolso->cantidad)}}</p>
-                        <button id={{$reembolso -> id}}>Saldar deuda</button>
+                        <button class="bg-blue-950 w-1/2 mx-auto" >Saldar deuda
+                            <form method="POST" action="{{route('reembolso')}}">
+                                @csrf
+                                <input type="hidden" name="reembolso" value="{{json_encode($reembolso)}}">
+                            </form>
+                        </button>
+                        @if ($reembolso -> solicitado)
+                            <span class="bg-green-200 w-1/3 mx-auto border-2 text-center border-green-600">Solicitado</span>
+                            
+                        @endif
                     </div>
                 @endforeach
             @endif
@@ -158,6 +175,24 @@
             
         </div>
     </div>
-    <div class="notificaciones">Notificaciones</div>
+    <div class="notificaciones flex-col">
+        @foreach ($notificaciones as $notificacion)      
+            @if(($notificacion && $notificacion->receptor == $participanteUser->nombre_en_portal) || ($participanteUser->admin && !(Participantes::where('id_portal',$portal->id)->where('nombre_en_portal',$notificacion->receptor)->first()->id_usuario)))
+                <div class=" bg-blue-950 w-9/12 mx-auto mt-10 space-y-5">
+                    <p class="text-center">{{$notificacion->mensaje}}</p>
+                    <div class="flex justify-center w-full space-x-10">
+                        <button class="bg-green-300 px-8" data-action="confirmar">Confirmar</button>
+                        <button class="bg-red-500 px-8" data-action="denegar">Denegar</button>
+                        <form method="POST" action="{{route('responderNot')}}">
+                            @csrf
+                            <input type="hidden" name="notificacion" value="{{json_encode($notificacion)}}">
+                            <input type="hidden" name="respuesta" value="">
+                        </form>
+                    </div>
+                </div>
+            @endif
+            
+        @endforeach
+    </div>
 </main>
 @endsection
