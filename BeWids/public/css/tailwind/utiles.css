@@ -7,4 +7,11 @@
         background-repeat: no-repeat;
         background-position: center center;
     }
+
+    .logoServicio{
+        background-image: url(../../imagenes/imagenesBase/imagenFondo2.png);
+        background-repeat: no-repeat;
+        background-size: 80px;
+        background-position: center 15px;
+    }
 }

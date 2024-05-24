@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("pagador");
             $table->string("receptor");
             $table->decimal("cantidad");
-            //$table->boolean("solicitado");
+            $table->boolean("solicitado")->default(false);
             $table->boolean("saldado")->default(false);
 
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
