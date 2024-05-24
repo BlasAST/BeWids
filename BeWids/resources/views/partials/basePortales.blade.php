@@ -8,7 +8,7 @@
     @vite('public/css/tailwindBase.css')
 </head>
 <body class="fondoBewids">
-    <div class="contenedor h-screen grid grid-cols-12 grid-rows-12" >
+    <div class="contenedor h-screen w-screen grid grid-cols-12 grid-rows-12" >
     @yield('contenido')
     </div>
 </body>

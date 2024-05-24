@@ -7,7 +7,6 @@
     <h1>Benefits With friends</h1>
     <h1>{{$portal->nombre}}</h1>
     <h1>{{$portal->id}}</h1>
-    
     <div class="bg-blue-800 row-[1/5] col-[5/8] w-[100%] h-[80%] self-center justify-self-center">
     <button class="btnGastos">GASTOS</button>
     </div>
