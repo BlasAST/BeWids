@@ -1,5 +1,5 @@
 <div class="generico">
-    <div class="chat mostrar">
+    <div class="chat mostrar bg-red-700">
         <div class="listaChats">
             @livewire('chat.lista-chats')
         </div>
