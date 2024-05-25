@@ -14,6 +14,7 @@ export default {
         'colorMain': '#453745',
         'colorLetra':'white',
         'colorLetraOscura':'black',
+        'colorDetalles': '#BF1B4B'
       },
       screens: {
         'xsm':'70px',
