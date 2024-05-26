@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Chat_Y_Encuestas;
 use App\Http\Controllers\Contabilidad;
+use App\Http\Controllers\Eventos;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Registrarse;
 use App\Http\Controllers\InicioSesion;
@@ -69,6 +70,9 @@ Route::post('/responderNotificacion',[Contabilidad::class, 'ResponderNotificacio
 
 // Rutas Livewire
 Route::get('/chat',[Chat_Y_Encuestas::class, 'index'])->name('chat');
+
+
+Route::get('/eventos',[Eventos::class,'index']);
 
 
 
