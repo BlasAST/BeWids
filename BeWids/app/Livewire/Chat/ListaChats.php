@@ -12,6 +12,7 @@ class ListaChats extends Component
 {
     public $participantes;
     public $usuario;
+    public $nombreUserPortal;
     public $portal;
     public $conexion;
     public $participant;
@@ -35,7 +36,7 @@ class ListaChats extends Component
                                 ->orwhere('receptor',$valor)->where('emisor',auth()->user()->id)->get();
         
         if ($comprobarConversacion->isEmpty()){
-            $this->crearNuevoChats($comprobarConversacion);
+            // $crearConversacion;
             $this->conexion=True;
             $this->mensaje = 'Nueva conversación creada.';
         }else{
@@ -52,6 +53,7 @@ class ListaChats extends Component
 
     public function render()
     {
+        // $this->nombreUserPortal=Participantes::where('idUsuario',auth()->user()->id);
         $this->portal=Session::get('portal');
         $this->usuario=Auth::user();
         // >whereNotIn('id_usuario',[$this->usuario->id])
