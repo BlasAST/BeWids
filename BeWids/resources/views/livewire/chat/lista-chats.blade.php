@@ -7,9 +7,8 @@
             <option value="{{$participante->nombre_en_portal}}">{{$participante->nombre_en_portal}}</option>
             @endforeach
         </select>
-
+    <!-- $nombreUserPortal->nombre_en_portal-->
     </header>
-    
     <div class="bg-blue-500 text-center nuevo">
     @if ($participant != NULL)
         <p>Crear Chat con:</p>
@@ -21,8 +20,6 @@
     @endif
     @endif
     </div>
-    
-    
     
     <main class="seleccionesChat flex flex-col h-full justify-around items-center">
         <button class="flex items-center">@include('componentes.notificacion')Chat global</button>

@@ -24,7 +24,7 @@
 </section>
 
 <section id="encuestas" class="hidden">
-
+<h1>Hola</h1>
 
 </section>
 
