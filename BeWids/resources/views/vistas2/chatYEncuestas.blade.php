@@ -1,5 +1,5 @@
 @extends('partials/plantillaServicios')
-@section('rutaJs','js/chatYEncuestas.js')
+@section('rutaJs','../js/chatYEncuestas.js')
 @section('categorias')
 @php 
     $portal=Session::get('portal')

@@ -15,7 +15,7 @@
 
     </main>
     <footer class="sendMessage bg-blue-800 h-[10%] rounded-br-2xl flex">
-        <input type="text" placeholder="Escribir mensaje" class="grow">
+        <input type="text" placeholder="Escribir mensaje" class="grow placeholder:pl-4 focus:bg-colorFondo">
         <button class="basis-1/6">Enviar</button>
     </footer>
 </div>
