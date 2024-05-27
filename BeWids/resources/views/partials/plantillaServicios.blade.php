@@ -15,6 +15,7 @@
          @yield('categorias')
       </div>
    </header>
+{{-- //overflow-y-scroll scroll- --}}
    <main class="h-[75%] bg-colorMain rounded-b-2xl">
       @yield('contenidoServicio')
    </main>

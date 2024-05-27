@@ -15,9 +15,9 @@ export default {
         'colorLetra':'white',
         'colorLetraOscura':'black',
         'colorDetalles': '#BF1B4B',
+        'colorComplem': '#4465B8',
         'colorBarra2':'#541530',
         'colorSecundario':'#0b191f',
-
       },
       screens: {
         'xsm':'70px',
