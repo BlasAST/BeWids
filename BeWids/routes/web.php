@@ -72,7 +72,8 @@ Route::post('/responderNotificacion',[Contabilidad::class, 'ResponderNotificacio
 Route::get('/chat',[Chat_Y_Encuestas::class, 'index'])->name('chat');
 
 
-Route::get('/eventos',[Eventos::class,'index']);
+Route::get('/eventos',[Eventos::class,'index'])->middleware('eventos');
+Route::get('/buscarEventos',[Eventos::class,'pedirEventos']);
 
 
 
