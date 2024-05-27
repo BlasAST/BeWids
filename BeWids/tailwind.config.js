@@ -15,7 +15,8 @@ export default {
         'colorLetra':'white',
         'colorLetraOscura':'black',
         'colorDetalles': '#BF1B4B',
-        'colorBarra2':'#541530'
+        'colorBarra2':'#541530',
+        'colorSecundario':'#0b191f',
 
       },
       screens: {

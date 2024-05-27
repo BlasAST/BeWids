@@ -8,6 +8,7 @@ use App\Models\infousuario;
 use App\Models\Participantes;
 use App\Models\Portales;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 // SELECT * FROM personas where id in (Select id_empleado from empleados where dept = mantemientos)
 
@@ -46,6 +47,7 @@ class perfil extends Controller
     public function crearPortal(){
         $portal = new Portales();
         $portal->nombre = request('portal');
+        $portal->token_portal=Str::random(20);
         $portal->save();
         Session::put('portal',$portal);
         
