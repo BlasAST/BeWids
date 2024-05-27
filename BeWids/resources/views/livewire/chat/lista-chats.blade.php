@@ -1,40 +1,40 @@
-<div>
-    <div class="lista_header">
-        <p>Chat</p>
-        <img src="https://picsum.photos/200" alt="">
+<div class="lista bg-colorBarra2 basis-1/4 flex flex-col rounded-bl-2xl">
+    <header class="flex border-b-2 border-b-blue-600 justify-between items-center h-1/6 mx-4">
+
+        <select type="text" value="" wire:change='participanteSelecionado($event.target.value)' class="rounded-3xl ">
+            <option value="">Buscar participante</option>
+            @foreach($participantes as $participante)
+            <option value="{{$participante->nombre_en_portal}}">{{$participante->nombre_en_portal}}</option>
+            @endforeach
+        </select>
+    <!-- $nombreUserPortal->nombre_en_portal-->
+    </header>
+    <div class="bg-blue-500 text-center nuevo">
+    @if ($participant != NULL)
+        <p>Crear Chat con:</p>
+        <p>{{$participant}}</p>
+        <button class="bg-green-500 aceptar " wire:click='comprobarChat("{{$participant}}")'>Aceptar</button>
+        <button class="bg-red-700 cancelar" wire:click="cerrar()">Cancelar</button>
+        @if ($conexion != False)
+        <p class="text-red-600">{{$mensaje}}</p>
+    @endif
+    @endif
     </div>
     
-    <div class="lista_main">
-        @php
-            $portal=Session::get('portal');
-        @endphp
-        <br>
-        <div><input type="text" placeholder="Buscar Participante"></div>
-        <div>
-            <h1>{{$portal->id}}</h1>
-            <h3>Mensajes:</h3>
-            <br>
-            <div class="chatItem">
-                <img src="https://picsum.photos/200" alt="">
-                <div class="infoUser">
-                    <div class="itemsSup">
-                        <div class="nombreChat">Ejemplo</div>
-                        <div class="fecha">3h</div>
-                    </div>
-                    <div class="notificacion"></div>
-                    <div class="resumen">Deja de llamarme...</div>
-                    <div class="sinLeer"><p>52</p></div>
-                </div>
-            </div>
-            @foreach($participantes as $participante)
-                    <li>{{$participante->nombre_en_portal}}</li>
-            @endforeach
+    <main class="seleccionesChat flex flex-col h-full justify-around items-center">
+        <button class="flex items-center">@include('componentes.notificacion')Chat global</button>
 
-            <br><br><br>
-            <button>Crear nuevo chat</button>
-            <ul>
+        <button id="destacados">Destacados</button>
+        <ul class="hidden destacados">
 
-            </ul>
-        </div>
-    </div>
+        </ul>
+        <button id="entrada">Bandeja de entrada</button>
+        <ul class="hidden entrada">
+
+        </ul>
+        <button id="grupos">Grupos internos</button>
+        <ul class="hidden grupos">
+
+        </ul>
+    </main>
 </div>

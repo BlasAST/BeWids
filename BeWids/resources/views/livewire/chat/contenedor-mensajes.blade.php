@@ -1,51 +1,21 @@
-
-<div class="chatBox">
-    <div class="headerChat">
-        <div>
-        <img src="{{ asset('imagenes/imagenesChat/flecha-correcta.png')}}" class="flecha">
-        <img src="https://picsum.photos/200" class="fotoUser">
-       </div>
-        <h2>Pedro Sanchez</h2>
-    </div>
-    <div class="mainChat">
-
-        <div class="mensaje">
-        <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi omnis dolores quaerat est nobis! Odio blanditiis tempora molestiae! Alias illo qui, facilis aliquam ipsa ipsum provident voluptates inventore dolore impedit.
-            Quia maiores, nostrum laborum, eligendi dicta suscipit, temporibus iure eveniet ipsa magni dignissimos mollitia? Consectetur, vel. Nulla impedit aliquid nam, qui magnam, totam officiis reiciendis, omnis a suscipit in minus!
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque esse ducimus, inventore error placeat fuga nihil! Quia officiis eligendi accusantium in, quis veniam animi doloremque inventore repudiandae omnis quas mollitia.
-            </p>
-        <h6>Hace 5 horas</h6>
+<div class="contentedorMensajes grow flex flex-col">
+    <header>Chat abierto</header>
+    <main class="containerMessages grow bg-slate-800 overflow-y-scroll flex flex-col">
+        <div class="other bg-white w-[60%] ml-5 rounded-lg my-3 p-3">
+            <p>Nombre</p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, animi velit ullam incidunt rerum laudantium voluptatem, fugiat odio repellat saepe voluptatibus corrupti vero totam aut quos quibusdam esse! Exercitationem, molestias.
+            Inventore, enim unde? Magnam libero, nemo modi excepturi dolorem veniam recusandae molestiae quod provident quae totam fuga praesentium facere sed numquam ex eveniet doloribus alias saepe voluptas laudantium minus nihil.
+            Ipsa accusamus inventore maxime blanditiis. Excepturi id dolores nihil corporis quo amet quam distinctio repudiandae culpa. Laborum delectus accusamus alias consequatur amet minus maiores rem eos, sunt porro, modi iusto!
+            <p>Hace 5 horas</p>
+        </div>
+        <div class="you w-[60%] self-end bg-blue-600 text-white mr-5 rounded-lg my-3 p-3 ">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate voluptatem quae porro. Commodi id est animi temporibus vel? Tempore quaerat nostrum sit facere voluptatum numquam sapiente commodi esse repellendus labore?
+            <p>Hace 11min</p>
         </div>
 
-        <div class="mensajeMe">
-        <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi omnis dolores quaerat est nobis! Odio blanditiis tempora molestiae! Alias illo qui, facilis aliquam ipsa ipsum provident voluptates inventore dolore impedit.
-           </p>
-           <br>
-        <h6>Hace 5 horas</h6>
-        </div>
-        <div class="mensaje">
-        <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi omnis dolores quaerat est nobis! Odio blanditiis tempora molestiae! Alias illo qui, facilis aliquam ipsa ipsum provident voluptates inventore dolore impedit.
-            Quia maiores, nostrum laborum, eligendi dicta suscipit, temporibus iure eveniet ipsa magni dignissimos mollitia? Consectetur, vel. Nulla impedit aliquid nam, qui magnam, totam officiis reiciendis, omnis a suscipit in minus!
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque esse ducimus, inventore error placeat fuga nihil! Quia officiis eligendi accusantium in, quis veniam animi doloremque inventore repudiandae omnis quas mollitia.
-            </p>
-        <h6>Hace 5 horas</h6>
-        </div>
-        <div class="mensajeMe">
-        <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi omnis dolores quaerat est nobis! Odio blanditiis tempora molestiae! Alias illo qui, facilis aliquam ipsa ipsum provident voluptates inventore dolore impedit.
-            Quia maiores, nostrum laborum, eligendi dicta suscipit, temporibus iure eveniet ipsa magni dignissimos mollitia? Consectetur, vel. Nulla impedit aliquid nam, qui magnam, totam officiis reiciendis, omnis a suscipit in minus!
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque esse ducimus, inventore error placeat fuga nihil! Quia officiis eligendi accusantium in, quis veniam animi doloremque inventore repudiandae omnis quas mollitia.
-            </p>
-        <h6>Hace 5 horas</h6>
-        </div>
-        <div class="mensaje">
-        <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi omnis dolores quaerat est nobis! Odio blanditiis tempora molestiae! Alias illo qui, facilis aliquam ipsa ipsum provident voluptates inventore dolore impedit.
-            Quia maiores, nostrum laborum, eligendi dicta suscipit, temporibus iure eveniet ipsa magni dignissimos mollitia? Consectetur, vel. Nulla impedit aliquid nam, qui magnam, totam officiis reiciendis, omnis a suscipit in minus!
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque esse ducimus, inventore error placeat fuga nihil! Quia officiis eligendi accusantium in, quis veniam animi doloremque inventore repudiandae omnis quas mollitia.
-            </p>
-        <h6>Hace 5 horas</h6>
-        </div>
-</div>
-
-        
-    </div>
+    </main>
+    <footer class="sendMessage bg-blue-800 h-[10%] rounded-br-2xl flex">
+        <input type="text" placeholder="Escribir mensaje" class="grow placeholder:pl-4 focus:bg-colorFondo">
+        <button class="basis-1/6">Enviar</button>
+    </footer>
 </div>

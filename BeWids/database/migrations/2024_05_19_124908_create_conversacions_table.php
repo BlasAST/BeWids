@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('emisor');
             $table->unsignedBigInteger('receptor');
-            $table->foreign('emisor')->references('id_usuario')->on('participantes');
-            $table->foreign('receptor')->references('id_usuario')->on('participantes');
+            $table->foreign('emisor')->references('nombre_en_portal')->on('participantes');
+            $table->foreign('receptor')->references('nombre_en_portal')->on('participantes');
             $table->timestamp('ultimo_mensaje')->nullable();
             $table->timestamps();
         });
