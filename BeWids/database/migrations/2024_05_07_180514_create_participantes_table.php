@@ -23,6 +23,8 @@ return new class extends Migration
             $table->unique(['id_portal','nombre_en_portal']);
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('set null');
+            
+            $table->unique('nombre_en_portal');
         });
     }
 

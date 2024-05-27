@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('conversacions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('emisor');
-            $table->unsignedBigInteger('receptor');
+            $table->string('emisor');
+            $table->string('receptor');
             $table->foreign('emisor')->references('nombre_en_portal')->on('participantes');
             $table->foreign('receptor')->references('nombre_en_portal')->on('participantes');
             $table->timestamp('ultimo_mensaje')->nullable();
