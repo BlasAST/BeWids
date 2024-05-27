@@ -14,4 +14,22 @@
         background-size: 80px;
         background-position: center 15px;
     }
+    .logoBuscador{
+        background-image: url(../../imagenes/imagenesEventos/buscador.svg);
+        background-repeat: no-repeat;
+        background-size:contain;
+        background-position: center center;
+    }
+    .logoBurger{
+        background-image: url(../../imagenes/imagenesEventos/burger.svg);
+        background-repeat: no-repeat;
+        background-size:contain;
+        background-position: center center;
+    }
+    .logoCancel{
+        background-image: url(../../imagenes/imagenesEventos/cancel.svg);
+        background-repeat: no-repeat;
+        background-size:contain;
+        background-position: center center;
+    }
 }
