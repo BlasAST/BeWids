@@ -6,6 +6,7 @@ function iniciar(){
     abrirApartadosChat();
     rechazarChat();
     abrirEncuestaDefault();
+    scrollEncuestas();
 }
 
 function abrirApartadosChat(){
@@ -53,8 +54,24 @@ function abrirEncuestaDefault(){
     categorias[1].classList.add('selected')
     categorias[1].classList.add('border-b-4')
     categorias[1].classList.add('border-white')
-    }
-    
+    }    
 }
 
+function scrollEncuestas(){
+    let botones=document.querySelector('.botonesEncuestas');
+    let listadoEncuestas=document.querySelector('.listadoEncuestas');
+    let ultimoScroll=0;
+    console.log(botones);
+
+    listadoEncuestas.addEventListener('scroll',function(){
+        let topeScroll=listadoEncuestas.scrollTop;
+        if(topeScroll>ultimoScroll){
+            botones.classList.add('hidden')
+        }else{
+            botones.classList.remove('hidden')
+        }
+        ultimoScroll=topeScroll;
+    });
+
+}
 

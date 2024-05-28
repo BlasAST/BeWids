@@ -23,9 +23,8 @@
     @livewire('chat.contenedor-mensajes')
 </section>
 
-<section id="encuestas" class="hidden">
-<h1>Hola</h1>
-
+<section id="encuestas" class="hidden h-full w-full">
+    @livewire('encuestas.encuestas')
 </section>
 
 
