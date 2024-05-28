@@ -32,4 +32,10 @@
         background-size:contain;
         background-position: center center;
     }
+    .imagenEvento{
+        background-image: url(../../imagenes/imagenesEventos/viejetes.jpg);
+        background-repeat: no-repeat;
+        background-size:cover;
+        background-position: center center;
+    }
 }
