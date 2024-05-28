@@ -55,13 +55,13 @@ Route::post('/guardar',[Perfil::class,'guardarDatos'])->name('guardar');
 Route::post('/cuenta',[Sesion::class,'formulario'])->name('sesionF');
 Route::post('/perfil',[Perfil::class, 'crearPortal'])->name('crearP');
 
-Route::get('/portal',[Portal::class, 'index'])->name('portal');
-Route::post('/portal',[Portal::class, 'irPortal']);
+Route::get('/portal',[Portal::class, 'index'])->name('portal')->middleware('autenticar');
+Route::post('/portal',[Portal::class, 'irPortal'])->middleware('autenticar');
 
-Route::get('/contabilidad',[Contabilidad::class, 'index'])->middleware('contabilidad');
-Route::post('/contabilidad',[Contabilidad::class, 'aniadirGasto'])->name('aniadirGasto');
-Route::post('/solicitarReembolso',[Contabilidad::class, 'solicitarReembolso'])->name('reembolso');
-Route::post('/responderNotificacion',[Contabilidad::class, 'ResponderNotificacion'])->name('responderNot');
+Route::get('/contabilidad',[Contabilidad::class, 'index'])->middleware('contabilidad')->middleware('autenticar');
+Route::post('/contabilidad',[Contabilidad::class, 'aniadirGasto'])->name('aniadirGasto')->middleware('autenticar');
+Route::post('/solicitarReembolso',[Contabilidad::class, 'solicitarReembolso'])->name('reembolso')->middleware('autenticar');
+Route::post('/responderNotificacion',[Contabilidad::class, 'ResponderNotificacion'])->name('responderNot')->middleware('autenticar');
 // Route::get('/iniciar',[InicioSesion::class,'mostrar'])->name('inicioSesion.index');
 // Route::get('/registrarse',[Registrarse::class,'mostrar'])->name('registro.index');
 // Route::post('/iniciar',[InicioSesion::class,'iniciar']);
@@ -70,14 +70,14 @@ Route::post('/responderNotificacion',[Contabilidad::class, 'ResponderNotificacio
 // Route::get('/chat',ChatYEncuestas::class,'index')->name('chat');
 
 // Rutas Livewire
-Route::get('/chat',[Chat_Y_Encuestas::class, 'index'])->name('chat');
-Route::get('/encuestas',[Chat_Y_Encuestas::class, 'index'])->name('encuestas');
+Route::get('/chat',[Chat_Y_Encuestas::class, 'index'])->name('chat')->middleware('autenticar');
+Route::get('/encuestas',[Chat_Y_Encuestas::class, 'index'])->name('encuestas')->middleware('autenticar');
 
-Route::get('/eventos',[Eventos::class,'index'])->middleware('eventos');
+Route::get('/eventos',[Eventos::class,'index'])->middleware('autenticar')->middleware('eventos');
 Route::get('/buscarEventos',[Eventos::class,'pedirEventos']);
 
 // Ruta invitación
-Route::get('/invitacion',[EnlaceInvitacion::class,'index']);
+Route::get('/invitacion',[EnlaceInvitacion::class,'index'])->middleware('autenticar');
 
 
 
