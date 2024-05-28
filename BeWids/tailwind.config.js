@@ -11,6 +11,7 @@ export default {
       colors:{
         'colorFondo': '#613C4C',
         'colorCabera':'#2B2C30',
+        'colorCaberaTras':'rgba(43,44,48,0.5)',
         'colorMain': '#453745',
         'colorLetra':'white',
         'colorLetraOscura':'black',
