@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Portales extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'token_portal',
+    ];
 }

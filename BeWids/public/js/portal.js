@@ -6,6 +6,7 @@ function iniciar(){
     document.querySelector('.btnCE2').addEventListener('click',irEncuestas);
     document.querySelector('.btnEv').addEventListener('click',irEvento);
     document.querySelector('.btnInvitacion').addEventListener('click',irInvitacion);
+    document.querySelector('.closeSession').addEventListener('click',volverPerfil);
     
 }
 
@@ -23,4 +24,7 @@ function irGastos(){
  }
  function irInvitacion(){
    window.location.href = '/invitacion';
+ }
+ function volverPerfil(){
+   window.location.href='/perfil';
  }
