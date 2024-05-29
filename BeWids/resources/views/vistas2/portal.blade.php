@@ -12,7 +12,7 @@ $portal = Session::get('portal');
         <button>Calendario</button>
     </div>
     <div class=" row-[1/2] col-[10/13] h-[70%] flex items-center justify-around">
-        <button class="closeSession text-base font-bold border-b-2 hover:border-b-black">Cerrar Sesion</button>
+        <button class="closeSession text-base font-bold border-b-2 hover:border-b-black">Salir del portal</button>
         <figure class="w-10"><img src="{{asset('imagenes/imagenesBasic/ajustes2.png')}}" alt=""></figure>
     </div>
     <div class="bg-purple-800 row-[2/8] col-[10/13] w-[70%] justify-self-center">
