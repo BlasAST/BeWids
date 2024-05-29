@@ -47,7 +47,6 @@ class perfil extends Controller
     public function crearPortal(){
         $portal = new Portales();
         $portal->nombre = request('portal');
-        $portal->token_portal=Str::random(20);
         $portal->save();
         Session::put('portal',$portal);
         

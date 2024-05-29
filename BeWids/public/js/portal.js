@@ -23,7 +23,7 @@ function irGastos(){
     window.location.href = '/eventos';
  }
  function irInvitacion(){
-   window.location.href = '/invitacion';
+   window.location.href = '/crearEnlace';
  }
  function volverPerfil(){
    window.location.href='/perfil';

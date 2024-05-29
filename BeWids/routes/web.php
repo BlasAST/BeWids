@@ -45,7 +45,7 @@ Route::get('/cuenta/{dir}',[Sesion::class,'comprobar'])->name('sesion');
 //ruta que envia el pulsar el icono de perfil
 Route::get('/cuenta',[Sesion::class,'comprobar']);
 // Ruta para obtener información
-Route::get('/perfil',[Perfil::class,'index'])->name('perfil');
+Route::get('/perfil',[Perfil::class,'index'])->name('perfil')->middleware('autenticar');
 
 // ruta POST que introduce los datos en tabla infousuarios;
 Route::post('/guardar',[Perfil::class,'guardarDatos'])->name('guardar');
@@ -78,6 +78,8 @@ Route::get('/buscarEventos',[Eventos::class,'pedirEventos']);
 
 // Ruta invitación
 Route::get('/invitacion',[EnlaceInvitacion::class,'index'])->middleware('autenticar');
+Route::get('/crearEnlace',[EnlaceInvitacion::class,'crearEnlace'])->middleware('autenticar');
+Route::get('/invitacion/{dir}',[EnlaceInvitacion::class,'redirigir']);
 
 
 
