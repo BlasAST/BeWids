@@ -15,24 +15,25 @@ class Eventos extends Controller
         // Puedes agregar más URLs aquí
     ];
     //
+    
     public function index(){
+        if(request('pagina'))
+            $pagina = request('pagina');
+        else
+            $pagina = 1;
+        
+        $limite = 20;
+        // var_dump('<pre>');
+        // var_dump(Session::get('listaEventos'));
+        // var_dump('</pre>');
+        // return;
+
+        $paginaEventos = array_slice(Session::get('listaEventos'),($pagina - 1) * $limite,$limite);
+        Session::put('paginaEventos',$paginaEventos);
+
+
         return view('vistas2/eventos');
-    }
-    public function pedirEventos(){
-        $eventos = [];
-        foreach ($this->urls as $url) {
-            try {
-                $response = Http::get($url);
-                if ($response->successful()) {
-                    $eventos = array_merge($eventos, $response->json());
-                } else {
-                    return response()->json(['error' => 'Error al obtener los datos de la URL: ' . $url], $response->status());
-                }
-            } catch (Exception $e) {
-                return response()->json(['error' => 'Error al obtener los datos de la URL: ' . $url . ' - ' . $e->getMessage()], 500);
-            }
-        }
-        return response()->json($eventos);
+
     }
 
 }

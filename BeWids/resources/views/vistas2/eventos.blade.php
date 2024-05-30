@@ -2,7 +2,7 @@
 @section('rutaJs','js/eventos.js')
 @section('categorias')
 @php
-    $apis = Session::get('listaEventos');
+    $apis = Session::get('paginaEventos');
 @endphp
 
 <div id="buscadorCat" class="flex-grow flex justify-center cursor-pointer hover:text-colorDetalles">
@@ -40,8 +40,7 @@
         </div>
         <div class="grow space-y-4 pt-2">
             
-            @foreach ($apis as $eventos)
-            @foreach ($eventos as $evento)
+            @foreach ($apis as $evento)
                 
             {{-- @php
                 echo '<pre>';
@@ -137,7 +136,6 @@
 
             </div>
             <hr class="my-6"></hr>
-            @endforeach
 
             @endforeach
             

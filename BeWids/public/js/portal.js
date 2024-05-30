@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded',iniciar);
+let participantes;
+let nombreNuevo;
+
 
 function iniciar(){
     document.querySelector('.btnGastos').addEventListener('click',irGastos);
@@ -7,7 +10,28 @@ function iniciar(){
     document.querySelector('.btnEv').addEventListener('click',irEvento);
     document.querySelector('.btnInvitacion').addEventListener('click',irInvitacion);
     document.querySelector('.closeSession').addEventListener('click',volverPerfil);
+
+
+
+   //INVITACIONES
+    document.querySelector('.btnNuevo').addEventListener('click',nuevoParticipante);
+    nombreNuevo = document.querySelector('.nombreNuevo');
+    let btnParticipantes = document.querySelectorAll('.btnPart');
+    if(btnParticipantes[0]){
+        btnParticipantes.forEach(e=>e.addEventListener('click', aniadirParticipante));
+        participantes = [...btnParticipantes].map(e=>e.value);
+
+    }
     
+}
+function nuevoParticipante(){
+   if(nombreNuevo.value)
+      location.href = '/aniadirPar?par='+nombreNuevo.value
+
+}
+function aniadirParticipante(evt){
+   if(participantes.includes(evt.target.value))
+       location.href = '/aniadirPar?par='+evt.target.value
 }
 
 function irGastos(){
