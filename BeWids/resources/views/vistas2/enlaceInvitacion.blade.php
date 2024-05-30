@@ -4,15 +4,22 @@ $portal=Session::get('portal');
     use App\Models\Participantes;
     $participantes=Participantes::where('id_portal',$portal->id)->where('id_usuario',NULL)->get();
 @endphp
-@if (Session::get('invitacion')!='newPar')
+@if (Session::get('invitacion')=='newPar')
    
-<div class="absolute top-0 w-full h-full flex justify-center items-center">
+<div class="absolute top-0 w-full h-full flex justify-center items-center bg-colorFondo bg-opacity-60">
 
-    <div class="bg-colorDetalles w-[50%] h-[50%] text-center flex flex-col overflow-y-scroll"> 
-    <h2 class="sticky top-0 bg-colorSecundario text-colorLetra p-5">¿Eres alguno de estos participantes?</h2>
+    <div class="bg-colorDetalles w-[50%] max-h-[50%] text-center overflow-y-scroll border-2 border-black"> 
+    <h2 class="sticky top-0 bg-colorSecundario text-colorLetra p-5 ">¿Eres alguno de estos participantes?</h2>
         @foreach($participantes as $participante)
-                <button class="bg-red-600">{{$participante->nombre_en_portal}}</button>
+                <button value={{$participante->nombre_en_portal}} class="bg-colorMain text-colorLetra w-full h-16 border-t-2 border-b-1 border-black hover:bg-colorCaberaTras btnPart">{{$participante->nombre_en_portal}}</button>
         @endforeach
+        <div class="sticky bottom-0 w-full flex items-center text-colorLetra space-x-4">
+            <button class=" bg-colorComplem  btnNuevo inline-block p-5 hover:bg-blue-600">Crear nuevo participante</button>
+            <label for="">Nombre:</label>
+            <input type="text" class="mx-auto bg-colorCabera rounded-xl indent-3 nombreNuevo">
+
+        </div>
+
     </div>
 
 </div>
@@ -31,17 +38,17 @@ $portal=Session::get('portal');
         <hr>
         <br>
         <div class="direccionInvitacion hover:text-blue-500">
-            <h1>http://127.0.0.1:8000/portal/{{$portal->token_portal}}</h1>
+            <h1>http://127.0.0.1:8000/invitacion/{{$portal->token_portal}}</h1>
         </div>
     </div>
 </div>
 
 <script>
     setTimeout(() => {
-        window.location.href = '/portal';
+        window.location.href = '/cerrarEnlace';
     }, 10000)
     document.querySelector('.volverPortal').addEventListener('click',()=>{
-        window.location.href='/portal';
+        window.location.href='/cerrarEnlace';
     })
 </script>
 @endif

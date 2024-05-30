@@ -1,16 +1,28 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Console\Commands;
 
-use Closure;
 use Exception;
-use Illuminate\Http\Request;
+use Illuminate\Console\Command;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Session;
-use Symfony\Component\HttpFoundation\Response;
 
-class EventosMid
+class PedirDatos extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'app:pedir-datos';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Script para actualizar los datos de los eventos en nuestra base de datos';
+
     protected $urls = [
         'https://datos.madrid.es/egob/catalogo/206974-0-agenda-eventos-culturales-100.json?all',
         'https://datos.madrid.es/egob/catalogo/300107-0-agenda-actividades-eventos.json?all',
@@ -28,12 +40,12 @@ class EventosMid
 
         // Puedes agregar más URLs aquí
     ];
+
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * Execute the console command.
      */
-    public function handle(Request $request, Closure $next): Response
+
+    public function handle()
     {
         $eventos = [];
         foreach ($this->urls as $url) {
@@ -59,8 +71,9 @@ class EventosMid
         //$this->limpiarDatos($eventos)
         //return response()->json($eventos);
             //}
-        return $next($request);
     }
+
+
 
     private function limpiarDatos($evts){
 

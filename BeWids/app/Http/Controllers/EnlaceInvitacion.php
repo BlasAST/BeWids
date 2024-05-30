@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invitacion;
+use App\Models\Participantes;
 use App\Models\Portales;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 
@@ -33,6 +35,8 @@ class EnlaceInvitacion extends Controller
         $token=Portales::where('token_portal',$dir)->first();
         if($token){
             Session::put('portal',$token);
+            if(Participantes::where('id_portal',$token->id)->where('id_usuario',Auth::id())->first())
+                return redirect()->to('/portal');
             Session::put('invitacion','newPar');
             return redirect()->to('/invitacion');
         }
@@ -41,8 +45,23 @@ class EnlaceInvitacion extends Controller
 
      public function cerrarEnlace(){
         Session::forget('invitacion');
+        return redirect()->to('/portal');
      }
      public function aniadirParticipante(){
-
+        $nombrePart = request("par");
+        $participante = Participantes::where('id_portal',Session::get('portal')->id)->where('nombre_en_portal',$nombrePart)->first();
+        if($participante){
+            $participante->id_usuario = Auth::id();
+        }else{
+            $participante = new Participantes();
+            $participante->id_usuario = Auth::id();
+            $participante->id_portal = Session::get('portal')->id;
+            $participante->nombre_en_portal = $nombrePart;
+        }
+        $participante->save();
+        
+        Session::forget('invitacion');
+        return redirect()->to('/portal');
+        
      }
 }
