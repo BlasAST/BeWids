@@ -79,7 +79,10 @@ Route::get('/buscarEventos',[Eventos::class,'pedirEventos']);
 // Ruta invitación
 Route::get('/invitacion',[EnlaceInvitacion::class,'index'])->middleware('autenticar');
 Route::get('/crearEnlace',[EnlaceInvitacion::class,'crearEnlace'])->middleware('autenticar');
-Route::get('/invitacion/{dir}',[EnlaceInvitacion::class,'redirigir']);
+Route::get('/cerrarEnlace',[EnlaceInvitacion::class,'cerrarEnlace'])->middleware('autenticar');
+Route::get('/invitacion/{dir}',[EnlaceInvitacion::class,'redirigir'])->middleware('autenticar');
+Route::get('/aniadirPar',[EnlaceInvitacion::class,'aniadirParticipante'])->middleware('autenticar');
+
 
 
 

@@ -38,5 +38,14 @@
         background-size:cover;
         background-position: center center;
     }
+    /* .flecha::after{
+        content:'';
+        display = block;
+        border-right = 2px solid black;
+        border-bottom = 2px solid black;
+        height = 20px;
+        width = 20px;
+
+    } */
 
 }
