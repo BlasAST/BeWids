@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded',iniciar);
 function iniciar(){
     abrirApartadosChat();
-    rechazarChat();
-    abrirEncuestaDefault();
+    eventosListaChat();
     scrollEncuestas();
     coloresTablaEncuestas();
     mostrarFormulario();
@@ -10,63 +9,99 @@ function iniciar(){
 
 // ELEMENTOS DE EL CHAT
 
-let botones;
-let menus;
+let botonesL;
+let menusL;
+let seleccionado;
+let nuevoChat;
+let botonHijoDiv;
 function abrirApartadosChat(){
-    botones=document.querySelectorAll('.seleccionesChat > button:not(:first-child)');
-    menus=document.querySelectorAll('.seleccionesChat > ul');
-    botones.forEach(boton=>boton.addEventListener('click',abrirC));
-    
+    botonesL=document.querySelectorAll('.seleccionesChat > button:not(:first-child)');
+    botonHijoDiv=document.querySelector('.botonDiv >button');
+    menusL=document.querySelectorAll('.seleccionesChat > ul');
+    botonesL.forEach(boton=>boton.addEventListener('click',abrirC));
+    botonHijoDiv.addEventListener('click',abrirC);
 }
 function abrirC(evt){
-    menus.forEach(menu=>{
+    menusL.forEach(menu=>{
         menu.classList.contains(evt.currentTarget.id)?menu.classList.toggle('hidden'):'';
     })
 }
-let seleccionado;
-function rechazarChat(){
+function eventosListaChat(){
     seleccionado=document.querySelector('select');
-    seleccionado.addEventListener('change',cierreSeleccionado)
     
+    seleccionado.addEventListener('change',()=>{
+        nuevoChat=document.querySelector('.newChat');
+        nuevoChat.style.display='block';
+        cambioSeleccionado();       
+    })
+    crearNuevoGrupo();
 }
-function cierreSeleccionado(){
+
+function cambioSeleccionado(){
     let botonRechazo;
 
     setTimeout(()=>{
         botonRechazo=document.querySelector('.cancelar')
         botonRechazo.addEventListener('click',()=>{
            seleccionado.value=seleccionado.options[0].value;
+           nuevoChat.style.display='none';
+        })
+        botonAceptar=document.querySelector('.aceptar');
+        botonAceptar.addEventListener('click',()=>{
+            setTimeout(()=>{
+                seleccionado.value=seleccionado.options[0].value;
+                nuevoChat.style.display='none';
+            },2000)
         })
     },100)
-    
 }
+
+function crearNuevoGrupo(){
+    let formulario=document.querySelector('.newGroupForm');
+    let boton=document.querySelector('.newGroup');
+    let inputAll=document.querySelector('#all');
+    let inputs=document.querySelectorAll('.creacionGrupo >input:not(#all)');
+    let cierreFormulario=document.querySelector('.cierreFormGroup');
+    let creacionFormulario=document.querySelector('.crearFormGroup');
+    boton.addEventListener('click',()=>{
+        menusL.forEach(menu=>menu.classList.add('hidden'));
+        formulario.classList.toggle('hidden');
+        formulario.classList.toggle('flex');
+    })
+    
+    inputAll.addEventListener('change',()=>{
+                if(inputAll.checked){
+                    inputs.forEach(input=>input.checked=false);
+                }
+            })
+    inputs.forEach(input=>input.addEventListener('change',()=>{
+        if(input.checked && inputAll.checked){
+            inputAll.checked=false;
+        }
+    }))
+    cierreFormulario.addEventListener('click',()=>{
+        formulario.classList.add('hidden');
+    })
+    // formulario.addEventListener('submit',(evt)=>{
+    //     evt.preventDefault();
+    //     if(formulario.checkValidity()){
+
+    //     }else{
+    //         alert('Completa los campos correctamente');
+    //     }
+    // })
+    // creacionFormulario.addEventListener('click',()=>{
+    //     setTimeout(()=>formulario.classList.add('hidden'),20000);
+    // })
+
+
+}
+
 
 // ELEMENTOS ENCUESTAS
 let botonesE;
 let partesCabecera;
 
-function abrirEncuestaDefault(){
-    // let valor=window.location.pathname;
-    let chat=document.querySelector('#chat');
-    let encuesta=document.querySelector('#encuestas');
-    if(valor=='/encuestas'){
-    chat.style.display='none';
-    encuesta.style.display='flex';
-
-    let categorias=document.querySelectorAll('.categoria > div > span')
-    categorias[0].classList.remove('selected');
-    categorias[0].classList.remove('border-b-4');
-    categorias[0].classList.remove('border-white');
-    
-    categorias[1].classList.add('selected')
-    categorias[1].classList.add('border-b-4')
-    categorias[1].classList.add('border-white')
-    }
-    if (chat.classList.contains('selected')){
-        chat.style.display='flex';
-        encuesta.style.display='none';
-    }
-}
 
 function scrollEncuestas(){
     botonesE=document.querySelector('.botonesEncuestas');
@@ -90,8 +125,7 @@ function coloresTablaEncuestas(){
     partesCabecera.forEach(encabezado=>{
         encabezado.style.border='solid #541530 4px';
         encabezado.style.backgroundColor='#4465B8';
-    })
-    
+    })    
 }
 
 function mostrarFormulario(){
