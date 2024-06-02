@@ -1,12 +1,12 @@
-<div class="encuestas w-full h-full ">
+<div class="encuestas w-full h-full">
     <div class="botonesEncuestas flex justify-center">
         <button class="bg-colorBarra2 text-white p-4 rounded-xl mx-4 creadorEncuestas">Crear encuesta</button>
         <button class="bg-colorBarra2 text-white p-4 rounded-xl mx-4">Encuestas finalizadas</button>
     </div>
 
     <div class="listadoEncuestas w-full h-full border-4 overflow-y-scroll relative">
-        <table class=" w-full h-full">
-            <thead class=" border-4sticky top-0">
+        <table class=" w-full">
+            <thead class=" border-4sticky top-0 h-[20%]">
                 <tr>
                     <th> Nombre encuesta</th>
                     <th>Porcetaje positivo</th>
@@ -21,7 +21,7 @@
             </tbody>
         </table>
         <div class="formEncuesta absolute top-0 hidden justify-center items-center w-full h-full ">
-            <form action="/nuevaEncuesta" method="POST" class="bg-colorBarra2 text-white flex flex-col w-[50%] h-[90%] items-center justify-around">
+            <form action="/nuevaEncuesta" method="POST" class="bg-colorBarra2 flex flex-col w-[50%] h-[90%] items-center justify-around">
                 @csrf
                 <label for="nombreEncuesta">Nombre de la encuesta</label>
                 <input type="text" id="nombreEncuesta" required>
