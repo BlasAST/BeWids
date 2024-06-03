@@ -56,7 +56,6 @@ class perfil extends Controller
         $participante->admin = true;
         $participante->nombre_en_portal = request('nombre');
         $participante->save();
-
         if(request('participantes')){
             foreach(request('participantes') as $nombre){
                 if($nombre){
