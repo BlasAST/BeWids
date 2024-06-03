@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
 export default {
   content: [
     "./resources/**/*.blade.php",
@@ -26,6 +27,29 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }) {
+      // todos los hijos directos
+      addVariant('all-button', '& > button');
+      addVariant('all-div','& > div');
+      addVariant('all-span','& > span');
+      addVariant('all-p','& > p');
+      addVariant('all-ul','& > ul');
+      addVariant('all-li','& > li');
+      addVariant('all-input','& > input ');
+      addVariant('all-label','& > label');
+      addVariant('all','& > *');
+      // todos los hijos incluso no directos
+      addVariant('all-all-button', '&  button');
+      addVariant('all-all-div','&  div');
+      addVariant('all-all-span','&  span');
+      addVariant('all-all-p','&  p');
+      addVariant('all-all-ul','&  ul');
+      addVariant('all-all-li','&  li');
+      addVariant('all-all-input','&  input ');
+      addVariant('all-all-label','&  label');
+      addVariant('all-all','&  *');
+    },
+  ],
 }
 
