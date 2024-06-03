@@ -3,7 +3,7 @@
 use App\Http\Controllers\Chat_Y_Encuestas;
 use App\Http\Controllers\Contabilidad;
 use App\Http\Controllers\EnlaceInvitacion;
-use App\Http\Controllers\Eventos;
+use App\Http\Controllers\EventosC;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Registrarse;
 use App\Http\Controllers\InicioSesion;
@@ -76,8 +76,11 @@ Route::get('/nuevaEncuesta',[Chat_Y_Encuestas::class, 'index'])->name('encuestas
 Route::get('/newGroup',[Chat_Y_Encuestas::class, 'nuevoGrupo'])->name('chat')->middleware('autenticar');
 
 
-Route::get('/eventos',[Eventos::class,'index'])->middleware('autenticar')->middleware('eventos');
-Route::get('/buscarEventos',[Eventos::class,'pedirEventos']);
+Route::get('/eventos',[EventosC::class,'index'])->middleware('autenticar');//->middleware('eventos');
+Route::get('/buscarEventos',[EventosC::class,'mostrarEventos']);
+Route::get('/buscador',[EventosC::class,'buscador']);
+Route::get('/aniadir',[EventosC::class, 'aniadirEvento']);
+
 
 // Ruta invitación
 Route::get('/invitacion',[EnlaceInvitacion::class,'index'])->middleware('autenticar');
