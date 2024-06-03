@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('eventos', function (Blueprint $table) {
+        Schema::create('mis_eventos', function (Blueprint $table) {
             $table->id();
-
+            $table->unsignedBigInteger('id_portal');
+            $table->boolean('aniadido')->default(false);
+            $table->string('fecha_cal')->default(null);
             $table->string('titulo')->nullable();
             $table->text('descripcion')->nullable();
             $table->string('inicio')->nullable();
@@ -32,9 +34,14 @@ return new class extends Migration
             $table->string('edad')->nullable();
             $table -> string('categoria')->nullable();
             $table -> string('url')->nullable();
-            $table->string('api'); // Identificador de la API de origen
+            $table->string('api');
+            
+
 
             $table->timestamps();
+
+            $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
+
         });
     }
 
@@ -43,6 +50,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('eventos');
+        Schema::dropIfExists('mis_eventos');
     }
 };

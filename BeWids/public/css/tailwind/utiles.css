@@ -20,7 +20,7 @@
         background-size:contain;
         background-position: center center;
     }
-    .logoBurger{
+    .logoDesp{
         background-image: url(../../imagenes/imagenesEventos/burger.svg);
         background-repeat: no-repeat;
         background-size:contain;
@@ -33,7 +33,7 @@
         background-position: center center;
     }
     .imagenEvento{
-        background-image: url(../../imagenes/imagenesEventos/viejetes.jpg);
+        //background-image: url(../../imagenes/imagenesEventos/viejetes.jpg);
         background-repeat: no-repeat;
         background-size:cover;
         background-position: center center;
