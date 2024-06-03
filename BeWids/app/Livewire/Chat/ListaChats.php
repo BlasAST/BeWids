@@ -31,7 +31,7 @@ class ListaChats extends Component
     public function cerrar($uri)
     {
         $this->participant=False;
-        return redirect()->to('/'+$uri);
+        // return redirect()->to('/'+$uri);
     }
 
     public function comprobarChat($valor)
@@ -54,8 +54,30 @@ class ListaChats extends Component
             $this->mensaje='Ya existe esta conversación';
         }      
     }
-    public function nuevoGrupo(Request $request){
-        return redirect()->to('/chat');
+
+    public $nombreG;
+    public $descripcionG;
+    public $seleccionAll;
+    public $selecionadosG=[];
+
+    public function newGroup(){
+        
+        $newG=new Conversacion();
+        
+        $newG->id_portal=$this->portal->id;
+        $newG->name_group=$this->nombreG;
+        $newG->descripcion=$this->descripcionG;
+        $newG->emisor=$this->participanteActual->nombre_en_portal;
+        if($this->seleccionAll){
+            $seleccionadosGAll=$this->participantes->pluck('nombre_en_portal')->toArray();
+            $newG->participantesGroup=json_encode($seleccionadosGAll);
+        }else{
+            
+            $newG->participantesGroup = json_encode($this->selecionadosG);
+        }
+        $newG->save();
+
+        // return redirect()->to('/chat');
     }
 
     
@@ -72,8 +94,8 @@ class ListaChats extends Component
             ->orWhere('receptor',$this->participanteActual->nombre_en_portal);
         })->get();
         $this->conversacionesGrupales=Conversacion::where('id_portal',$this->portal->id)->whereNotNull('name_group')->where(function($query){
-            $query->where('emisor',$this->participanteActual->nombre_en_portal)
-            ->orWhere('receptor',$this->participanteActual->nombre_en_portal);
+            $query->whereNull('emisor')
+            ->orWhereNull('receptor');
         })->get();
 
         return view('livewire.chat.lista-chats');

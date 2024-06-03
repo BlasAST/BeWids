@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_portal');
             $table->string('name_group')->nullable();
+            $table->string('descripcion')->nullable();
             $table->string('emisor');
-            $table->string('receptor');
+            $table->string('receptor')->nullable();
+            $table->json('participantesGroup')->nullable();
             $table->foreign('emisor')->references('nombre_en_portal')->on('participantes');
             $table->foreign('receptor')->references('nombre_en_portal')->on('participantes');
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
