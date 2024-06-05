@@ -25,7 +25,7 @@ $uri = request()->path();
     
     <main class="seleccionesChat flex flex-col h-full justify-start items-center all-button:border-b-2 
     all-button:text-xl all-button:my-2 all-all-li:bg-emerald-400 all-all-li:p-2 all-all-li:bg-opacity-15
-    all-all-button:text-white all-all-label:text-white">
+    all-all-button:text-white all-all-label:text-white overflow-y-scroll">
         
         <button class="flex items-center hover:bg-colorComplem"> @include('componentes.notificacion')Chat global</button>
         <button id="destacados" class="hover:bg-colorComplem">Destacados</button>
@@ -43,26 +43,26 @@ $uri = request()->path();
         <figure class="w-4 newGroup"><img src="{{asset('imagenes/imagenesBasic/iconSuma.png')}}" alt=""></figure>
         </div>
         <ul class="hidden grupos">
-                @foreach ($conversacionesIndividuales as $chatSimple)
-                    <li class="my-4 hover:bg-opacity-100"><a href="">{{$chatSimple->receptor!=$participanteActual->nombre_en_portal?$chatSimple->receptor:$chatSimple->emisor}}</a></li>
-                @endforeach
                 @foreach ($conversacionesGrupales as $chatGrupal)
-                    <li>{{$chatGrupal->receptor!=$participanteActual->nombre_en_portal?$chatGrupal->receptor:$chatGrupal->emisor}}</li> 
+                    <li class="my-4 hover:bg-opacity-100">{{$chatGrupal->name_group}}</li> 
                 @endforeach
         </ul>
+    
 
-        <form action="/newGroup" class="newGroupForm hidden flex-col w-[80%] text-center all-all-button:bg-colorComplem all-all-button:m-2 all-all-button:p-2 ">
+        <form wire:submit.prevent="newGroup" class="newGroupForm hidden flex-col w-[80%] text-center all-all-button:bg-colorComplem all-all-button:m-2 all-all-button:p-2 ">
             <label for="nombreG">Nombre del grupo</label>
-            <input type="text" id="nombreG" required>
+            <input type="text" id="nombreG" wire:model="nombreG" required>
             <label for="desG">Descripción breve</label>
-            <input type="text" id="desG">
+            <input type="text" id="desG" wire:model="descripcionG">
             <label for="participantes">Participantes</label>
             <div class="creacionGrupo overflow-y-scroll h-[40px]">
+            <label for="all">Todos</label>
+            <input type="checkbox" id="all" wire:model="seleccionAll" value="all">
             @foreach ($participantes as $participante)
-                <label for="all">Todos</label>
-                <input type="checkbox" id="all">
-                <label for="{{$participante->nombre_en_portal}}">{{$participante->nombre_en_portal}}</label>
-                <input type="checkbox" id="{{$participante->nombre_en_portal}}">
+                @if($participante->nombre_en_portal!=$participanteActual->nombre_en_portal)
+                    <label for="{{$participante->nombre_en_portal}}">{{$participante->nombre_en_portal}}</label>
+                    <input type="checkbox" id="{{$participante->nombre_en_portal}}" wire:model="selecionadosG" value="{{$participante->nombre_en_portal}}">
+                @endif
             @endforeach
             </div>
             <div>
@@ -70,5 +70,6 @@ $uri = request()->path();
             <button class="hover:bg-colorDetalles cierreFormGroup">Cancelar</button>
             </div>
         </form>
+   
     </main>
 </div>
