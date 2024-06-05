@@ -6,7 +6,8 @@
     use App\Models\MisEventos;
 
     $nuestrosEventos = MisEventos::where('id_portal',Session::get('portal')->id)->get();
-
+    $pantalla = Session::get('eventos');
+    var_dump($pantalla);
 
     $apis = Session::get('paginaEventos');
     $categorias = [
@@ -34,19 +35,19 @@
 @endphp
 
 <div id="buscadorCat" class="flex-grow flex justify-center cursor-pointer hover:text-colorDetalles">
-    <span class="h-full flex flex-col justify-center border-b-4 border-white  selected">BUSCADOR</span>
+    <span class="h-full flex flex-col justify-center @if($pantalla == 'buscador'||!$pantalla) border-b-4 border-white  selected @endif">BUSCADOR</span>
 </div>
-<div id= "listaCat"class="flex-grow flex justify-center cursor-pointer  hover:text-colorDetalles ">
-    <span class="h-full flex flex-col justify-center">NUESTRA LISTA</span>
+<div id= "listaCat"class="flex-grow flex justify-center cursor-pointer  hover:text-colorDetalles">
+    <span class="h-full flex flex-col justify-center @if($pantalla == 'lista') border-b-4 border-white  selected @endif ">NUESTRA LISTA</span>
 </div>
 
 @endsection
 @section('contenidoServicio')
 
 
-<section id="buscador" class="mostrar flex items-stretch h-full w-full p-3 relative overflow-y-scroll">
+<section id="buscador" class="@if($pantalla == 'buscador' || !$pantalla) mostrar flex @else hidden @endif items-stretch h-full w-full p-3 relative overflow-y-scroll contenedor">
     <figure class="fixed w-7 h-7 m-2 logoCancel logoDesp btnBurger"></figure>
-    <div class="bg-colorCabera text-white text-center basis-1/4 flex flex-col space-y-2 p-2 categorias">
+    <div class="bg-colorCabera text-white text-center basis-1/4 flex flex-col justify-evenly p-2 min-h-[70dvh] categorias">
         <h1 class="mt-2">Categorias</h1>
         @foreach ($categorias as $categoria)
         <button class="bg-colorComplem py-2 border-colorDetalles" id={{str_replace(" ","-",$categoria)}}>{{$categoria}}</button>
@@ -100,11 +101,26 @@
     </div>
 
 </section>
-<section id="lista" class="hidden w-full flex-col nuestrosEventos">
-    <button class="w-1/4 mx-auto rounded-3xl bg-colorDetalles py-4">Evento personalizado</button>
+<section id="lista" class="@if($pantalla == 'lista') mostrar flex @else hidden @endif w-full flex-col-reverse nuestrosEventos py-5 contenedor">
     @foreach ($nuestrosEventos as $evento)
         {{view('partials.divMiEvento', ['evento' => $evento])}}
     @endforeach
+    <form class="formNuevoEvt w-full hidden" action="" method="POST">
+        @csrf
+        <div class="flex flex-wrap justify-center w-1/2 mx-auto text-center gap-3 py-4">
+            <label for="titulo" class="basis-full text-colorLetra">Título del evento:</label>
+            <input type="text" name="titulo" class="basis-full rounded-xl border border-colorDetalles mb-4">
+            <label for="descripción" class="basis-full text-colorLetra">Descripción:</label>
+            <textarea name="descripcion" cols="30" rows="5" class="mb-4 basis-full rounded-xl border border-colorDetalles"></textarea>
+            <label for="fecha" class="basis-full text-colorLetra">Fecha y hora:</label>
+            <input type="date" name="fecha" class="mb-4 basis-5/12 rounded-xl border border-colorDetalles text-center">
+            <input type="time" name="hora" class="mb-4 basis-5/12 rounded-xl border border-colorDetalles text-center">
+            <input type="submit" name="enviar" value="Crear" class="basis-3/4 mx-auto rounded-3xl bg-colorDetalles py-4">
+        </div>
+        
+    </form>
+    <button class="w-5/12 mx-auto rounded-3xl bg-colorDetalles py-4 btnNuevoEvt">Evento personalizado</button>
+
 </section>
 
 

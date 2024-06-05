@@ -38,6 +38,18 @@
         background-size:cover;
         background-position: center center;
     }
+    .logoCarga{
+        background-image: url(../../imagenes/imagenesEventos/icoCarga.svg);
+        background-repeat: no-repeat;
+        background-size:contain;
+        background-position: center center;
+    }
+    .logoCheck{
+        background-image: url(../../imagenes/imagenesEventos/check.svg);
+        background-repeat: no-repeat;
+        background-size:contain;
+        background-position: center center;
+    }
     /* .flecha::after{
         content:'';
         display = block;

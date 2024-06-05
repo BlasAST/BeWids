@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class inicio extends Controller
+class Inicio extends Controller
 {
     public function index(){
 

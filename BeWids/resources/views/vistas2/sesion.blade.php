@@ -11,6 +11,8 @@
             <p>Inicia sesión o crea una cuenta BeWids para poder disfrutar de nuestras funcionalidades y empezar a organizarte. A que esperas!</p>
             <button class="botonIniciar">INICIAR SESIÓN</button>
             <button class="botonCrear">CREAR CUENTA</button>
+            <p><a href="/">Volver</a> a home</p>
+
         </div>
 
         <div class="inicio @if($dir == 'iniciar') mostrar @endif">
@@ -42,13 +44,14 @@
                         </div>
                         <p><a href="">He olvidado mi contraseña</a></p>
                         <p>¿No tienes cuenta? <a href="" class="botonCrear">Registrate</a></p>
+
                     </div>
                     <p class="error"></p>
                     @error('message')
                         <p class="error">{{$message}}</p>
                     @endError
                     <input type="submit" name="inicio" value="INICIAR SESIÓN">
-                    <p><a href="{{url()->previous()}}">volver</a> a la pagina anterior</p>
+                    <p><a href="/">Volver</a> a home</p>
                 </form>
         </div>
       
@@ -101,6 +104,7 @@
                 </div>
                 <p class="error"></p>
                 <input type="submit" name="registro" value="CREAR CUENTA">
+                <p><a href="/">Volver</a> a home</p>
             </form>
         </div>
     @else
@@ -108,7 +112,7 @@
             <h1>Ya estás loggeado</h1>
             <h3>Para iniciar sesión cierra la sesión actual antes</h2>
             <button class="cerrarSesion">CERRAR SESIÓN</button>
-            <p><a href="{{url()->previous()}}">volver</a> a la pagina anterior</p>
+            <p><a href="/">Volver</a> a home</p>
         </div>
         
     @endif

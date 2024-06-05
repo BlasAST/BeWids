@@ -147,6 +147,33 @@ a:first-of-type{
 h3{
     text-align: center;
 }
-form p{
+p{
     font-size: smaller;
+}
+div > p:first-of-type{
+    font-size: large;
+}
+
+.verificar{
+    height: 100dvh;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    text-shadow: black 0.1em 0.1em 0.2em
+
+}
+.verificar h1{
+    padding: 20px 0;
+}
+.verificar button{
+    margin:0;
+}
+.verificar p:last-of-type{
+    margin-top:10px;
+    font-size: medium;
+}
+.reenvio{
+    color: #4465B8;
 }

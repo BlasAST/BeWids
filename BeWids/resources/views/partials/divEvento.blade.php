@@ -80,7 +80,7 @@
             <div class="basis-1/2" id={{$evento->latitud.'|'.$evento->longitud}}></div>
         @endif
         <div class="grow flex flex-col justify-around">
-            <button class="mx-auto rounded-md bg-colorDetalles b-2 border-colorComplem px-4 py-6">Añadir a "Nuestra Lista"</button>
+            <button class="mx-auto rounded-md w-4/6 justify-evenly text-colorLetra bg-colorDetalles b-2 border-colorComplem px-4 py-6 flex"> <figure class=" animate-spin hidden logoCheck logoCarga  w-1/6 h-6"></figure>Añadir a "Nuestra Lista"</button>
         </div>
         
     </div>
