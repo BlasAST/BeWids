@@ -17,7 +17,7 @@ class Portal extends Controller
     public function irPortal(){
         Session::put('portal',json_decode(request('portal')));
         $portal=Session::get('portal');
-        Session::put('participanteUser',Participantes::where('id_usuario',Auth::user()->id)->where('id_portal',$portal->id)->first());
+        Session::put('participanteUser',Participantes::where('id_usuario',Auth::user()->id)->where('id_portal',$portal->id)->first());  
         return view('vistas2/portal');
     }
 }

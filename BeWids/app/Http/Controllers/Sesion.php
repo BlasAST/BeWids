@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 
-class sesion extends Controller
+class Sesion extends Controller
 {
     public function comprobar($dir=null){
         //si no se viene desde el icono de perfil, no se envia información sobre {dir} por lo que por default este sera null
@@ -27,22 +28,32 @@ class sesion extends Controller
                 ]);
             }
             // Regenera el ID de la sesión después de una autenticación exitosa.
-        session()->regenerate();
+            session()->regenerate();
             return redirect()->to('/');
         }else{
             $user = User::create(request(['name','email','password']));
-            auth()->login($user);
-            return redirect()->to('/');
+            Auth::login($user);
+            $user->sendEmailVerificationNotification();
+            return redirect()->route('/');
         }
-    }
-    public function iniciar(){
-       
-    }
-    public function registrar(){
-        
     }
     public function cerrar(){
         Auth::logout();
         return redirect()->to('/');
+    }
+
+    public function enviarCorreo(){
+        return view('auth/verify')->with(['reenviado'=> '']);;
+    }
+    public function codigoRecibido(EmailVerificationRequest $request) {
+        $request->fulfill();    
+        return redirect('/perfil');
+    }
+    public  function reenviar(Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+    
+        return back()->withErrors([
+            'message' => 'Hemos reenviado el link a tu dirección de correo'
+        ]);
     }
 }

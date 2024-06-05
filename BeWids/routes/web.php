@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Calendario;
 use App\Http\Controllers\Chat_Y_Encuestas;
 use App\Http\Controllers\Contabilidad;
+use App\Http\Controllers\Contrasenia;
 use App\Http\Controllers\EnlaceInvitacion;
 use App\Http\Controllers\EventosC;
 use Illuminate\Support\Facades\Route;
@@ -11,8 +13,8 @@ use App\Http\Controllers\Perfil;
 use App\Http\Controllers\Sesion;
 use App\Http\Controllers\Inicio;
 use App\Http\Controllers\Portal;
-
-
+use App\Http\Controllers\Salir;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -30,7 +32,7 @@ use Illuminate\Support\Facades\Auth;
 //     return view('welcome');
 // });
 
-Route::get('/',[Inicio::class,'index'])->name('base');
+Route::get('/',[Inicio::class,'index']); //si no funciona poner ->name('base');
 // Router::get('/portal',[inicio::class,'portal']);
 //Route::get('/perfil',[perfil::class,'index'])->name('perfil');
 
@@ -45,7 +47,7 @@ Route::get('/cuenta/{dir}',[Sesion::class,'comprobar'])->name('sesion');
 //ruta que envia el pulsar el icono de perfil
 Route::get('/cuenta',[Sesion::class,'comprobar']);
 // Ruta para obtener información
-Route::get('/perfil',[Perfil::class,'index'])->name('perfil')->middleware('autenticar');
+Route::get('/perfil',[Perfil::class,'index'])->name('perfil')->middleware(['autenticar','verified']);
 
 // ruta POST que introduce los datos en tabla infousuarios;
 Route::post('/guardar',[Perfil::class,'guardarDatos'])->name('guardar');
@@ -89,6 +91,28 @@ Route::get('/cerrarEnlace',[EnlaceInvitacion::class,'cerrarEnlace'])->middleware
 Route::get('/invitacion/{dir}',[EnlaceInvitacion::class,'redirigir'])->middleware('autenticar');
 Route::get('/aniadirPar',[EnlaceInvitacion::class,'aniadirParticipante'])->middleware('autenticar');
 
+
+//Ruta Calendario
+Route::get('/calendario',[Calendario::class,'mostrar']);
+
+
+
+
+
+Route::get('/email/verify', [Sesion::class,'enviarCorreo'])->middleware('autenticar')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [Sesion::class,'codigoRecibido'])->middleware('autenticar')->middleware('signed')->name('verification.verify');
+Route::post('/email/resend',[Sesion::class,'reenviar'])->middleware(['autenticar', 'throttle:6,1'])->name('verification.resend');
+Route::get('/password/reset', [Contrasenia::class, 'requestForm']);
+Route::post('/password/email', [Contrasenia::class, 'sendResetLinkEmail']);
+Route::get('/password/reset/{token}', [Contrasenia::class, 'showResetForm']);
+Route::post('/password/reset', [Contrasenia::class, 'reset'])->name('password.update');
+
+
+
+
+
+
+Route::post('/salir',[Salir::class,'guardarPantalla']);
 
 
 

@@ -83,7 +83,8 @@
             <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Encuestar</button>
             <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Añadir al calendario</button>
             <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Crear plan</button>
-            <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Añadir plan</button>
+            <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Retirar</button>
+
         </div>
         
     </div>

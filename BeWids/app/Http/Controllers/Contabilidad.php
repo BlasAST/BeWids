@@ -62,8 +62,7 @@ class Contabilidad extends Controller
 
     public function solicitarReembolso(){
         $reembolso = json_decode(request('reembolso'));
-        $reembolso = Reembolsos::where('id',$reembolso->id)->get();
-        $reembolso = $reembolso[0];
+        $reembolso = Reembolsos::find($reembolso->id);
         $notificacion = new Notificaciones();
         $notificacion -> id_portal = Session::get("portal")->id;
         $notificacion -> id_reembolso = $reembolso -> id;

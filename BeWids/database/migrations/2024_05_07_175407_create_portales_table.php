@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre',30);
             $table->timestamps();
-            $table->string('token_portal')->nullable();
+            $table->string('token_portal')->nullable()->default(null);
         });
     }
 

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', iniciar);
+window.addEventListener("beforeunload",salir);
 let categorias;
 let listaTerm = [
     '206974-0-agenda-eventos-culturales-100.json'
@@ -16,10 +17,13 @@ let checks = [];
 let gratis = false;
 let contFilt;
 let valor = '';
+let idTemp;
+let formNuevo;
 
 async function iniciar(){
     document.querySelector('.btnBurger').addEventListener('click', desplegCat);
     categorias = document.querySelector('.categorias');
+    contenedores = document.querySelectorAll('section');
     document.querySelectorAll('.categorias > button').forEach(e=>e.addEventListener('click', aniadirCat));
     btnCat = document.querySelector('.btnCat');
     document.querySelector('.buscador').addEventListener('input',buscador);
@@ -33,6 +37,8 @@ async function iniciar(){
     document.querySelector('.filtrar').addEventListener('click',cambiarFiltrar);
     document.querySelector('.btnFiltrar').addEventListener('click',filtrar);
     filtros = document.querySelectorAll('input[type="checkbox"]');
+    document.querySelector('.btnNuevoEvt').addEventListener('click',abrirForm);
+    formNuevo = document.querySelector('.formNuevoEvt');
     await pagYCat();
     let eventos = document.querySelectorAll('.evento');
     if(eventos[0]){
@@ -48,7 +54,18 @@ async function iniciar(){
     
 }
 
+function abrirForm(evt){
+  if(evt.target.innerText == 'Evento personalizado'){
+    formNuevo.style.display = 'flex';
+    evt.target.innerText = 'Cancelar';
+}else{
+    formNuevo.style.display = 'none';
+    evt.target.innerText = 'Evento personalizado';
+}
+}
+
 async function aniadirEvento(evt){
+  animacionAniadir(evt.currentTarget.firstElementChild);
   try {
     let response = await fetch('/aniadir?evt='+evt.target.parentElement.parentElement.nextElementSibling.firstElementChild.value);
 
@@ -59,13 +76,14 @@ async function aniadirEvento(evt){
 
     console.log(data)
 
-    contMisEvt.firstElementChild.insertAdjacentHTML('afterend', data);
-    contMisEvt.firstElementChild.addEventListener('click', abrirEvento)
+    contMisEvt.lastElementChild.previousElementSibling.insertAdjacentHTML('beforebegin', data);
+    contMisEvt.lastElementChild.previousElementSibling.previousElementSibling.addEventListener('click', abrirEvento)
 
 
-} catch (error) {
-    console.error('Error:', error);
-}
+  } catch (error) {
+      console.error('Error:', error);
+  }
+
 }
 function filtrar(){
   filtros.forEach(e=>{
@@ -83,7 +101,26 @@ function filtrar(){
   });
   pagYCat();
   cambiarFiltrar();
+}
+function animacionAniadir(spinner){
+  if(spinner.classList.contains('hidden')){
+    spinner.classList.remove('hidden')
+    spinner.classList.remove('logoCarga');
+    spinner.classList.remove('logoCheck');
+    spinner.classList.add('logoCarga');
 
+    setTimeout(e=>{
+      spinner.classList.remove('logoCarga');
+      spinner.classList.add('logoCheck');
+      spinner.classList.remove('animate-spin');
+      setTimeout(()=>{
+        spinner.classList.add('hidden');
+        spinner.classList.add('animate-spin');
+        spinner.classList.remove('logoCheck');
+        spinner.classList.add('logoCarga');
+      },1000)
+    },2000)
+  }
 
 }
 
@@ -415,4 +452,25 @@ async function recogerEventos(url,ok,noOk){
   function error(e){
     console.log(e)
 
+  }
+
+  async function salir(){
+    let actual;
+    contenedores.forEach(e=>{
+      if(e.classList.contains('mostrar'))
+        actual = e.id;
+    });
+    let referencia = window.location.href;
+    referencia = referencia.replaceAll('http://127.0.0.1:8000/','');
+
+    if(actual){
+      const formData = new FormData();
+      formData.append('actual', actual);
+      formData.append('pagina', referencia);
+      formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));  // Añade el token CSRF
+
+      navigator.sendBeacon('/salir', formData);
+
+    }
+    
   }

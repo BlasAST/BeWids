@@ -61,6 +61,7 @@ class EnlaceInvitacion extends Controller
         $participante->save();
         
         Session::forget('invitacion');
+        Session::put('participanteUser',Participantes::where('id_usuario',Auth::user()->id)->where('id_portal',Session::get('portal')->id)->first());
         return redirect()->to('/portal');
         
      }

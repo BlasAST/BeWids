@@ -14,6 +14,8 @@ let inputPass2C
 let errorCrear
 let errorIniciar
 let error
+let idTemp;
+let evtTemp;
 
 function iniciar(){
     inputs = document.querySelectorAll('input');
@@ -103,10 +105,13 @@ function validarPass(evt){
         evt.target.parentElement.style.borderColor = 'red';
         evt.target.nextElementSibling.style.borderColor = 'red';
     }
-    setTimeout(()=>{
+    idTemp && evtTemp == evt.target && clearTimeout(idTemp)
+    idTemp = setTimeout(()=>{
         evt.target.parentElement.style.borderColor = 'white';
         evt.target.nextElementSibling.style.borderColor = 'white';
+        idTemp = null;
     },3000)
+    evtTemp = evt.target;
 }
 function erroneo(form){
     divMostrar.classList.remove('mostrar');
@@ -139,7 +144,7 @@ function contraseña(evt){
 }
 
 function cerrarSesion(){
-    window.location.href = '/perfil/cerrar';
+    window.location.href = '/cuenta/cerrar';
 }
 
 function inputFocus(evt){
