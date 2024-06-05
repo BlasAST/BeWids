@@ -8,11 +8,22 @@
             Ipsa accusamus inventore maxime blanditiis. Excepturi id dolores nihil corporis quo amet quam distinctio repudiandae culpa. Laborum delectus accusamus alias consequatur amet minus maiores rem eos, sunt porro, modi iusto!
             <p>Hace 5 horas</p>
         </div>
+        <h1>HOla buenas tardes</h1>
+        @if($participanteSeleccionado)
+            {{$participanteSeleccionado}}
+        @endif
+           @if($arrayParticipantes)
+           @foreach ($arrayParticipantes as $particips)
+                    {{$particips}}
+            @endforeach
+           @endif
+        <h2>Funcion hijo de puta</h2>
+        
         <div class="you w-[60%] self-end bg-blue-600 text-white mr-5 rounded-lg my-3 p-3 ">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate voluptatem quae porro. Commodi id est animi temporibus vel? Tempore quaerat nostrum sit facere voluptatum numquam sapiente commodi esse repellendus labore?
             <p>Hace 11min</p>
         </div>
-
+            
     </main>
     <footer class="sendMessage bg-blue-800 h-[10%] rounded-br-2xl flex">
         <input type="text" placeholder="Escribir mensaje" class="grow placeholder:pl-4 focus:bg-colorFondo">

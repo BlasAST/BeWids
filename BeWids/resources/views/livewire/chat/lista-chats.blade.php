@@ -10,17 +10,17 @@ $uri = request()->path();
             <option value="{{$participante->nombre_en_portal}}">{{$participante->nombre_en_portal}}</option>
             @endforeach
         </select>
-    <!-- $nombreUserPortal->nombre_en_portal-->
     </header>
     <div class="bg-blue-500 text-center newChat @if(!$participant) hidden @endif">
         <p>Crear Chat con:</p>
         <p>{{$participant}}</p>
-        <button class="bg-green-500 aceptar " wire:click='comprobarChat("{{$participant}}")'>Aceptar</button>
-        <button class="bg-red-700 cancelar" wire:click="cerrar({{$uri}})">Cerrar</button>
-        @if ($conexion)
-        <p class="text-red-600">{{$mensaje}}</p>
-        @endif
+        <button class="bg-green-500 aceptar "  wire:click='comprobarChat("{{$participant}}")'>Aceptar</button>
+        <button class="bg-red-700 cancelar" wire:click="cerrar()">Cerrar</button>
     </div>
+    
+        <p class="text-red-600 hidden mensajeNewChat text-center">{{$mensaje}}</p>
+    
+        
     
     
     <main class="seleccionesChat flex flex-col h-full justify-start items-center all-button:border-b-2 
@@ -35,7 +35,9 @@ $uri = request()->path();
         <button id="entrada" class="hover:bg-colorComplem">Bandeja <br> de entrada</button>
         <ul class="hidden entrada">
                 @foreach ($conversacionesIndividuales as $chatSimple)
-                    <li class="my-4 hover:bg-opacity-100"><a href="">{{$chatSimple->receptor!=$participanteActual->nombre_en_portal?$chatSimple->receptor:$chatSimple->emisor}}</a></li>
+                    <li class="my-4 hover:bg-opacity-100" wire:click="chatIndividualSeleccionado({{$chatSimple}})">
+                        {{$chatSimple->receptor!=$participanteActual->nombre_en_portal?$chatSimple->receptor:$chatSimple->emisor}}
+                    </li>
                 @endforeach
         </ul>
         <div class=" botonDiv border-b-2 text-xl hover:bg-colorComplem  my-2 w-[90%] flex items-center justify-between">
@@ -44,10 +46,17 @@ $uri = request()->path();
         </div>
         <ul class="hidden grupos">
                 @foreach ($conversacionesGrupales as $chatGrupal)
-                    <li class="my-4 hover:bg-opacity-100">{{$chatGrupal->name_group}}</li> 
+                    <li class="my-4 hover:bg-opacity-100" wire:click="chatGrupalSeleccionado({{$chatGrupal}})">
+                        {{$chatGrupal->name_group}}
+                    </li> 
                 @endforeach
         </ul>
-    
+        @if($prueba)
+        @foreach($prueba as $pru)
+
+            <h1>{{$pru}}</h1>
+         @endforeach   
+        @endif
 
         <form wire:submit.prevent="newGroup" class="newGroupForm hidden flex-col w-[80%] text-center all-all-button:bg-colorComplem all-all-button:m-2 all-all-button:p-2 ">
             <label for="nombreG">Nombre del grupo</label>
@@ -70,6 +79,6 @@ $uri = request()->path();
             <button class="hover:bg-colorDetalles cierreFormGroup">Cancelar</button>
             </div>
         </form>
-   
+
     </main>
 </div>

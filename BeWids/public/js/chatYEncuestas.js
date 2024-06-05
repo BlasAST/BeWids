@@ -39,20 +39,27 @@ function eventosListaChat(){
 
 function cambioSeleccionado(){
     let botonRechazo;
+    let botonAceptar;
+    let pMensaje;
 
     setTimeout(()=>{
         botonRechazo=document.querySelector('.cancelar')
         botonRechazo.addEventListener('click',()=>{
            seleccionado.value=seleccionado.options[0].value;
-           nuevoChat.style.display='none';
-        })
-        botonAceptar=document.querySelector('.aceptar');
+        });
+        botonAceptar=document.querySelector('.aceptar')
         botonAceptar.addEventListener('click',()=>{
             setTimeout(()=>{
                 seleccionado.value=seleccionado.options[0].value;
-                nuevoChat.style.display='none';
-            },2000)
+                pMensaje=document.querySelector('.mensajeNewChat');
+                pMensaje.classList.remove('hidden');
+                setTimeout(()=>{
+                    pMensaje.classList.add('hidden');
+                },2500)
+            },100)
         })
+
+
     },100)
 }
 
@@ -62,7 +69,7 @@ function crearNuevoGrupo(){
     let inputAll=document.querySelector('#all');
     let inputs=document.querySelectorAll('.creacionGrupo >input:not(#all)');
     let cierreFormulario=document.querySelector('.cierreFormGroup');
-    let creacionFormulario=document.querySelector('.crearFormGroup');
+
     boton.addEventListener('click',()=>{
         menusL.forEach(menu=>menu.classList.add('hidden'));
         formulario.classList.toggle('hidden');
@@ -82,17 +89,6 @@ function crearNuevoGrupo(){
     cierreFormulario.addEventListener('click',()=>{
         formulario.classList.add('hidden');
     })
-    // formulario.addEventListener('submit',(evt)=>{
-    //     evt.preventDefault();
-    //     if(formulario.checkValidity()){
-
-    //     }else{
-    //         alert('Completa los campos correctamente');
-    //     }
-    // })
-    // creacionFormulario.addEventListener('click',()=>{
-    //     setTimeout(()=>formulario.classList.add('hidden'),20000);
-    // })
 
 
 }
