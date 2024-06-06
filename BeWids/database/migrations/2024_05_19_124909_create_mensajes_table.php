@@ -12,12 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mensajes', function (Blueprint $table) {
+            
             $table->id();
-            $table->foreignId('conversacion_id')->constrained()->onDelete('cascade');
-            $table->unsignedBigInteger('emisor');
-            $table->foreign('emisor')->references('id_usuario')->on('participantes');
-            $table->unsignedBigInteger('receptor');
-            $table->foreign('receptor')->references('id_usuario')->on('participantes');
+            $table->unsignedBigInteger('id_portal');
+            $table->string('emisor')->nullable();
+            $table->string('receptor')->nullable();
+            $table->json('participantesGroup')->nullable();
+            $table->unsignedBigInteger('conversacion_id')->nullable();
+
+
+            $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
+            $table->foreign('conversacion_id')->references('id')->on('conversacions');
+            $table->foreign('receptor')->references('nombre_en_portal')->on('participantes');
+            $table->foreign('emisor')->references('nombre_en_portal')->on('participantes');
             $table->boolean('read')->default(0)->nullable();
             $table->text('body')->nullable();
             $table->string('type')->nullable();

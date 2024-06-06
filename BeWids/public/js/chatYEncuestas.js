@@ -93,6 +93,17 @@ function crearNuevoGrupo(){
 
 }
 
+function mostrarParticipantesChat(){
+    let boton=document.querySelector('.mostrarListaParticipantes');
+    let participantes=document.querySelector('.participantesList');
+    boton.addEventListener('click',()=>{
+        participantes.classList.toggle('hidden');
+    })
+    
+    
+}
+// mostrarListaParticipantes
+
 
 // ELEMENTOS ENCUESTAS
 let botonesE;
