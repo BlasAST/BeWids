@@ -3,6 +3,7 @@
 namespace App\Livewire\Chat;
 
 use App\Models\Conversacion;
+use App\Models\infousuario;
 use App\Models\Mensaje;
 use App\Models\Participantes;
 use Illuminate\Contracts\Session\Session;
@@ -13,6 +14,7 @@ use Livewire\Attributes\On;
 class ContenedorMensajes extends Component
 {
     public $conversacionSeleccionada;
+    public $participanteBuscado;
     public $participanteActual;
     public $participanteSeleccionado;
     public $participantesSeleccionados;
@@ -23,6 +25,7 @@ class ContenedorMensajes extends Component
     #[On('newChatSimple')]
     public function cargarConversacionIndivual(Conversacion $conversacion, Participantes $participante)
     {
+        $this->inforParticipante=NULL;
         $this->participantesSeleccionados = False;
         // $this->arrayParticipantes = [];
         $this->participanteActual = Participantes::where('id_usuario', auth()->user()->id)->where('id_portal', FacadesSession::get('portal')->id)->first();
@@ -34,6 +37,7 @@ class ContenedorMensajes extends Component
     #[On('newChatGroup')]
     public function cargarConversacionGrupal(Conversacion $conversacion, $participantes)
     {
+        $this->inforParticipante=NULL;
         $this->participanteSeleccionado = False;
         $this->participanteActual = Participantes::where('id_usuario', auth()->user()->id)->where('id_portal', FacadesSession::get('portal')->id)->first();
         $this->participantesSeleccionados = $participantes;
@@ -74,7 +78,17 @@ class ContenedorMensajes extends Component
     public $inforParticipante;
 
     public function buscarInfoParticipantes($participe){
-        $this->inforParticipante=Participantes::where('id_portal',FacadesSession::get('portal')->id)->where('nombre_en_portal',$participe)->first();
+        $this->participanteBuscado=Participantes::where('id_portal',FacadesSession::get('portal')->id)->where('nombre_en_portal',$participe)->first();
+        $this->inforParticipante=infousuario::where('id',$this->participanteBuscado->id_usuario)->first();
+    }
+
+    public function cerrarConversacion(){
+        $this->participanteSeleccionado=NULL;
+        $this->participantesSeleccionados=NULL;
+        $this->inforParticipante=NULL;
+    }
+    public function cerrarInfo(){
+        $this->inforParticipante=NULL;
     }
 
     public function render()
