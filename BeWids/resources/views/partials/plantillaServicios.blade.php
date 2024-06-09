@@ -16,7 +16,7 @@
       </div>
    </header>
 {{-- //overflow-y-scroll scroll- --}}
-   <main class="h-[75%] bg-colorMain rounded-b-2xl overflow-y-scroll">
+   <main class="h-[75%] bg-colorMain rounded-b-2xl overflow-y-auto">
       @yield('contenidoServicio')
    </main>
 </div> 

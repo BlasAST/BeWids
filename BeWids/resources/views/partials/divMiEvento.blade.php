@@ -81,7 +81,7 @@
         @endif
         <div class="grow flex flex-col justify-around">
             <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Encuestar</button>
-            <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Añadir al calendario</button>
+            <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2 btnCal">Añadir al calendario</button>
             <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Crear plan</button>
             <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Retirar</button>
 
@@ -89,7 +89,7 @@
         
     </div>
     <form action="">
-        <input type="hidden" name="evento" value={{json_encode($evento)}}>
+        <input type="hidden" name="evento" value={{$evento->id}}>
     </form>
 
 </div>

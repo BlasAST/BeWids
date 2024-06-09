@@ -56,6 +56,7 @@ class perfil extends Controller
         $participante->admin = true;
         $participante->nombre_en_portal = request('nombre');
         $participante->save();
+        Session::put('participanteUser',$participante);
         if(request('participantes')){
             foreach(request('participantes') as $nombre){
                 if($nombre){
@@ -66,6 +67,7 @@ class perfil extends Controller
                 }
             }
         }
+        $portal=Session::get('portal');
         return redirect()->route('portal');
     }
 }

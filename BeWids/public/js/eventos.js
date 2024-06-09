@@ -19,6 +19,8 @@ let contFilt;
 let valor = '';
 let idTemp;
 let formNuevo;
+let formCal;
+let fechaCal;
 
 async function iniciar(){
     document.querySelector('.btnBurger').addEventListener('click', desplegCat);
@@ -34,8 +36,14 @@ async function iniciar(){
     contBuscador.addEventListener('submit', buscarEventos);
     contFilt = document.querySelector('.contFiltros');
     contMisEvt = document.querySelector('.nuestrosEventos')
+    fechaCal = document.querySelector('.fechaCal')
     document.querySelector('.filtrar').addEventListener('click',cambiarFiltrar);
     document.querySelector('.btnFiltrar').addEventListener('click',filtrar);
+    formCal = document.querySelector('.confirmCal')
+    formCal.firstElementChild.addEventListener('submit',confirmarCal);
+    let btnCal = document.querySelectorAll('.btnCal');
+    btnCal[0] && btnCal.forEach(e=>e.addEventListener('click',aniadirCal))
+    document.querySelector('.confirmCal figure').addEventListener('click',aniadirCal)
     filtros = document.querySelectorAll('input[type="checkbox"]');
     document.querySelector('.btnNuevoEvt').addEventListener('click',abrirForm);
     formNuevo = document.querySelector('.formNuevoEvt');
@@ -53,6 +61,24 @@ async function iniciar(){
 
     
 }
+function confirmarCal(evt){
+  evt.preventDefault();
+  if(fechaCal.value)
+    evt.target.submit();
+
+}
+
+function aniadirCal(evt){
+  if(formCal.classList.contains('hidden')){
+    formCal.classList.remove('hidden')
+    formCal.classList.add('flex')
+    formCal.firstElementChild.lastElementChild.value = evt.target.parentElement.parentElement.nextElementSibling.firstElementChild.value;
+  }else{
+    formCal.classList.remove('flex')
+    formCal.classList.add('hidden')
+  }
+  
+}
 
 function abrirForm(evt){
   if(evt.target.innerText == 'Evento personalizado'){
@@ -66,6 +92,7 @@ function abrirForm(evt){
 
 async function aniadirEvento(evt){
   animacionAniadir(evt.currentTarget.firstElementChild);
+  console.log(evt.target.parentElement.parentElement.nextElementSibling.firstElementChild.value)
   try {
     let response = await fetch('/aniadir?evt='+evt.target.parentElement.parentElement.nextElementSibling.firstElementChild.value);
 
@@ -74,10 +101,10 @@ async function aniadirEvento(evt){
     }
     let data = await response.json();
 
-    console.log(data)
 
     contMisEvt.lastElementChild.previousElementSibling.insertAdjacentHTML('beforebegin', data);
     contMisEvt.lastElementChild.previousElementSibling.previousElementSibling.addEventListener('click', abrirEvento)
+    contMisEvt.lastElementChild.previousElementSibling.previousElementSibling.lastElementChild.previousElementSibling.firstElementChild.nextElementSibling.addEventListener('click',aniadirCal);
 
 
   } catch (error) {
@@ -163,7 +190,6 @@ async function pagYCat(pag = 1){
   let categoriasGet = (categoriasSel[0] && categoriasSel.join('%')) || '';
   let filtrosGet = (checks[0] && checks.join('%')) || '';
   contEventos.innerHTML = '';
-  console.log('/buscarEventos?pag='+pag +((valor && '&valor=' + valor ) || '') +((categoriasGet && '&cat=' + categoriasGet ) || '') + ((filtrosGet && '&filt=' + filtrosGet ) || '') + ((gratis && '&gratis='+ gratis)||''))
   await datos('/buscarEventos?pag='+pag +((valor && '&valor=' + valor ) || '') +((categoriasGet && '&cat=' + categoriasGet ) || '') + ((filtrosGet && '&filt=' + filtrosGet ) || '') + ((gratis && '&gratis='+ gratis)||''))
   
 
@@ -184,7 +210,6 @@ async function datos(url) {
       data.eventos.forEach(divHtml => {
           contEventos.insertAdjacentHTML('beforeend', divHtml);
           contEventos.lastElementChild.addEventListener('click',abrirEvento);
-          console.log(contEventos.lastElementChild)
           contEventos.lastElementChild.lastElementChild.previousElementSibling.lastElementChild.firstElementChild.addEventListener('click',aniadirEvento)
           contEventos.insertAdjacentHTML('beforeend', '<hr class="my-6">');
 
@@ -424,35 +449,14 @@ async function adquirirEventos(){
         try {
           const response = await fetch(url);
           if (!response.ok) {
-            console.log('pepe');
-            console.log(response);
+
             throw new Error(response.status +  ' -> ' + response.statusText);
           }
           const data = await response.json();
-          console.log(data);
         } catch (error) {
           console.error('Error:', error);
         }
 }
-async function recogerEventos(url,ok,noOk){
-    try{
-      const resp = await fetch(url,{
-        mode: 'no-cors'
-      });
-      const json = await resp.json();
-      ok(json);
-    }catch(e){
-      noOk(`Error: ${e.status} -> ${e.statusText}`)
-    }
-  }
-  function guardarDatos(e){
-    console.log(e)
-
-  }
-  function error(e){
-    console.log(e)
-
-  }
 
   async function salir(){
     let actual;
