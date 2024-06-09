@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
+
 class ListaChats extends Component
 {
     public $participantes;
@@ -24,14 +25,12 @@ class ListaChats extends Component
     public function participanteSelecionado($valor)
     {
         $this->participant=$valor;
-        $this->conexion=NULL;
     }
 
 
-    public function cerrar($uri)
+    public function cerrar()
     {
         $this->participant=False;
-        // return redirect()->to('/'+$uri);
     }
 
     public function comprobarChat($valor)
@@ -46,12 +45,12 @@ class ListaChats extends Component
              $nuevaConversacion->id_portal=$this->portal->id;
             $nuevaConversacion->emisor=$this->participanteActual->nombre_en_portal;
             $nuevaConversacion->receptor=$valor;
-            $nuevaConversacion->save();
-            $this->conexion=True;    
+            $nuevaConversacion->save(); 
             $this->mensaje = 'Nueva conversación creada.';
+            $this->cerrar();
         }else if(count($comprobarConversacion)>=1){
-            $this->conexion=True;
             $this->mensaje='Ya existe esta conversación';
+            $this->cerrar();
         }      
     }
 
@@ -59,6 +58,8 @@ class ListaChats extends Component
     public $descripcionG;
     public $seleccionAll;
     public $selecionadosG=[];
+    public $prueba;
+    
 
     public function newGroup(){
         
@@ -76,8 +77,42 @@ class ListaChats extends Component
             $newG->participantesGroup = json_encode($this->selecionadosG);
         }
         $newG->save();
+        $this->nombreG='';
+        $this->descripcionG='';
+        $this->seleccionAll=false;
+        $this->selecionadosG=[];
+        
+    }
+        
+    
+    public function chatIndividualSeleccionado( Conversacion $conversacion){
+            $participantePA=NULL;
+        if($conversacion->emisor==$this->participanteActual->nombre_en_portal){
+            $participantePA=$conversacion->receptor;
+        }else{
+            $participantePA=$conversacion->emisor;
+        }
+            $participanteSeleccionado=Participantes::where('id_portal',$this->portal->id)->where('nombre_en_portal',$participantePA)->get();
+            $this->dispatch('newChatSimple',$conversacion,$participanteSeleccionado); 
+    }
 
-        // return redirect()->to('/chat');
+    public function chatGrupalSeleccionado(Conversacion $conversacion){
+            $conversacionSeleccionada=$conversacion;
+            $participantesGrupoSeleccionados=json_decode($conversacionSeleccionada->participantesGroup);
+            // $arrayParticipantes=[];
+            // foreach ($participantesGrupoSeleccionados as $participe){
+            //     $arrayParticipantes[]=Participantes::where('id_portal',$this->portal->id)
+            //     ->where('nombre_en_portal',$participe)->first();
+            // }
+            // $actual=$this->participanteActual;
+            // $arrayParticipantes[]=$actual;
+            // $this->prueba=$arrayParticipantes;
+            // $resultado=json_encode($arrayParticipantes);
+            $participantesGrupoSeleccionados[]=$this->participanteActual->nombre_en_portal;
+            
+            
+            
+            $this->dispatch('newChatGroup',$conversacionSeleccionada,$participantesGrupoSeleccionados);
     }
 
     
@@ -93,10 +128,13 @@ class ListaChats extends Component
             $query->where('emisor',$this->participanteActual->nombre_en_portal)
             ->orWhere('receptor',$this->participanteActual->nombre_en_portal);
         })->get();
-        $this->conversacionesGrupales=Conversacion::where('id_portal',$this->portal->id)->whereNotNull('name_group')->where(function($query){
-            $query->whereNull('emisor')
-            ->orWhereNull('receptor');
+
+        $this->conversacionesGrupales=Conversacion::where('id_portal',$this->portal->id)->where(function($query){
+            $query->whereNotNull('name_group')
+            ->where('emisor',$this->participanteActual->nombre_en_portal)
+            ->orwhere('participantesGroup','LIKE','%"'.$this->participanteActual->nombre_en_portal.'"%');
         })->get();
+
 
         return view('livewire.chat.lista-chats');
     }
