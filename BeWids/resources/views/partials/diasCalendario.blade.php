@@ -27,8 +27,8 @@
                 <div class="w-full grow flex flex-col gap-1 justify-around  dropZone mesMenor">
                     <div>
                     @foreach ($eventos as $evt)
-                        @if($evt['fecha_cal'] == $i)
-                            <figure class="h-7 w-7 bg-colorDetalles"></figure>
+                        @if($evt['fecha_cal'] == $i->format('Y-m-d'))
+                            <figure class="h-7 w-7 rounded-full bg-colorDetalles"></figure>
                         @endif
                     @endforeach
                     </div>
@@ -41,7 +41,7 @@
                 <div class="w-full grow flex flex-col gap-1 justify-around  dropZone mesMenor">
                     <div>
                     @foreach ($eventos as $evt)
-                        @if($evt['fecha_cal'] == $i)
+                        @if($evt['fecha_cal'] == $i->format('Y-m-d'))
                             <figure class="h-7 w-7 bg-colorDetalles"></figure>
                         @endif
                     @endforeach
