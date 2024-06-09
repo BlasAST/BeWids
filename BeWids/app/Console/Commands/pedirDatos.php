@@ -275,6 +275,9 @@ class PedirDatos extends Command
                     case 'https://datos.madrid.es/egob/catalogo/208862-7650180-ocio_salas.json':
                         $evento['categoria'] = 'Música';
                         break;
+                    case 'https://datos.madrid.es/egob/catalogo/206717-0-agenda-eventos-bibliotecas.json':
+                        $evento['categoria'] = 'Bibliotecas';
+                        break;
                     default:
                         break;
                 }

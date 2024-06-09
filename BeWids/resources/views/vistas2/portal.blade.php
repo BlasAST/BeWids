@@ -9,7 +9,7 @@ $portal = Session::get('portal');
     <h1>{{$portal->nombre}}</h1>
     <h1>{{$portal->id}}</h1> -->
     <div class="bg-blue-800 row-[1/5] col-[5/8] w-[100%] h-[80%] self-center justify-self-center">
-        <button>Calendario</button>
+        <button class="btn" value="calendario">Calendario</button>
     </div>
     <div class=" row-[1/2] col-[10/13] h-[70%] flex items-center justify-around">
         <button class="closeSession text-base font-bold border-b-2 hover:border-b-black">Salir del portal</button>

@@ -17,6 +17,7 @@ function volverPortal(){
     window.location.href='/portal';
 }
 function categoria(evt){
+    if(window.location.pathname=='/calendario')return
     seccion.classList.remove('mostrar');
     seccion.style.display = 'none';
     selected.classList.remove('selected');

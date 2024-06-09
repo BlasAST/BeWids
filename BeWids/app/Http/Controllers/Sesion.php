@@ -34,7 +34,7 @@ class Sesion extends Controller
             $user = User::create(request(['name','email','password']));
             Auth::login($user);
             $user->sendEmailVerificationNotification();
-            return redirect()->route('/');
+            return redirect()->to('/');
         }
     }
     public function cerrar(){

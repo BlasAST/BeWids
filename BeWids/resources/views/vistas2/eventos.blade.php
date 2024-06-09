@@ -5,7 +5,7 @@
     use App\Models\Eventos;
     use App\Models\MisEventos;
 
-    $nuestrosEventos = MisEventos::where('id_portal',Session::get('portal')->id)->get();
+    $nuestrosEventos = MisEventos::where('id_portal',Session::get('portal')->id)->where('aniadido',false)->get();
     $pantalla = Session::get('eventos');
     var_dump($pantalla);
 
@@ -20,6 +20,7 @@
             'Teatro y espectáculos',
             'Cine',
             'Música',
+            'Bibliotecas'
         ];
     $edades = Eventos::select('edad')->distinct()->pluck('edad')->toArray();
     $edadesDescompuestas = [];
@@ -46,7 +47,7 @@
 
 
 <section id="buscador" class="@if($pantalla == 'buscador' || !$pantalla) mostrar flex @else hidden @endif items-stretch h-full w-full p-3 relative overflow-y-scroll contenedor">
-    <figure class="fixed w-7 h-7 m-2 logoCancel logoDesp btnBurger"></figure>
+    <figure class="fixed w-7 h-7 m-2 logoCancel logoDesp btnBurger z-10"></figure>
     <div class="bg-colorCabera text-white text-center basis-1/4 flex flex-col justify-evenly p-2 min-h-[70dvh] categorias">
         <h1 class="mt-2">Categorias</h1>
         @foreach ($categorias as $categoria)
@@ -122,6 +123,40 @@
     <button class="w-5/12 mx-auto rounded-3xl bg-colorDetalles py-4 btnNuevoEvt">Evento personalizado</button>
 
 </section>
+<div class="w-[100dvw] h-[100dvh] fixed hidden justify-center items-center top-0 left-0 confirmCal">
+    <form action="/aniadirCal" method="POST" class="basis-1/3 bg-colorComplem flex flex-col items-center rounded-xl border-4 border-colorCabera text-colorLetra">
+        @csrf
+        <div class="w-full flex justify-end">
+            <figure class="w-7 h-7 mr-3 logoCancel fixed"></figure>
+        </div>
+        <h1 class="text-xl my-4">Añadir evento al calendario</h1>
+        <div class="space-y-1">
+            <p class="text-xs text-colorCabera">(Si no se indica título se tomará el que se tenía)</p>
+            <label for="titulo">Título:</label>
+            <input type="text" name="titulo" class="rounded-xl indent-2 text-colorCabera">
+        </div>
+        <div class="my-6">
+            <label for="fecha">Fecha:</label>
+            <input type="date" name='fecha' class="rounded-xl indent-2 text-colorCabera fechaCal">
+        </div>
+        <div>
+            <p class="text-xs text-colorCabera">(Opcionales)</p>
+            <label for="hora_inicio">Hora de inicio:</label>
+            <input type="time" name='hora_inicio' class="rounded-xl indent-2 text-colorCabera">
+            <label for="hora_fin">Hora de Fin:</label>
+            <input type="time" name='hora_fin' class="rounded-xl indent-2 text-colorCabera">
+        </div>
+
+        <button type="submit" class="bg-colorDetalles border-2 border-colorCabera rounded-xl px-5 my-6">Añadir</button>
+        <input type="hidden" name='evento'>
+        
+        
+
+
+    </form>
+
+
+</div>
 
 
 {{-- <script async

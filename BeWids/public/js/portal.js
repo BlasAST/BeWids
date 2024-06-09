@@ -10,6 +10,7 @@ function iniciar(){
     document.querySelector('.btnEv').addEventListener('click',irEvento);
     document.querySelector('.btnInvitacion').addEventListener('click',irInvitacion);
     document.querySelector('.closeSession').addEventListener('click',volverPerfil);
+    document.querySelectorAll('.btn').forEach(e=>e.addEventListener('click', redireccionar));
 
 
 
@@ -51,4 +52,10 @@ function irGastos(){
  }
  function volverPerfil(){
    window.location.href='/perfil';
+ }
+
+ function redireccionar(evt){
+
+   window.location.href='/'+evt.target.value;
+
  }
