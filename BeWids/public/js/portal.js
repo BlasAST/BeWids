@@ -15,7 +15,8 @@ function iniciar(){
 
 
    //INVITACIONES
-    document.querySelector('.btnNuevo').addEventListener('click',nuevoParticipante);
+    let btnNuevo = document.querySelector('.btnNuevo');
+    btnNuevo && btnNuevo.addEventListener('click',nuevoParticipante);
     nombreNuevo = document.querySelector('.nombreNuevo');
     let btnParticipantes = document.querySelectorAll('.btnPart');
     if(btnParticipantes[0]){
