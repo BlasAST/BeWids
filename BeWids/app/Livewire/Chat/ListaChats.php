@@ -22,6 +22,7 @@ class ListaChats extends Component
     public $valoracion;
     public $conversacionesIndividuales;
     public $conversacionesGrupales;
+    public $conversacionGlobal;
     public function participanteSelecionado($valor)
     {
         $this->participant=$valor;
@@ -58,7 +59,7 @@ class ListaChats extends Component
     public $descripcionG;
     public $seleccionAll;
     public $selecionadosG=[];
-    public $prueba;
+    
     
 
     public function newGroup(){
@@ -71,10 +72,11 @@ class ListaChats extends Component
         $newG->emisor=$this->participanteActual->nombre_en_portal;
         if($this->seleccionAll){
             $seleccionadosGAll=$this->participantes->pluck('nombre_en_portal')->toArray();
-            $newG->participantesGroup=json_encode($seleccionadosGAll);
+            $seleccionadosGAll[]=$this->participanteActual->nombre_en_portal;
+            $newG->participantes_group=json_encode($seleccionadosGAll);
         }else{
-            
-            $newG->participantesGroup = json_encode($this->selecionadosG);
+            $this->selecionadosG[]=$this->participanteActual->nombre_en_portal;
+            $newG->participantes_group = json_encode($this->selecionadosG);
         }
         $newG->save();
         $this->nombreG='';
@@ -84,35 +86,43 @@ class ListaChats extends Component
         
     }
         
-    
+    public $conversacionSeleccionada;
+
     public function chatIndividualSeleccionado( Conversacion $conversacion){
+        $this->conversacionSeleccionada=NULL;
             $participantePA=NULL;
-        if($conversacion->emisor==$this->participanteActual->nombre_en_portal){
+            $this->conversacionSeleccionada=$conversacion;
+        if($this->conversacionSeleccionada->emisor==$this->participanteActual->nombre_en_portal){
             $participantePA=$conversacion->receptor;
         }else{
             $participantePA=$conversacion->emisor;
         }
             $participanteSeleccionado=Participantes::where('id_portal',$this->portal->id)->where('nombre_en_portal',$participantePA)->get();
-            $this->dispatch('newChatSimple',$conversacion,$participanteSeleccionado); 
+            $this->dispatch('newChatSimple',$this->conversacionSeleccionada,$participanteSeleccionado);
+    }
+        
+    public function chatGrupalSeleccionado(Conversacion $conversacion){
+            $this->conversacionSeleccionada=NULL;
+            $this->conversacionSeleccionada=$conversacion;
+            $participantesGrupoSeleccionados=json_decode($this->conversacionSeleccionada->participantes_group);
+            $arrayParticipantes=[];
+            foreach ($participantesGrupoSeleccionados as $participe){
+                $arrayParticipantes[]=Participantes::where('id_portal',$this->portal->id)
+                ->where('nombre_en_portal',$participe)->first();
+            }
+            $actual=$this->participanteActual;
+            $arrayParticipantes[]=$actual;
+            
+            $resultado=json_encode($arrayParticipantes);
+            
+            
+            
+            $this->dispatch('newChatGroup',$this->conversacionSeleccionada,$participantesGrupoSeleccionados,$arrayParticipantes);
     }
 
-    public function chatGrupalSeleccionado(Conversacion $conversacion){
-            $conversacionSeleccionada=$conversacion;
-            $participantesGrupoSeleccionados=json_decode($conversacionSeleccionada->participantesGroup);
-            // $arrayParticipantes=[];
-            // foreach ($participantesGrupoSeleccionados as $participe){
-            //     $arrayParticipantes[]=Participantes::where('id_portal',$this->portal->id)
-            //     ->where('nombre_en_portal',$participe)->first();
-            // }
-            // $actual=$this->participanteActual;
-            // $arrayParticipantes[]=$actual;
-            // $this->prueba=$arrayParticipantes;
-            // $resultado=json_encode($arrayParticipantes);
-            $participantesGrupoSeleccionados[]=$this->participanteActual->nombre_en_portal;
-            
-            
-            
-            $this->dispatch('newChatGroup',$conversacionSeleccionada,$participantesGrupoSeleccionados);
+    public function chatGlobalSeleccionado(){
+        $this->conversacionGlobal=Conversacion::where('id_portal',Session::get('portal')->id)->where('chat_global',true)->first();
+        $this->dispatch('newChatGroup',$this->conversacionGlobal,json_decode($this->conversacionGlobal->participantes_group));
     }
 
     
@@ -132,9 +142,9 @@ class ListaChats extends Component
         $this->conversacionesGrupales=Conversacion::where('id_portal',$this->portal->id)->where(function($query){
             $query->whereNotNull('name_group')
             ->where('emisor',$this->participanteActual->nombre_en_portal)
-            ->orwhere('participantesGroup','LIKE','%"'.$this->participanteActual->nombre_en_portal.'"%');
+            ->orwhere('participantes_group','LIKE','%"'.$this->participanteActual->nombre_en_portal.'"%');
         })->get();
-
+        
 
         return view('livewire.chat.lista-chats');
     }

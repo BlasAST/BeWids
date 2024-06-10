@@ -1,6 +1,9 @@
 @extends('partials/plantillaServicios')
 @section('rutaJs','../js/chatYEncuestas.js')
 @section('categorias')
+@section('pusher')
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+@endsection
 @php 
     $portal=Session::get('portal');
 @endphp

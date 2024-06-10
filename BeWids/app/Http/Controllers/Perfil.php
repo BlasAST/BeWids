@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\infousuario;
@@ -50,12 +51,23 @@ class perfil extends Controller
         $portal->save();
         Session::put('portal',$portal);
         
+       
+
         $participante = new Participantes();
         $participante->id_portal = $portal->id;
         $participante->id_usuario = Auth::user()->id;
         $participante->admin = true;
         $participante->nombre_en_portal = request('nombre');
         $participante->save();
+        $conversacion=new Conversacion();
+        $conversacion->id_portal=$portal->id;
+        $conversacion->chat_global=True;
+        $conversacion->emisor=$participante->nombre_en_portal;
+        
+        $conversacion->participantes_group=json_encode([$participante->nombre_en_portal]);
+        $conversacion->save();
+        
+
         if(request('participantes')){
             foreach(request('participantes') as $nombre){
                 if($nombre){

@@ -27,17 +27,16 @@ $uri = request()->path();
     all-button:text-xl all-button:my-2 all-all-li:bg-emerald-400 all-all-li:p-2 all-all-li:bg-opacity-15
     all-all-button:text-white all-all-label:text-white overflow-y-scroll">
         
-        <button class="flex items-center hover:bg-colorComplem"> @include('componentes.notificacion')Chat global</button>
-        <button id="destacados" class="hover:bg-colorComplem">Destacados</button>
-        <ul class="hidden destacados">
+        <button class="flex items-center hover:bg-colorComplem" wire:click="chatGlobalSeleccionado"> @include('componentes.notificacion')Chat global</button>
 
-        </ul>
         <button id="entrada" class="hover:bg-colorComplem">Bandeja <br> de entrada</button>
         <ul class="hidden entrada">
                 @foreach ($conversacionesIndividuales as $chatSimple)
+                @if (!$chatSimple->chat_global)
                     <li class="my-4 hover:bg-opacity-100" wire:click="chatIndividualSeleccionado({{$chatSimple}})">
                         {{$chatSimple->receptor!=$participanteActual->nombre_en_portal?$chatSimple->receptor:$chatSimple->emisor}}
                     </li>
+                    @endif
                 @endforeach
         </ul>
         <div class=" botonDiv border-b-2 text-xl hover:bg-colorComplem  my-2 w-[90%] flex items-center justify-between">
@@ -46,17 +45,17 @@ $uri = request()->path();
         </div>
         <ul class="hidden grupos">
                 @foreach ($conversacionesGrupales as $chatGrupal)
-                    <li class="my-4 hover:bg-opacity-100" wire:click="chatGrupalSeleccionado({{$chatGrupal}})">
-                        {{$chatGrupal->name_group}}
-                    </li> 
+                @if (!$chatGrupal->chat_global)
+                <li class="my-4 hover:bg-opacity-100" wire:click="chatGrupalSeleccionado({{$chatGrupal}})">
+                    {{$chatGrupal->name_group}}
+                </li> 
+                @endif
+                    
+                    
+                    
                 @endforeach
         </ul>
-        @if($prueba)
-        @foreach($prueba as $pru)
 
-            <h1>{{$pru}}</h1>
-         @endforeach   
-        @endif
 
         <form wire:submit.prevent="newGroup" class="newGroupForm hidden flex-col w-[80%] text-center all-all-button:bg-colorComplem all-all-button:m-2 all-all-button:p-2 ">
             <label for="nombreG">Nombre del grupo</label>
