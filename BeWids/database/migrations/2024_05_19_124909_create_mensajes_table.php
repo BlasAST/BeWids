@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_portal');
             $table->string('emisor')->nullable();
             $table->string('receptor')->nullable();
-            $table->json('participantesGroup')->nullable();
+            $table->json('participantes_group')->nullable();
             $table->unsignedBigInteger('conversacion_id')->nullable();
 
 

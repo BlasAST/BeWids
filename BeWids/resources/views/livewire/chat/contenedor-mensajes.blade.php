@@ -88,36 +88,29 @@
         </header>
     @endif
     @if ($participanteSeleccionado || $participantesSeleccionados)
-        <main class="containerMessages grow bg-slate-800 overflow-y-scroll flex flex-col">
-
-            @if ($prueba)
-                <h1>Aqui tamo</h1>
-                @foreach (json_decode($prueba) as $prue)
-                    {{ $prue->emisor }}
-                @endforeach
-            @endif
+        <main class="containerMessages grow bg-slate-800 overflow-y-scroll flex flex-col origin-bottom">
 
             @if ($mensajes->body != null)
                 @foreach (json_decode($mensajes->body) as $mensaje)
                     @if ($mensaje->emisor != $participanteActual->nombre_en_portal)
                         <div class="other bg-white w-[20rem] ml-5 rounded-lg my-3 p-3">
-                            <p>{{$mensaje->emisor}}</p>
-                            <div>{{$mensaje->mensaje}}</div>
-                            <p>Hace 5 horas</p>
+                            <p class="break-words whitespace-normal">{{ $mensaje->emisor }}</p>
+                            <div class="break-words whitespace-normal">{{ $mensaje->mensaje }}</div>
+                            <p>Enviado a las: {{$mensaje->timestamp}}</p>
                         </div>
                     @endif
 
 
                     @if ($mensaje->emisor == $participanteActual->nombre_en_portal)
                         <div class="you w-[20rem] self-end bg-blue-600 text-white mr-5 rounded-lg my-3 p-3 ">
-                            <p class="text-right">Tu</p>
-                            <div class="break-words whitespace-normal">{{$mensaje->mensaje}}</div>
-                            <p>Hace 11min</p>
+                            <p class="text-right break-words whitespace-normal">Tu</p>
+                            <div class="break-words whitespace-normal">{{ $mensaje->mensaje }}</div>
+                            <p>Enviado a las: {{$mensaje->timestamp}}</p>
                         </div>
                     @endif
                 @endforeach
             @else
-            <h1 class="mt-8 text-center text-2xl text-white">Nueva conversación creada</h1>
+                <h1 class="mt-8 text-center text-2xl text-white">Nueva conversación creada</h1>
             @endif
         </main>
         <footer class="sendMessage bg-blue-800 h-[10%] rounded-br-2xl">
@@ -135,20 +128,44 @@
 
     <script>
         document.addEventListener('livewire:init', function() {
-
-
             Livewire.on('toggleParticipantesList', function() {
                 let participantes = document.querySelector('.participantesList');
                 let flecha = document.querySelector('.flecha');
                 participantes.classList.toggle('hidden');
                 flecha.classList.toggle('rotate-180');
                 let info = document.querySelector('.mostrarInfo');
-                console.log(info);
-
             });
 
+
+        });
+        window.addEventListener('scrollFixed',function(){
+            setTimeout(() => {
+                let contenedor=document.querySelector('.containerMessages');
+                contenedor.scrollTop=contenedor.scrollHeight;
+            }, 0);
+        });
+
+        
+    </script>
+
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+    
+        var pusher = new Pusher('8388d0d243e690cebd7f', {
+          cluster: 'eu'
+        });
+    
+        var channel = pusher.subscribe('chat-channel');
+        channel.bind('chat-event', function(data) {
+        setTimeout(() => {
+            Livewire.dispatch('actualizandoChat', { datos: data});
+            },0);
+        
         });
     </script>
 
+{{-- $.dispatch(actualizandoChat,{datos:data}) --}}
 
 </div>

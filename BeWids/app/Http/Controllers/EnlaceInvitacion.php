@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversacion;
 use App\Models\Invitacion;
 use App\Models\Participantes;
 use App\Models\Portales;
@@ -59,7 +60,12 @@ class EnlaceInvitacion extends Controller
             $participante->nombre_en_portal = $nombrePart;
         }
         $participante->save();
+        $conversacion=Conversacion::where('id_portal',Session::get('portal')->id)->where('chat_global',true)->first();
         
+        $array=json_decode($conversacion->participantes_group);
+        $array[]=$participante->nombre_en_portal;
+        $conversacion->participantes_group=json_encode($array);
+        $conversacion->save();
         Session::forget('invitacion');
         Session::put('participanteUser',Participantes::where('id_usuario',Auth::user()->id)->where('id_portal',Session::get('portal')->id)->first());
         return redirect()->to('/portal');
