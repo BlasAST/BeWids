@@ -58,7 +58,7 @@ Route::post('/cuenta',[Sesion::class,'formulario'])->name('sesionF');
 Route::post('/perfil',[Perfil::class, 'crearPortal'])->name('crearP');
 
 Route::get('/portal',[Portal::class, 'index'])->name('portal')->middleware('autenticar');
-Route::post('/portal',[Portal::class, 'irPortal'])->middleware('autenticar');
+Route::post('/abrirPortal',[Portal::class, 'irPortal'])->name('abrirPortal')->middleware('autenticar');
 
 Route::get('/contabilidad',[Contabilidad::class, 'index'])->middleware('contabilidad')->middleware('autenticar');
 Route::post('/contabilidad',[Contabilidad::class, 'aniadirGasto'])->name('aniadirGasto')->middleware('autenticar');
@@ -94,6 +94,11 @@ Route::get('/aniadirPar',[EnlaceInvitacion::class,'aniadirParticipante'])->middl
 
 //Ruta Calendario
 Route::get('/calendario',[Calendario::class,'mostrar']);
+Route::get('/cambiarCal',[Calendario::class,'cambiarMes']);
+Route::post('/aniadirCal',[Calendario::class,'aniadirEvento']);
+Route::get('/cambiarFecha',[Calendario::class, 'cambiarFechaEvt']);
+Route::get('/pedirEvt',[Calendario::class, 'pedirEvt']);
+Route::get('/retirarCal',[Calendario::class, 'retirarCal']);
 
 
 

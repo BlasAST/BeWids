@@ -49,7 +49,7 @@
             @endif
             @foreach ($portales as $portal)
                 <div class="portal">
-                    <form method="POST" action="/portal">
+                    <form method="POST" action="{{route('abrirPortal')}}">
                         @csrf
                         <input type="hidden" name="portal" value="{{json_encode($portal)}}">
                     </form>

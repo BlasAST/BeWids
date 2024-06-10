@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('horario')->nullable();
             $table->string('horas')->nullable();
             $table->string('dias')->nullable();
-            $table->string('precio')->nullable(); // Precio con dos decimales
+            $table->text('precio')->nullable(); // Precio con dos decimales
             $table->string('calle')->nullable();
             $table->string('cp', 5)->nullable(); // Código postal puede ser más corto
             $table->string('localidad')->nullable();

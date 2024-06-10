@@ -10,11 +10,13 @@ function iniciar(){
     document.querySelector('.btnEv').addEventListener('click',irEvento);
     document.querySelector('.btnInvitacion').addEventListener('click',irInvitacion);
     document.querySelector('.closeSession').addEventListener('click',volverPerfil);
+    document.querySelectorAll('.btn').forEach(e=>e.addEventListener('click', redireccionar));
 
 
 
    //INVITACIONES
-    document.querySelector('.btnNuevo').addEventListener('click',nuevoParticipante);
+    let btnNuevo = document.querySelector('.btnNuevo');
+    btnNuevo && btnNuevo.addEventListener('click',nuevoParticipante);
     nombreNuevo = document.querySelector('.nombreNuevo');
     let btnParticipantes = document.querySelectorAll('.btnPart');
     if(btnParticipantes[0]){
@@ -51,4 +53,10 @@ function irGastos(){
  }
  function volverPerfil(){
    window.location.href='/perfil';
+ }
+
+ function redireccionar(evt){
+
+   window.location.href='/'+evt.target.value;
+
  }
