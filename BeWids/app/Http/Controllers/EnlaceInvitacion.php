@@ -26,8 +26,7 @@ class EnlaceInvitacion extends Controller
         $portal->token_portal=Str::random(20);
         $portal->save();
         Session::put('portal',$portal);
-        Session::put('invitacion','enlaceInvitacion');
-        return redirect()->to('/invitacion');
+        return response()->json($portal->token_portal);
      }
 
      public function redirigir($dir){
@@ -37,8 +36,8 @@ class EnlaceInvitacion extends Controller
             Session::put('portal',$token);
             if(Participantes::where('id_portal',$token->id)->where('id_usuario',Auth::id())->first())
                 return redirect()->to('/portal');
-            Session::put('invitacion','newPar');
-            return redirect()->to('/invitacion');
+            Session::put('invitacion',true);
+            return redirect()->to('/portal');
         }
         return redirect()-route('error404');
      }

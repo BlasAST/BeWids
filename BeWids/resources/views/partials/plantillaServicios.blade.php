@@ -8,10 +8,10 @@
 <div class="contenedor w-[95%] h-[92dvh] flex-col mx-auto mt-4 border-black rounded-2xl border-2">
    <header class="h-[25%] bg-colorCabera w-full rounded-t-2xl flex justify-end logoServicio flex-col text-colorLetra">
    
-      <div class="basis-3/6 flex items-center">
-         <img src="{{asset('imagenes/imagenesTailwind/flecha.png')}}" class="w-10 rotate-180 ml-[5%] btnVolver">
+      <div class="basis-1/2 flex items-center">
+         <img class="w-10 ml-[5%] btnVolver" src="{{asset('imagenes/imagenesTailwind/back.svg')}}">
       </div>
-      <div class="categoria flex w-full basis-3/6">
+      <div class="categoria flex w-full basis-1/2">
          @yield('categorias')
       </div>
    </header>

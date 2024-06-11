@@ -37,8 +37,8 @@ let mapa;
 
 function iniciar(){
 
-    document.querySelector('header').style.height='15%'
-    document.querySelector('main').style.height='85%'
+    document.querySelector('header').style.height='20%'
+    document.querySelector('main').style.height='80%'
     mapa = document.querySelector('.mapa')
     let script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAOsoMk-1yucFTUwhzq4oummSkyyjReN58&loading=async&libraries=places&callback=initMap`;
@@ -150,12 +150,13 @@ function aceptarCambio(){
     confirmMov.classList.remove('flex');
     confirmMov.classList.add('hidden');
     zonaDestino.insertBefore(evento,zonaDestino.firstElementChild)
-    let fecha = new Date(selects[0].value,selects[1].value,destino.innerText);
+    let fecha
     if(zonaDestino.classList.contains('mesMenor'))
-        fecha.setMonth(fecha.getMonth - 1)
-    if(zonaDestino.classList.contains('mesMayor'))
-        fecha.setMonth(fecha.getMonth + 1)
-
+        fecha = new Date(selects[0].value,Number(selects[1].value) - 1,destino.innerText);
+    else if(zonaDestino.classList.contains('mesMayor'))
+        fecha = new Date(selects[0].value,Number(selects[1].value) + 1,destino.innerText);
+    else
+        fecha = new Date(selects[0].value,selects[1].value,destino.innerText);
 
     solicitarCambio(fecha.getFullYear()+'-'+(Number(fecha.getMonth())+1).toString().padStart(2, '0')+'-'+fecha.getDate().toString().padStart(2, '0'),evento.lastElementChild.value);
 }

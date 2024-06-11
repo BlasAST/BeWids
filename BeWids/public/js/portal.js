@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded',iniciar);
 let participantes;
 let nombreNuevo;
+let ajustes;
+let contEnlace;
 
 
 function iniciar(){
@@ -8,9 +10,14 @@ function iniciar(){
     document.querySelector('.btnCE').addEventListener('click',irChat);
     document.querySelector('.btnCE2').addEventListener('click',irEncuestas);
     document.querySelector('.btnEv').addEventListener('click',irEvento);
-    document.querySelector('.btnInvitacion').addEventListener('click',irInvitacion);
     document.querySelector('.closeSession').addEventListener('click',volverPerfil);
     document.querySelectorAll('.btn').forEach(e=>e.addEventListener('click', redireccionar));
+    document.querySelector('.btnAjustes').addEventListener('click', abrirCerrarAjustes);
+    ajustes = document.querySelector('.ajustes');
+    document.querySelector('input[type="checkbox"]').addEventListener('change',e=>console.log(e));
+    contEnlace = document.querySelector('.enlace');
+    document.querySelector('.btnEnlace').addEventListener('click',abrirEnlace);
+    document.querySelector('.volverPortal').addEventListener('click',abrirEnlace)
 
 
 
@@ -26,6 +33,53 @@ function iniciar(){
     }
     
 }
+
+async function abrirEnlace(){
+   if(contEnlace.classList.contains('hidden')){
+      await pedirToken();
+      contEnlace.classList.remove('hidden');
+      contEnlace.classList.add('flex');
+      setInterval(e=>{
+         contEnlace.classList.remove('flex');
+         contEnlace.classList.add('hidden');
+      },10000)
+   }else{
+      contEnlace.classList.remove('flex');
+      contEnlace.classList.add('hidden');
+   }
+}
+
+async function pedirToken(){
+   try {
+      let response = await fetch('/crearEnlace');
+
+      if (!response.ok) {
+          throw new Error('Error al crear Enlace');
+      }
+      let data = await response.json();
+
+      // Limpiar eventos existentes
+      contEnlace.firstElementChild.lastElementChild.firstElementChild.innerText = "http://127.0.0.1:8000/invitacion/"+data;
+
+
+  } catch (error) {
+      console.error('Error:', error);
+  }
+}
+
+function abrirCerrarAjustes(evt){
+   if(ajustes.classList.contains('hidden')){
+      ajustes.classList.remove('hidden');
+      ajustes.classList.add('flex');
+      evt.currentTarget.firstElementChild.src = '../imagenes/imagenesBasic/cerrar.png'
+   }else{
+      ajustes.classList.remove('flex');
+      ajustes.classList.add('hidden');
+      evt.currentTarget.firstElementChild.src = '../imagenes/imagenesBasic/ajustes2.png'
+
+   }
+}
+
 function nuevoParticipante(){
    if(nombreNuevo.value)
       location.href = '/aniadirPar?par='+nombreNuevo.value
@@ -57,6 +111,6 @@ function irGastos(){
 
  function redireccionar(evt){
 
-   window.location.href='/'+evt.target.value;
+   window.location.href='/'+evt.currentTarget.id;
 
  }
