@@ -113,9 +113,6 @@ class Contabilidad extends Controller
         $minTransacciones = [];
         $combP = $this->crearCombinaciones($pagadores);
         $combR = $this->crearCombinaciones($receptores);
-        $totalTransacciones = [];
-        $transacciones = [];
-        $transaccionesFinales = [];
         foreach($combP as $pagar){
             foreach($combR as $recibir){
                 $transaccion = $this->generarTransacciones2($pagar,$recibir);//new Transacciones($pagar,$recibir,$transacciones);
@@ -193,9 +190,6 @@ class Contabilidad extends Controller
                 } 
             }
         }while(count($minTransacciones) != 1);
-        echo "<pre>";
-        var_dump($minTransacciones[array_key_first($minTransacciones)]);
-        echo "</pre>";
         return $minTransacciones[array_key_first($minTransacciones)];
 
 

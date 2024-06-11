@@ -24,28 +24,24 @@
         @case($i->format('m') < $fechaFinal->format('m'))
             <div class="dia bg-gray-400 border-2 border-black h-full flex flex-col"> 
                 <h1>{{$i->format('d')}}</h1>
-                <div class="w-full grow flex flex-col gap-1 justify-around  dropZone mesMenor">
-                    <div>
+                <div class="w-full grow flex gap-1 items-center dropZone mesMenor">
                     @foreach ($eventos as $evt)
                         @if($evt['fecha_cal'] == $i->format('Y-m-d'))
-                            <figure class="h-7 w-7 rounded-full bg-colorDetalles"></figure>
+                            <figure class="h-4 w-4 rounded-full bg-colorDetalles"></figure>
                         @endif
                     @endforeach
-                    </div>
                 </div>
             </div>  
             @break
         @case($i->format('m') > $fechaFinal->format('m'))
             <div class="dia bg-gray-400 border-2 border-black h-full flex flex-col"> 
                 <h1>{{$i->format('d')}}</h1>
-                <div class="w-full grow flex flex-col gap-1 justify-around  dropZone mesMenor">
-                    <div>
+                <div class="w-full grow flex gap-1 items-center  dropZone mesMayor">
                     @foreach ($eventos as $evt)
                         @if($evt['fecha_cal'] == $i->format('Y-m-d'))
-                            <figure class="h-7 w-7 bg-colorDetalles"></figure>
+                            <figure class="h-4 w-4 rounded-full bg-colorDetalles"></figure>
                         @endif
                     @endforeach
-                    </div>
                 </div>
             </div>
             @break

@@ -15,15 +15,27 @@ use Illuminate\Support\Facades\Session;
 class Portal extends Controller
 {
     public function index(){
-        Session::put('participanteUser',Participantes::where('id_usuario',Auth::user()->id)->where('id_portal',Session::get('portal')->id)->first());  
-        $deudaMax = $this->calcularDeuda();
-        $solicitudes = Notificaciones::where('id_portal',Session::get('portal')->id)->where('receptor',Session::get('participanteUser')->nombre_en_portal)->first();
-        if($solicitudes)
-            $notificaciones = true;
-        else
+        if(Session::get('invitacion')){
+            $usuario = false;
+            $deudaMax = false;
+            $solicitudes = false;
             $notificaciones = false;
-        $reembolsos = Reembolsos::where('id_portal',Session::get('portal')->id)->where('saldado',false)->where('pagador',Session::get('participanteUser')->nombre_en_portal)->get();
-        $deudas = Reembolsos::where('id_portal',Session::get('portal')->id)->where('saldado',false)->where('receptor',Session::get('participanteUser')->nombre_en_portal)->get();
+            $reembolsos = false;
+            $deudas = false;
+        }else{
+            $usuario = true;
+            Session::put('participanteUser',Participantes::where('id_usuario',Auth::user()->id)->where('id_portal',Session::get('portal')->id)->first());  
+            $deudaMax = $this->calcularDeuda();
+            $solicitudes = Notificaciones::where('id_portal',Session::get('portal')->id)->where('receptor',Session::get('participanteUser')->nombre_en_portal)->first();
+            if($solicitudes)
+                $notificaciones = true;
+            else
+                $notificaciones = false;
+                $reembolsos = Reembolsos::where('id_portal',Session::get('portal')->id)->where('saldado',false)->where('pagador',Session::get('participanteUser')->nombre_en_portal)->get();
+                $deudas = Reembolsos::where('id_portal',Session::get('portal')->id)->where('saldado',false)->where('receptor',Session::get('participanteUser')->nombre_en_portal)->get();
+
+        }
+        
         $eventos = MisEventos::where('id_portal',Session::get('portal')->id)->where('aniadido',false)->get();
         $eventosCal = MisEventos::where('id_portal',Session::get('portal')->id)->where('aniadido',true)->get();
         $fechaInicio = new DateTime();
@@ -34,7 +46,7 @@ class Portal extends Controller
         $fechaFinal = new DateTime();
 
 
-        return view('/vistas2/portal',['notificaciones'=>$notificaciones,'reembolsos'=>$reembolsos,'deudas'=>$deudas,'deudaMax'=>$deudaMax, 'eventos'=>$eventos,'eventosCal'=>$eventosCal,'fechaInicio'=>$fechaInicio, 'fechaFinal'=>$fechaFinal]);
+        return view('/vistas2/portal',['notificaciones'=>$notificaciones,'reembolsos'=>$reembolsos,'deudas'=>$deudas,'deudaMax'=>$deudaMax, 'eventos'=>$eventos,'eventosCal'=>$eventosCal,'fechaInicio'=>$fechaInicio, 'fechaFinal'=>$fechaFinal, 'usuario'=>$usuario]);
     }
     private function calcularDeuda(){
         $cantMax = Participantes::where('id_portal',Session::get('portal')->id)->orderBy('deuda','desc')->pluck('deuda')->first();
