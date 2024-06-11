@@ -75,7 +75,7 @@ Route::post('/responderNotificacion',[Contabilidad::class, 'ResponderNotificacio
 Route::get('/chat',[Chat_Y_Encuestas::class, 'index'])->name('chat')->middleware('autenticar');
 Route::get('/encuestas',[Chat_Y_Encuestas::class, 'index'])->name('encuestas')->middleware('autenticar');
 Route::get('/nuevaEncuesta',[Chat_Y_Encuestas::class, 'index'])->name('encuestas')->middleware('autenticar');
-Route::get('/newGroup',[Chat_Y_Encuestas::class, 'nuevoGrupo'])->name('chat')->middleware('autenticar');
+// Route::get('/newGroup',[Chat_Y_Encuestas::class, 'nuevoGrupo'])->name('chat')->middleware('autenticar');
 
 
 Route::get('/eventos',[EventosC::class,'index'])->middleware('autenticar');//->middleware('eventos');

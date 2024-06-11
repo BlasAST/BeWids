@@ -5,6 +5,7 @@ function iniciar(){
     scrollEncuestas();
     coloresTablaEncuestas();
     mostrarFormulario();
+    crearInputs();
 }
 
 // ELEMENTOS DE EL CHAT
@@ -124,10 +125,21 @@ function scrollEncuestas(){
         }
         ultimoScroll=topeScroll;
     });
-
 }
-function coloresTablaEncuestas(){
 
+function crearInputs(){
+    let boton=document.querySelector('.crearInputs');
+    boton.addEventListener('click',function(){
+        let input=document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('placeholder', 'Opcion de encuesta');
+        input.classList.add('opciones_votos');
+        let contenedor=document.querySelector('.opcionesContainer');
+        contenedor.appendChild(input);
+    });
+}
+
+function coloresTablaEncuestas(){
     partesCabecera=document.querySelectorAll('thead>tr>th')
     partesCabecera.forEach(encabezado=>{
         encabezado.style.border='solid #541530 4px';

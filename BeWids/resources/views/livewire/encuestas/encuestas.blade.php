@@ -18,28 +18,57 @@
                 </tr>
             </thead>
             <tbody class="border-4 border-solid border-blue-700 ">
+                @foreach ($encuestas as $encuesta)
+                    
+                @endforeach
             </tbody>
         </table>
         <div class="formEncuesta absolute top-0 hidden justify-center items-center w-full h-full ">
-            <form action="/nuevaEncuesta" method="POST" class="bg-colorBarra2 flex flex-col w-[50%] h-[90%] items-center justify-around">
+            <form wire:submit.prevent="crearEncuesta" class="bg-colorBarra2 flex flex-col w-[50%] h-[90%] items-center justify-around">
                 @csrf
-                <label for="nombreEncuesta">Nombre de la encuesta</label>
-                <input type="text" id="nombreEncuesta" required>
+                <label for="titulo">Titulo</label>
+                <input type="text" id="titulo" wire:model="titulo" >
                 <label for="descripcion">Descripción</label>
-                <textarea type="text" id="descripcion" class="w-[80%] h-[10rem]"></textarea>
+                <textarea type="text" id="descripcion" wire:model="descripcion" class="w-[80%] h-[10rem]"></textarea>
                 <div>
                     <label for="all">Votan todos</label>
-                    <input type="checkbox" id="all">
+                    <input type="checkbox" id="all" wire:model="allParticipantes">
                 </div>
                 <div>
                     <label for="one2Many">Pueden votar:</label>
                     <input type="checkbox" id="one2Many">
                 </div>
-                <!-- hacer un foreach con label e input de cada participante -->
-                <button class="p-2 mb-2 bg-colorComplem rounded-3xl hover:bg-colorDetalles hover:text-white">Guardar Encuesta</button>
+            <div class="seleccionados flex flex-wrap justify-center px-2 py-5" >
+                @foreach ($participantes as $participante)
+                <div class="basis-[40%]">
+                        <label for="{{$participante->nombre_en_portal}}">{{$participante->nombre_en_portal}}</label>
+                        <input type="checkbox" id="{{$participante->nombre_en_portal}}" wire:model="participantesSeleccionados">
+                </div>
+                @endforeach
+            </div>
+                <div class="opciones flex flex-col h-[20%] overflow-y-auto justify-around">
+                        
+                        <input type="text" wire:model="opciones_votos" placeholder="Opcion de encuesta" class="opciones_votos">
+                        <input type="text" wire:model="opciones_votos" placeholder="Opcion de encuesta" class="opciones_votos">
+                        
+                </div>
+                
+                <div class="bg-colorComplem rounded-3xl p-1 mb-4" onclick="aniadirInput">Crear más</div>
+
+                <button type="submit" class="p-2 mb-2 bg-colorComplem rounded-3xl hover:bg-colorDetalles hover:text-white">Guardar Encuesta</button>
             </form>
         </div>
     </div>
-
+    <script>
+        document.addEventListener('livewire:init', function() {
+            
+        });
+        function aniadirInput(evt){
+            evt.preventDefault();
+            console.log('hola');
+        }
+        
+      
+    </script>
 
 </div>
