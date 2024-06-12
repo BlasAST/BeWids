@@ -40,7 +40,11 @@ export default {
       addVariant('all-li','& > li');
       addVariant('all-input','& > input ');
       addVariant('all-label','& > label');
+      addVariant('all-tr','& > tr');
+      addVariant('all-td','& > td');
       addVariant('all','& > *');
+      
+      
       // todos los hijos incluso no directos
       addVariant('all-all-button', '&  button');
       addVariant('all-all-div','&  div');
