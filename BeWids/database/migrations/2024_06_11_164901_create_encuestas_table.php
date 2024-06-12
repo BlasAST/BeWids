@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_portal');
             $table->string('title');
-            $table->string('descripcion')->nullable();
+            $table->text('descripcion')->nullable();
             $table->string('creador');
             $table->json('participantes');
-            $table->json('votado_por');
+            $table->json('votado_por')->nullable();
             $table->integer('num_votos_totales');
-            $table->integer('num_votos_hechos');
+            $table->integer('num_votos_hechos')->default(0);
             $table->json('opciones_votos');
             $table->date('fecha_final')->nullable();
             $table->boolean('finalizada')->default(0);
