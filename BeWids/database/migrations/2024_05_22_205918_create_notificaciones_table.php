@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('id_portal');
-            $table->unsignedBigInteger('id_reembolso');
+            $table->unsignedBigInteger('id_reembolso')->default(null);
             $table->string("mensaje");
             $table->string('receptor')->nullable();
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');

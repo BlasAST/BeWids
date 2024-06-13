@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ajustes;
 use App\Models\Conversacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,6 +68,10 @@ class perfil extends Controller
         
         $conversacion->participantes_group=json_encode([$participante->nombre_en_portal]);
         $conversacion->save();
+
+        $ajustes = new Ajustes();
+        $ajustes->id_portal = $portal->id;
+        $ajustes->save();
         
 
 

@@ -84,10 +84,10 @@ function abrirForm(evt){
   if(evt.target.innerText == 'Evento personalizado'){
     formNuevo.style.display = 'flex';
     evt.target.innerText = 'Cancelar';
-}else{
+  }else{
     formNuevo.style.display = 'none';
     evt.target.innerText = 'Evento personalizado';
-}
+  }
 }
 
 async function aniadirEvento(evt){
@@ -206,14 +206,18 @@ async function datos(url) {
       // Limpiar eventos existentes
       contEventos.innerHTML = '';
 
+      let boton
       // Añadir nuevos eventos
       data.eventos.forEach(divHtml => {
           contEventos.insertAdjacentHTML('beforeend', divHtml);
           contEventos.lastElementChild.addEventListener('click',abrirEvento);
-          contEventos.lastElementChild.lastElementChild.previousElementSibling.lastElementChild.firstElementChild.addEventListener('click',aniadirEvento)
+          if(contEventos.lastElementChild.lastElementChild.previousElementSibling.lastElementChild && !contEventos.lastElementChild.lastElementChild.previousElementSibling.lastElementChild.id)
+            contEventos.lastElementChild.lastElementChild.previousElementSibling.lastElementChild.firstElementChild.addEventListener('click',aniadirEvento)
           contEventos.insertAdjacentHTML('beforeend', '<hr class="my-6">');
 
       });
+      if(contEventos.innerHTML == '')
+        contEventos.innerHTML = '<p class="text-center text-colorLetra">No se ha encontrado ningún evento</p>';
 
       // Actualizar paginación
       contsPag.forEach(e=>actualizarPaginacion(data.currentPage, data.totalPages,e));
@@ -357,6 +361,7 @@ function abrirEvento(evt){
 function initMap(){
   let coordsArr = [];
   coordsArr = mapa.id.split('|');
+  if(!Number(coordsArr[0]))return
   coords = {lat:Number(coordsArr[0]),lng:Number(coordsArr[1])}
 
   let map = new google.maps.Map(mapa,{

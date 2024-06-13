@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ajustes;
 use App\Models\Eventos;
 use App\Models\MisEventos;
 use Exception;
@@ -22,6 +23,9 @@ class EventosC extends Controller
     
     public function index(){
 
+        
+        $ajustes = Ajustes::where('id_portal',Session::get('portal')->id)->first();
+        Session::put('ajustes', $ajustes);
 
         return view('vistas2/eventos');
 
@@ -51,7 +55,9 @@ class EventosC extends Controller
         $evento->url = $evt->url;
         $evento->api = $evt->api;
         $evento->save();
-        return response()->json(view('partials.divMiEvento', ['evento' => $evento])->render());
+        $ajustes = Session::get('ajustes');
+        $yo = Session::get('participanteUser');
+        return response()->json(view('partials.divMiEvento', ['evento' => $evento,'yo'=>$yo,'ajustes'=>$ajustes])->render());
 
 
     }
@@ -62,6 +68,8 @@ class EventosC extends Controller
         $pagina = $request->input('pag', 1);
 
         $query = Eventos::query();
+        $ajustes = Session::get('ajustes');
+        $yo = Session::get('participanteUser');
 
 
         $categoriasMostrar = [];
@@ -109,7 +117,7 @@ class EventosC extends Controller
         // Generar los divs de eventos
         $divs = [];
         foreach ($eventos as $evento) {
-            $divs[] = view('partials.divEvento', ['evento' => $evento])->render();
+            $divs[] = view('partials.divEvento', ['evento' => $evento,'yo'=>$yo,'ajustes'=>$ajustes])->render();
         }
     
         // Estructura de la respuesta JSON

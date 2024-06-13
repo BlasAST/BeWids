@@ -4,6 +4,7 @@ addEventListener('DOMContentLoaded', () => {
 
 let contParticipantes = 1;
 let formPortal;
+let participantes = [];
 
 function iniciar() {
     let perfil = document.querySelector('.perfil');
@@ -15,11 +16,28 @@ function iniciar() {
     document.querySelector('.crearPortal').addEventListener('click',mostrarForm);
     document.querySelector('.sesiones form button').addEventListener('click',aniadirParticipante);
     formPortal = document.querySelector('.formPortal');
+    formPortal.addEventListener('submit',crearPortal);
     document.querySelectorAll('.portal').forEach(e=>e.addEventListener('click',enviarPortal));
+    participantes.push(document.querySelector('.nombreP'));
 
     move(botonS, botonP);
     moveSettings();
     info(botonP,perfil, inputsPerfil);
+}
+function crearPortal(evt){
+    evt.preventDefault()
+    let usados = [];
+    let correcto = true;
+    participantes.forEach(e=>{
+        if(usados.includes(e.value))
+            correcto = false
+        else
+            usados.push(e.value);            
+    })
+    if(correcto)
+        evt.target.submit()
+    else
+        evt.target.lastElementChild.previousElementSibling.style.display = 'flex';
 }
 
 function enviarPortal(evt){
@@ -107,6 +125,7 @@ function aniadirParticipante(evt){
     let [label,input] = crearInput();
     evt.target.parentElement.insertBefore(label,evt.target.previousElementSibling);
     evt.target.parentElement.insertBefore(input,evt.target.previousElementSibling)
+    participantes.push(input);
 }
 function crearInput(){
     let label = document.createElement('label');

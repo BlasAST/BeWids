@@ -78,10 +78,14 @@
     <div class="hidden basis-full min-h-96 items-stretch m-4">
         @if ($evento->latitud)
             <div class="basis-1/2" id={{$evento->latitud.'|'.$evento->longitud}}></div>
+        @else
+            <span id="mapa"></span>
         @endif
-        <div class="grow flex flex-col justify-around">
-            <button class="mx-auto rounded-md w-4/6 justify-evenly text-colorLetra bg-colorDetalles b-2 border-colorComplem px-4 py-6 flex"> <figure class=" animate-spin hidden logoCheck logoCarga  w-1/6 h-6"></figure>Añadir a "Nuestra Lista"</button>
-        </div>
+        @if ($yo->admin || !$ajustes->aniadir_lista)
+            <div class="grow flex flex-col justify-around">
+                <button class="mx-auto rounded-md w-4/6 justify-evenly text-colorLetra bg-colorDetalles b-2 border-colorComplem px-4 py-6 flex"> <figure class=" animate-spin hidden logoCheck logoCarga  w-1/6 h-6"></figure>Añadir a "Nuestra Lista"</button>
+            </div>
+        @endif
         
     </div>
     <form action="">

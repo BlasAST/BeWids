@@ -35,7 +35,7 @@
             <div class="font-bold bg-gray-200 flex md:hidden items-center justify-center border-2 border-black ">{{ $dia }}</div>
         @endforeach
     </div>
-    <div class="grid grid-cols-7 grid-rows-6 basis-11/12 contDias">
+    <div class="grid grid-cols-7 grid-rows-6 basis-11/12 contDias overflow-y-auto rounded-b-2xl">
         @include('partials.diasCalendario')
     </div>
 </section>

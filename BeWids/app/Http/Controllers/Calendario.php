@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ajustes;
 use App\Models\MisEventos;
 use DateTime;
 use Illuminate\Http\Request;
@@ -38,8 +39,11 @@ class Calendario extends Controller
 
         $eventos = MisEventos::where('aniadido', true)->where('id_portal',Session::get('portal')->id)->get()->toArray();
         usort($eventos, [$this, 'ordenarEventos']);
+        $yo=Session::get('participanteUser');
+        $ajustes = Ajustes::where('id_portal',Session::get('portal')->id)->first();
+        Session::put('ajustes', $ajustes);
 
-        return view('vistas2/calendario')->with(['eventos'=>$eventos,'fechaInicio'=> $fechaInicio,'fechaFinal'=>$fechaFinal,'mes'=>$mes,'numMes'=>$fechaFinal->format('m')-1]);
+        return view('vistas2/calendario')->with(['eventos'=>$eventos,'fechaInicio'=> $fechaInicio,'fechaFinal'=>$fechaFinal,'mes'=>$mes,'numMes'=>$fechaFinal->format('m')-1,'yo'=>$yo,'ajustes'=>$ajustes]);
     }
 
     public function cambiarMes(){
@@ -53,7 +57,10 @@ class Calendario extends Controller
         $eventos = MisEventos::where('aniadido', true)->where('id_portal',Session::get('portal')->id)->orderBy('hora_inicio')->get()->toArray();
         usort($eventos, [$this, 'ordenarEventos']);
 
-        return response()->json(view('partials.diasCalendario', ['eventos'=>$eventos,'fechaInicio'=> $fechaInicio,'fechaFinal'=>$fechaFinal])->render());
+        $yo=Session::get('participanteUser');
+        $ajustes = Session::get('ajustes');
+
+        return response()->json(view('partials.diasCalendario', ['eventos'=>$eventos,'fechaInicio'=> $fechaInicio,'fechaFinal'=>$fechaFinal,'yo'=>$yo,'ajustes'=>$ajustes])->render());
 
 
     }
@@ -80,7 +87,10 @@ class Calendario extends Controller
     public function pedirEvt(){
         $id = request('id');
         $evento = MisEventos::where('id',$id)->where('id_portal',Session::get('portal')->id)->first();
-        return response()->json(view('partials.eventoCal', ['evento'=>$evento])->render());
+
+        $yo=Session::get('participanteUser');
+        $ajustes = Session::get('ajustes');
+        return response()->json(view('partials.eventoCal', ['evento'=>$evento,'yo'=>$yo,'ajustes'=>$ajustes])->render());
 
     }
     public function retirarCal(){

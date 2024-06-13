@@ -12,6 +12,7 @@ use App\Http\Controllers\InicioSesion;
 use App\Http\Controllers\Perfil;
 use App\Http\Controllers\Sesion;
 use App\Http\Controllers\Inicio;
+use App\Http\Controllers\Participantes;
 use App\Http\Controllers\Portal;
 use App\Http\Controllers\Salir;
 use Illuminate\Auth\Events\Verified;
@@ -64,6 +65,7 @@ Route::get('/contabilidad',[Contabilidad::class, 'index'])->middleware('contabil
 Route::post('/contabilidad',[Contabilidad::class, 'aniadirGasto'])->name('aniadirGasto')->middleware('autenticar');
 Route::post('/solicitarReembolso',[Contabilidad::class, 'solicitarReembolso'])->name('reembolso')->middleware('autenticar');
 Route::post('/responderNotificacion',[Contabilidad::class, 'ResponderNotificacion'])->name('responderNot')->middleware('autenticar');
+
 // Route::get('/iniciar',[InicioSesion::class,'mostrar'])->name('inicioSesion.index');
 // Route::get('/registrarse',[Registrarse::class,'mostrar'])->name('registro.index');
 // Route::post('/iniciar',[InicioSesion::class,'iniciar']);
@@ -99,6 +101,20 @@ Route::post('/aniadirCal',[Calendario::class,'aniadirEvento']);
 Route::get('/cambiarFecha',[Calendario::class, 'cambiarFechaEvt']);
 Route::get('/pedirEvt',[Calendario::class, 'pedirEvt']);
 Route::get('/retirarCal',[Calendario::class, 'retirarCal']);
+
+
+//Rutas Participantes
+Route::get('/participantes',[Participantes::class, 'index']);
+Route::post('/crearParticipante',[Participantes::class, 'crearParticipante']);
+Route::get('/desvincularPart',[Participantes::class, 'desvincular']);
+Route::get('/ascenderPart',[Participantes::class, 'ascender']);
+Route::get('/eliminarPart',[Participantes::class, 'eliminar']);
+Route::get('/comprobarCuentas',[Participantes::class, 'comprobar']);
+
+
+Route::get('/cambiarConf', [Portal::class, 'cambiarConf']);
+
+
 
 
 

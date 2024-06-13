@@ -20,9 +20,11 @@ return new class extends Migration
             $table->date('fecha');
             $table->string('pagado_por');
             $table->string('participantes');
+            $table->unsignedBigInteger('creado_por');
             $table->timestamps();
 
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
+
 
         });
     }
