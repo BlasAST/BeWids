@@ -14,7 +14,7 @@
 
 <main>
     <div class="contenedor">
-        <button class="bperfil">
+        <button class="bperfil" style="cursor: pointer">
             <h1>Perfil</h1>
         </button>
         <form class="formPerfil" action="{{route('guardar')}}" method="POST">
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </form>
-        <button class="bsesiones">
+        <button class="bsesiones" style="cursor: pointer">
             <h1>Sesiones</h1>
         </button>
         <div class="sesiones">
@@ -48,7 +48,7 @@
                 <h1>No estas en ningún portal</h1>
             @endif
             @foreach ($portales as $portal)
-                <div class="portal">
+                <div class="portal" style="cursor: pointer">
                     <form method="POST" action="{{route('abrirPortal')}}">
                         @csrf
                         <input type="hidden" name="portal" value="{{json_encode($portal)}}">
@@ -56,16 +56,17 @@
                     {{$portal->nombre}} 
                 </div>  
             @endforeach
-            <button class="crearPortal">Crear Portal</button>
+            <button class="crearPortal" style="cursor: pointer">Crear Portal</button>
             <form class="formPortal" action="{{route('crearP')}}" method="POST">
                 @csrf
                 <label for="portal">Nombre del portal:</label>
-                <input type="text" name="portal">
-                <label for="nombre">Tu nombre dentro del portal:</label>
-                <input type="text" name="nombre">
+                <input type="text" required name="portal">
+                <label for="nombre" >Tu nombre dentro del portal:</label>
+                <input type="text" required name="nombre" class="nombreP">
                 <p>Puedes añadir participantes para que cuando la gente se una indiquen quienes son, aunque también puedes dejarlo para mas tarde o que cada uno añada su nombre en el portal</p>
-                <button type="button">Agregar participante</button>
-                <input type="submit" name="enviar" value="Crear">
+                <button type="button" style="cursor: pointer">Agregar participante</button>
+                <p style="color:#BF1B4B;display:none">Los participantes no pueden tener el mismo nombre</p>
+                <input type="submit" name="enviar" style="cursor: pointer" value="Crear">
             </form>
         </div>
         <!-- Perfil sin Ajustes -->

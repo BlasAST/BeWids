@@ -3,32 +3,20 @@ let participantes;
 let nombreNuevo;
 let ajustes;
 let contEnlace;
-let contConfirm;
-let contErrorElim;
 
 
 function iniciar(){
     document.querySelector('.btnCE').addEventListener('click',irChat);
     document.querySelector('.btnCE2').addEventListener('click',irEncuestas);
+  
     document.querySelector('.closeSession').addEventListener('click',volverPerfil);
     document.querySelectorAll('.btn').forEach(e=>e.addEventListener('click', redireccionar));
     document.querySelectorAll('.btnAjustes').forEach(e=>e.addEventListener('click', abrirCerrarAjustes));
     ajustes = document.querySelector('.ajustes');
+    document.querySelector('input[type="checkbox"]').addEventListener('change',e=>console.log(e));
     contEnlace = document.querySelector('.enlace');
-    let enlace = document.querySelector('.btnEnlace');
-    enlace && enlace.addEventListener('click',abrirEnlace)
+    document.querySelector('.btnEnlace').addEventListener('click',abrirEnlace);
     document.querySelector('.volverPortal').addEventListener('click',abrirEnlace)
-    document.querySelector('.btnAband').addEventListener('click', eliminarPart);
-    document.querySelector('.btnCerrar').addEventListener('click', cerrarError);
-    document.querySelector('.btnCancConfirm').addEventListener('click',cerrarConfirm)
-    document.querySelector('.btnConfirm').addEventListener('click', abandonar)
-    let check = document.querySelectorAll('input[type="checkbox"]');
-    check[0] && check.forEach(e=>e.addEventListener('change',cambiarConf))
-
-
-    contConfirm = document.querySelector('.confirmElim');
-    contErrorElim = document.querySelector('.errorElim')
-
 
 
 
@@ -43,64 +31,6 @@ function iniciar(){
 
     }
     
-}
-
-async function cambiarConf(evt){
-   try {
-      let response = await fetch('/cambiarConf?conf='+evt.currentTarget.checked+'&tipo='+evt.currentTarget.id);
-      if(!response.ok){
-          throw new Error('Error al cambiar ajustes');
-      }
-      let data = await response.json();
-
-      if(data){
-          console.log('ajustes modif')
-      }else{
-         console.log('ajustes NO modif')
-
-      }
-
-
-  } catch (error) {
-      console.log('Error:', error);
-  }
-}
-
-function abandonar(){
-   location.href = '/eliminarPart'
-}
-
-function cerrarConfirm(){
-   contConfirm.classList.remove('flex')
-   contConfirm.classList.add('hidden') 
-}
-
-function cerrarError(){
-   contErrorElim.classList.remove('flex')
-   contErrorElim.classList.add('hidden') 
-}
-
-async function eliminarPart(evt){
-   try {
-       let response = await fetch('/comprobarCuentas');
-       if(!response.ok){
-           throw new Error('Error al comprobar participante');
-       }
-       let data = await response.json();
-
-       if(data){
-           contConfirm.classList.remove('hidden');
-           contConfirm.classList.add('flex')
-       }else{
-            contErrorElim.classList.remove('hidden');
-            contErrorElim.classList.add('flex')
-       }
-
-
-   } catch (error) {
-       console.log('Error:', error);
-   }
-
 }
 
 async function abrirEnlace(){
@@ -156,13 +86,21 @@ function aniadirParticipante(evt){
        location.href = '/aniadirPar?par='+evt.target.value
 }
 
+function irGastos(){
+    window.location.href = '/contabilidad';
+}
  function irChat(){
     window.location.href = '/chat';
  }
  function irEncuestas(){
     window.location.href="/encuestas";
  }
-
+ function irEvento(){
+    window.location.href = '/eventos';
+ }
+ function irInvitacion(){
+   window.location.href = '/crearEnlace';
+ }
  function volverPerfil(){
    window.location.href='/perfil';
  }

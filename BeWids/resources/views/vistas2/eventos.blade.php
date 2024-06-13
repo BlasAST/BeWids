@@ -7,7 +7,6 @@
 
     $nuestrosEventos = MisEventos::where('id_portal',Session::get('portal')->id)->where('aniadido',false)->get();
     $pantalla = Session::get('eventos');
-    var_dump($pantalla);
 
     $apis = Session::get('paginaEventos');
     $categorias = [
@@ -36,17 +35,17 @@
 @endphp
 
 <div id="buscadorCat" class="flex-grow flex justify-center cursor-pointer hover:text-colorDetalles">
-    <span class="h-full flex flex-col justify-center @if($pantalla == 'buscador'||!$pantalla) border-b-4 border-white  selected @endif">BUSCADOR</span>
+    <span class="h-full flex flex-col justify-center @if($pantalla == 'buscador'||!$pantalla) border-b-4 border-white  selected @endif">Buscador</span>
 </div>
 <div id= "listaCat"class="flex-grow flex justify-center cursor-pointer  hover:text-colorDetalles">
-    <span class="h-full flex flex-col justify-center @if($pantalla == 'lista') border-b-4 border-white  selected @endif ">NUESTRA LISTA</span>
+    <span class="h-full flex flex-col justify-center @if($pantalla == 'lista') border-b-4 border-white  selected @endif ">Nuestra Lista</span>
 </div>
 
 @endsection
 @section('contenidoServicio')
 
 
-<section id="buscador" class="@if($pantalla == 'buscador' || !$pantalla) mostrar flex @else hidden @endif items-stretch h-full w-full p-3 relative overflow-y-scroll contenedor">
+<section id="buscador" class="@if($pantalla == 'buscador' || !$pantalla) mostrar flex @else hidden @endif items-stretch h-full w-full p-3 relative overflow-y-auto contenedor">
     <figure class="fixed w-7 h-7 m-2 logoCancel logoDesp btnBurger z-10"></figure>
     <div class="bg-colorCabera text-white text-center basis-1/4 flex flex-col justify-evenly p-2 min-h-[70dvh] categorias">
         <h1 class="mt-2">Categorias</h1>
@@ -103,6 +102,9 @@
 
 </section>
 <section id="lista" class="@if($pantalla == 'lista') mostrar flex @else hidden @endif w-full flex-col-reverse nuestrosEventos py-5 contenedor">
+    @if (count($nuestrosEventos) == 0)
+        <h1 class="text-center text-colorLetra mt-6">No se han añadido eventos a la lista</h1>
+    @endif
     @foreach ($nuestrosEventos as $evento)
         {{view('partials.divMiEvento', ['evento' => $evento])}}
     @endforeach

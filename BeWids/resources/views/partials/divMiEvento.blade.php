@@ -1,5 +1,7 @@
 @php
     $cat = explode(" ",$evento->categoria)[0] . ".jpg";
+    $ajustes = Session::get('ajustes');
+    $yo = Session::get('participanteUser');
 @endphp
 <div class="min-h-20 w-4/6 mx-auto flex items-stretch justify-center flex-wrap evento my-6 sh bg-colorCabera text-gray-300 rounded-2xl" >
     <figure class="basis-3/12 m-0 imagenEvento rounded-l-2xl" style="background-image: url('{{ asset('imagenes/imagenesEventos/' . $cat) }}');"></figure>
@@ -81,7 +83,9 @@
         @endif
         <div class="grow flex flex-col justify-around">
             <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Encuestar</button>
-            <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2 btnCal">Añadir al calendario</button>
+            @if ($yo->admin || !$ajustes->aniadir_cal)
+                <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2 btnCal">Añadir al calendario</button>
+            @endif
             <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Crear plan</button>
             <button class="mx-auto rounded-2xl bg-colorDetalles border-4 border-colorCabera px-4 py-6 w-1/2">Retirar</button>
 

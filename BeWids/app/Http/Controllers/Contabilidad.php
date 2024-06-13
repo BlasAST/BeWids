@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ajustes;
 use App\Models\Gastos;
 use App\Models\Deudas;
 use App\Models\Notificaciones;
@@ -15,8 +16,11 @@ use function PHPUnit\Framework\isEmpty;
 class Contabilidad extends Controller
 {
     public function index(){
+
+        $ajustes = Ajustes::where('id_portal',Session::get('portal')->id)->first();
+        Session::put('ajustes', $ajustes);
         
-        return view('/vistas2/cuentas');
+        return view('/vistas2/contabilidad');
     }
     public function aniadirGasto(){
         $gasto = new Gastos();
@@ -38,6 +42,7 @@ class Contabilidad extends Controller
             }
         }
         $gasto->participantes = trim($participantes,';');
+        $gasto->creado_por = Session::get('participanteUser')->id_usuario;
         $gasto->save();
 
         $pagador= Participantes::where('id_portal',Session::get('portal')->id)->where('nombre_en_portal',request('pagador'))->first();
@@ -46,7 +51,7 @@ class Contabilidad extends Controller
         $participantes = Participantes::where('id_portal',Session::get('portal')->id)->get();
         Session::put('participantes',$participantes);
         $deudas = $this->hacerCuentas();
-        Reembolsos::where('id_portal', Session::get('portal')->id)->where("saldado",false)->delete();
+        Reembolsos::where('id_portal', Session::get('portal')->id)->where('saldado', false)->where('solicitado',false)->delete();
         foreach($deudas as $deuda){
             $reembolso = new Reembolsos();
             $reembolso -> id_portal = Session::get('portal')->id;
@@ -71,6 +76,12 @@ class Contabilidad extends Controller
         $reembolso -> solicitado = true;
         $notificacion -> save();
         $reembolso ->save();
+        $pagador = Participantes::where('id_portal', Session::get('portal')->id)->where('nombre_en_portal',$reembolso->pagador)->first();
+        $receptor = Participantes::where('id_portal', Session::get('portal')->id)->where('nombre_en_portal',$reembolso->receptor)->first();
+        $pagador->deuda += $reembolso->cantidad;
+        $receptor->deuda -= $reembolso->cantidad;
+        $pagador->save();
+        $receptor->save();
         return redirect()->to('/contabilidad');
     }
 
@@ -92,21 +103,36 @@ class Contabilidad extends Controller
                 $reembolso = Reembolsos::find($noti->id_reembolso);
                 $reembolso -> solicitado = false;
                 $reembolso ->save();
+                $pagador = Participantes::where('id_portal', Session::get('portal')->id)->where('nombre_en_portal',$reembolso->pagador)->first();
+                $receptor = Participantes::where('id_portal', Session::get('portal')->id)->where('nombre_en_portal',$reembolso->receptor)->first();
+                $pagador->deuda -= $reembolso->cantidad;
+                $receptor->deuda += $reembolso->cantidad;
+                $pagador->save();
+                $receptor->save();
+                Notificaciones::find($noti->id)->delete();
+                $notificacion = new Notificaciones();
+                $notificacion -> id_portal = Session::get('id_portal');
+                $notificacion -> receptor = $reembolso->pagador;
+                $notificacion -> mensaje = "$reembolso->receptor ha denegado la solicitud de reembolso de $reembolso->cantidad €";
+            }else{
                 Notificaciones::find($noti->id)->delete();
             }
         }
         return redirect()->to('/contabilidad');
-
     }
 
     private function hacerCuentas(){
         $participantes = Participantes::where('id_portal', Session::get('portal')->id)->get();
+        $pagadores = [];
+        $receptores = [];
         foreach($participantes as $participante){
             if($participante->deuda < 0)
                 $pagadores[$participante->nombre_en_portal] = round(abs($participante->deuda),2);
             if($participante->deuda > 0)
                 $receptores[$participante->nombre_en_portal] = round($participante->deuda,2);
         }
+        if(count($pagadores) == 0 && count($receptores) == 0)
+            return [];
         
 
         $min = PHP_INT_MAX;
@@ -210,7 +236,7 @@ class Contabilidad extends Controller
             };
             $pagador = array_key_first($pagar);
             $receptor = array_key_first($recibir);
-            if(!$pagador&&!$receptor){
+            if(!$pagador||!$receptor){
                 break;
             }
             if($pagar[$pagador] > $recibir[$receptor]){
