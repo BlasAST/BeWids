@@ -23,7 +23,7 @@
     $pantalla = Session::get('contabilidad');
  
 @endphp
-
+@include('componentes.componenteChatEncuestas')
 <div id="gastosCat" class="flex-grow flex justify-center cursor-pointer hover:text-colorDetalles">
     <span class="h-full flex flex-col justify-center @if($pantalla == 'gastos'||!$pantalla) border-b-4 border-white  selected @endif">Gastos</span>
 </div>

@@ -36,7 +36,10 @@ $portal=Session::get('portal');
         <p>Compartalo solo con las personas que considere necesario</p>
         <hr class="mt-6">
         <div class="direccionInvitacion hover:text-blue-500 flex justify-center items-center grow">
-            <h1 class="">http://127.0.0.1:8000/invitacion/{{$portal->token_portal}}</h1>
+            <h1 class="copiarEnlace">http://127.0.0.1:8000/invitacion/{{$portal->token_portal}}</h1>
+            <div>
+                
+            </div>
         </div>
     </div>
 </div>

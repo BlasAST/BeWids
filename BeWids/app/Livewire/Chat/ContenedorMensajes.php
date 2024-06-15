@@ -21,6 +21,9 @@ class ContenedorMensajes extends Component
     public $participantesSeleccionados;
     public $mensajes;
 
+    //Los metodos con On son eventos recibidos mediante livewire desde el listadodeChats
+
+    // Carga los datos de la conversacion individual y borra los de grupal
     #[On('newChatSimple')]
     public function cargarConversacionIndivual(Conversacion $conversacion, Participantes $participante)
     {
@@ -29,7 +32,7 @@ class ContenedorMensajes extends Component
         $this->participanteSeleccionado = $participante;
         $this->buscarMensajes();
     }
-
+// Carga los datos de la conversacion grupal y borra los de individual
     #[On('newChatGroup')]
     public function cargarConversacionGrupal(Conversacion $conversacion, $participantes, $arrayPar=NULL)
     {
@@ -41,6 +44,7 @@ class ContenedorMensajes extends Component
 
         $this->buscarMensajes();
     }
+    // Busca en la base de datos la existencia de mensajes existentes o realiza su creación
     public function buscarMensajes()
     {
         $this->participanteActual = Participantes::where('id_usuario', auth()->user()->id)->where('id_portal', FacadesSession::get('portal')->id)->first();
@@ -49,7 +53,7 @@ class ContenedorMensajes extends Component
 
         $this->mensajes = Mensaje::where('id_portal', FacadesSession::get('portal')->id)
             ->where('conversacion_id', $this->conversacionSeleccionada->id)->first();
-
+        // Crea una conversación individual
         if ($this->mensajes == NULL && $this->participantesSeleccionados == NULL) {
             $mensajesConversacion = new Mensaje();
             $mensajesConversacion->id_portal = FacadesSession::get('portal')->id;
@@ -59,6 +63,7 @@ class ContenedorMensajes extends Component
             $mensajesConversacion->save();
             $this->mensajes = $mensajesConversacion;
         }
+        // Crea una conversación grupal
         if ($this->mensajes == NULL && $this->participanteSeleccionado == NULL) {
             $mensajesConversacion = new Mensaje();
             $mensajesConversacion->id_portal = FacadesSession::get('portal')->id;
@@ -67,9 +72,11 @@ class ContenedorMensajes extends Component
             $mensajesConversacion->save();
             $this->mensajes = $mensajesConversacion;
         }
+        // Restablece el scroll hasta abajo
         $this->dispatch('scrollFixed');
     }
 
+    // Busca información del participante seleccionado en su perfil relacionada con un participante
     public $inforParticipante;
     public $participanteBuscado;
     public function buscarInfoParticipantes($participe)
@@ -77,17 +84,20 @@ class ContenedorMensajes extends Component
         $this->participanteBuscado = Participantes::where('id_portal', FacadesSession::get('portal')->id)->where('nombre_en_portal', $participe)->first();
         $this->inforParticipante = infousuario::where('id_user', $this->participanteBuscado->id_usuario)->first();
     }
-
+    //Cierra la conversación en caso de no querer tener seleccionada ninguna
     public function cerrarConversacion()
     {
         $this->participanteSeleccionado = NULL;
         $this->participantesSeleccionados = NULL;
         $this->inforParticipante = NULL;
     }
+    // Oculta la información en caso de que se le de al boton
     public function cerrarInfo()
     {
         $this->inforParticipante = NULL;
     }
+    // Recopila la información necesaria del participante para emitir el mensaje mediante un evento
+    // que sera controlado por pusher y actualizará la base de datos
 
     public $mensajeEnviado;
     public function enviarMensaje()
@@ -100,13 +110,16 @@ class ContenedorMensajes extends Component
                 'timestamp' => now()->format('H:i'),
                 'id' => Str::uuid()->toString(),
             ];
+            // Evento que carga el mensaje con pusher
             event(new \App\Events\envioMensaje($this->participanteActual->nombre_en_portal, $this->mensajeEnviado, $this->mensajes->conversacion_id,$enviando['timestamp'],$enviando['id']));
+            // Eliminación del mensaje escrito en el input
             if ($this->participanteActual->nombre_en_portal == $enviando['emisor']) {
                 $this->mensajeEnviado = NULL;
             }
         }
     }
-
+    // Guarda la información del mensaje enviado y realiza una comprobación de existencia mediante
+    // un identificador unico para que no se generen duplicados mediante pusher
     #[On('actualizandoChat')]
     public function actualizacion($datos)
     {
@@ -127,6 +140,8 @@ class ContenedorMensajes extends Component
                 $this->mensajes->update(['body' => $updateBody]);
     
                 $this->mensajes->save();
+                // Evento manejado desde js para que cada vez que se manda un mensaje
+                // se reinicie el scroll empezando desde abajo
                 $this->dispatch('scrollFixed');
             }
         }

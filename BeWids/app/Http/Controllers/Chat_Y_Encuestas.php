@@ -126,6 +126,8 @@ class Chat_Y_Encuestas extends Controller
                     return response()->json('Tu voto ya ha sido guardado');
                 }
             } else {
+                $encuesta->finalizada=true;
+                    $encuesta->save();
                 return response()->json('Ya han votado todos los participantes');
             }
         } else {

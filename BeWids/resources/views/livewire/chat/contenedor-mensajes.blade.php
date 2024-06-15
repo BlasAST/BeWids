@@ -1,11 +1,11 @@
 <div class="contentedorMensajes grow flex flex-col">
     @if ($participanteSeleccionado)
-        <header class="flex basis-1 items-center relative">
+        <header class="flex basis-1 items-center relative bg-colorDetallesTras">
             <figure class=" w-8 mr-auto ml-4"><img src="https://picsum.photos/200" class="rounded-full" alt="">
             </figure>
             <h1 class="mr-auto font-bold">{{ $participanteSeleccionado->nombre_en_portal }}</h1>
             <button class="mostrarListaParticipantes flex items-center" wire:click="$dispatch('toggleParticipantesList')">
-                <p class="mr-4 font-extralight">Menu</p>
+                <p class="mr-4 font-light">Menu</p>
                 <figure class="w-5 mr-4 flecha">
                     <img src="{{ asset('imagenes/imagenesBasic/flechaAperturaInfo.png') }}">
                 </figure>
@@ -44,11 +44,11 @@
         </header>
     @endif
     @if ($participantesSeleccionados)
-        <header class="flex basis-1 items-center relative justify-between px-5">
+        <header class="flex basis-1 items-center relative justify-between px-5 bg-colorDetallesTras">
             <h1 class="font-bold">{{ $conversacionSeleccionada->name_group }}</h1>
             <button class="mostrarListaParticipantes flex items-center"
                 wire:click="$dispatch('toggleParticipantesList')">
-                <p class="mr-4 font-extralight">Menu</p>
+                <p class="mr-4 font-light">Menu</p>
                 <figure class="w-5 mr-4 flecha">
                     <img src="{{ asset('imagenes/imagenesBasic/flechaAperturaInfo.png') }}">
                 </figure>
@@ -116,7 +116,7 @@
         <footer class="sendMessage bg-blue-800 h-[10%] rounded-br-2xl">
             <form class="flex h-full" wire:submit.prevent="enviarMensaje">
                 <input type="text" wire:model="mensajeEnviado" placeholder="Escribir mensaje"
-                    class="grow placeholder:pl-4 focus:bg-colorFondo">
+                    class="grow placeholder:text-colorCabera focus:bg-colorLetraTras indent-6">
                 <button type="submit" class="basis-1/6">Enviar</button>
             </form>
         </footer>
@@ -127,6 +127,7 @@
     @endif
 
     <script>
+        // Inicia los eventos relacionados con js creados mediante livewire
         document.addEventListener('livewire:init', function() {
             Livewire.on('toggleParticipantesList', function() {
                 let participantes = document.querySelector('.participantesList');
@@ -138,6 +139,7 @@
 
 
         });
+        // Reiniciador de scroll a la parte inferior
         window.addEventListener('scrollFixed',function(){
             setTimeout(() => {
                 let contenedor=document.querySelector('.containerMessages');
@@ -150,7 +152,7 @@
 
     <script>
 
-        // Enable pusher logging - don't include this in production
+        // Conexión con pusher para el chat a tiempo real
         Pusher.logToConsole = true;
     
         var pusher = new Pusher('8388d0d243e690cebd7f', {
@@ -165,7 +167,5 @@
         
         });
     </script>
-
-{{-- $.dispatch(actualizandoChat,{datos:data}) --}}
 
 </div>

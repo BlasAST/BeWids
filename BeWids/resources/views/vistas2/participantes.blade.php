@@ -17,7 +17,7 @@
 @endsection
 @section('contenidoServicio')
 
-
+@include('componentes.componenteChatEncuestas')
 <section id="participantes" class="mostrar flex h-full flex-col gap-6 py-5 items-center">
     @foreach ($participantes as $participante)
         @if ($participante->nombre_en_portal != $participanteUser->nombre_en_portal)
@@ -63,7 +63,7 @@
         </form>
     @endif
 </section>
-<div class="errorElim z-10 absolute top-0 h-full w-full hidden justify-center items-center bg-colorFondo bg-opacity-60">
+<div class="errorElim z-30 absolute top-0 h-full w-full hidden justify-center items-center bg-colorFondo bg-opacity-60">
     <div class="bg-colorSecundario text-white w-[60%] py-10 text-center flex flex-col justify-start rounded-xl gap-5 items-center">
         <h1>No puedes eliminar participantes con cuentas pendientes.</h1>
         <h1>Asegurate de que el participante no deba ni le deban dinero.</h1>
