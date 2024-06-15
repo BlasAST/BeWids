@@ -107,7 +107,9 @@ function eventosEncuestas() {
     mostrarFormulario();
     crearInputs();
     seleccionadosEnFormulario();
-    botones()
+    botones();
+    cambiarEncuestas();
+    manejarVotacion();
 }
 
 
@@ -167,6 +169,7 @@ function crearInputs() {
         input.classList.add('opciones_votos');
         let contenedor = document.querySelector('.opcionesContainer');
         contenedor.appendChild(input);
+        contenedor.scrollTop=contenedor.scrollHeight;
     });
 }
 
@@ -202,6 +205,7 @@ function botones() {
     botones[0] && botones.forEach(boton => boton.addEventListener('click', pedirDatos))
 }
 
+
 async function pedirDatos(evt) {
     let tipo = evt.currentTarget.value;
     let id=evt.currentTarget.parentElement.parentElement.lastElementChild.value;
@@ -216,8 +220,11 @@ async function pedirDatos(evt) {
 }
 
 let contenedorPadre;
+let contenedorPadrePorcentaje;
+let contenedorVotos;
 function pintar(datos, tipo){
     contenedorPadre=document.querySelector('.muestraInfo');
+    contenedorPadrePorcentaje=document.querySelector('.muestraInfo2');
     
     switch (tipo){
         case 'participantes':
@@ -226,16 +233,21 @@ function pintar(datos, tipo){
         case 'descripcion':
             pintarDescripcion(datos,tipo);
             break;
+        case 'opciones_votos':
+            pintarVotos(datos);
+            break;
     }
 }
 function pintarParticipantes(datos,tipo){
     contenedorPadre.parentElement.parentElement.classList.remove('hidden');
+    contenedorPadrePorcentaje.parentElement.parentElement.classList.add('hidden');
+    
     let contenido=`
     <h2 class="font-extralight text-3xl mt-2">${tipo.toUpperCase()}</h2>
-    <ul class="w-[80%] h-[90%] flex flex-col justify-around items-center flex-wrap all-li:w-[25%] all-li:bg-colorComplem all-li:text-center">`
+    <ul class="w-[80%] h-[90%] flex flex-col justify-around items-center all-li::w-[15%] all-li:text-center">`
     datos=JSON.parse(datos);
     for(let i=0;i<datos.length;i++){
-        contenido+=`<li>${datos[i]}</li>`;
+        contenido+=`<li class="bg-colorComplem p-2 rounded-2xl my-2">${datos[i]}</li>`;
     };
         contenido+=`</ul>`;
     contenedorPadre.innerHTML=contenido;
@@ -245,35 +257,154 @@ function pintarParticipantes(datos,tipo){
 function pintarDescripcion(datos,tipo){
     contenedorPadre.parentElement.parentElement.classList.remove('hidden');
     let contenido=`
-    <h2 class="font-extralight text-3xl mt-2">${tipo.toUpperCase()}</h2>
-    <div class="scroll-y-auto p-10"> 
+    <h2 class="font-extralight text-white text-3xl mt-2">${tipo.toUpperCase()}</h2>
+    <div class="scroll-y-auto p-10 hover:bg-colorComplem hover:text-white"> 
     <p>${datos}</p>
     </div>
     `;
     contenedorPadre.innerHTML=contenido;
     cerrar();
 }
+function pintarVotos(datos){
+    contenedorPadrePorcentaje.parentElement.parentElement.classList.remove('hidden');
+    contenedorPadre.parentElement.parentElement.classList.add('hidden');
+    datos=JSON.parse(datos);
+    
+    let contenido=`
+    <h2 class="absolute top-0 bg-colorComplem p-2 font-light">PORCENTAJES</h2>
+    `;
+    datos.forEach(dato=>{
+        contenido+=`
+        <div class="my-2 w-[80%] h-20 pb-5text-center">
+            <h3 class=" p-2">${dato.opcion.toUpperCase()}: <span>${dato.porcentaje}</span></h3>
+            <div class="bg-colorComplem w-[100%] h-[40%] rounded-3xl">
+                <div class="bg-colorDetalles h-full  rounded-3xl block" style="width:${dato.porcentaje};"></div>
+            </div>
+        </div>
+        `;
+    });
+    contenedorPadrePorcentaje.innerHTML=contenido;
+    cerrar();
+}
+
 
 function cerrar(){
     let botonCerrar=document.querySelector('.btn-cerrar');
+    let botonCerrar2=document.querySelector('.btn-cerrar2');
     botonCerrar.addEventListener('click',()=>{
         contenedorPadre.parentElement.parentElement.classList.add('hidden');
+        contenedorPadrePorcentaje.parentElement.parentElement.classList.add('hidden');
+    })
+    botonCerrar2.addEventListener('click',()=>{
+        contenedorPadre.parentElement.parentElement.classList.add('hidden');
+        contenedorPadrePorcentaje.parentElement.parentElement.classList.add('hidden');
     })
 }
 
-function pintarElementos(ele, attr, contenido) {
-    const elemento = document.createElement(ele);
-    for (let clave in attr) {
-        elemento.setAttribute(clave, attr[clave]);
+function manejarVotacion(){
+    let botonVotar=document.querySelectorAll('.mostrarVotacion');
+    botonVotar.forEach(voto=>voto.addEventListener('click',pedirVotar));
+}
+
+async function pedirVotar(evt){
+    let tipo = evt.currentTarget.value;
+    let id=evt.currentTarget.parentElement.parentElement.lastElementChild.value;
+    try {
+        let response = await fetch('/pedirDatos?tipo=opciones_votos&id='+id);
+        if (!response.ok) { throw new Error('Error al añadir el evento'); }
+        let data = await response.json();
+        pintarVotador(data,tipo);
+    } catch (error) {
+        console.error('Error:', error);
     }
-    if (typeof contenido == 'string') {
-        elemento.appendChild(document.createTextNode(contenido));
+    
+}
+
+
+function pintarVotador(datos,tipo){
+    datos=JSON.parse(datos);
+    contenedorVotos=document.querySelector('.opcionesVotacion');
+    contenedorVotos.parentElement.parentElement.classList.remove('hidden');
+    let contenido=``;
+    datos.forEach(dato=>{
+        contenido+=`
+        <button class="elementoVotable w-full bg-colorComplem hover:bg-colorDetalles hover:text-white my-4 rounded-3xl" value="votacion">
+                                <h2>${dato.opcion}</h2>
+                                <h4>Votado por: ${dato.porcentaje}</h4>
+                                <h6 class="hidden">${dato.id_encuesta}</h6>
+        </button>
+        `;
+        contenedorVotos.innerHTML=contenido;
+    });
+    escucharVoto();
+    cerrarVotacion();
+}
+function cerrarVotacion(){
+    let botonCerrar3=document.querySelector('.btn-cerrar3');
+    botonCerrar3.addEventListener('click',()=>{
+        contenedorVotos.parentElement.parentElement.classList.add('hidden');
+    })
+}
+
+function escucharVoto(){
+    let botonesVoto=document.querySelectorAll('.elementoVotable');
+    botonesVoto.forEach(boton=>boton.addEventListener('click',guardarVoto))
+}
+
+async function guardarVoto(evt){
+    let valor=evt.currentTarget.querySelector('h2').textContent;
+    let id=evt.currentTarget.querySelector('h6').textContent;
+    try {
+        let response = await fetch('/updateEncuesta?seleccion='+valor+'&id='+id);
+        if (!response.ok) { throw new Error('Error al añadir el evento'); }
+        let data = await response.json();
+        pintarInfoEncuesta(data);
+    } catch (error) {
+        console.log(error);
     }
-    if (contenido instanceof HTMLElement) {
-        elemento.appendChild(contenido);
-    }
-    if (Array.isArray(contenido)) {
-        contenido.forEach(conte => elemento.appendChild(conte));
-    }
-    return elemento;
+
+}
+
+
+function pintarInfoEncuesta(datos){
+    let respuesta=datos
+    console.log(respuesta);
+    let contenido=`
+        <div >
+            <h2>${respuesta}</h2>
+        </div>
+    `;
+    let elemento=document.querySelector('.containerMensaje');
+    elemento.innerHTML=contenido;
+    elemento.classList.remove('hidden');
+    setTimeout(()=>{
+        elemento.classList.add('hidden')
+        elemento.parentElement.parentElement.classList.add('hidden')
+        if(respuesta=='Tu voto a sido guardado correctamente'){
+            ruta=window.location.pathname;
+            window.location.href = ruta;
+        }
+    },3000);
+}
+
+ function  cambiarEncuestas(){
+    let boton=document.querySelector('.cambioEncuestas');
+    let tablaActuales=document.querySelector('.tablaNoFinalizados');
+    let tablaFinalizados=document.querySelector('.tablaFinalizados');
+    boton.addEventListener('click',function(){
+        tablaActuales.classList.toggle('hidden');
+        tablaFinalizados.classList.toggle('hidden');
+        
+        if (tablaActuales.classList.contains('hidden')) {
+            boton.classList.add('bg-colorComplem');
+            boton.classList.remove('bg-colorBarra2');
+            boton.textContent = 'Encuestas activas';
+        } else {
+            boton.classList.add('bg-colorBarra2');
+            boton.classList.remove('bg-colorComplem');
+            boton.textContent = 'Encuestas finalizadas';
+        }
+
+    })
+
 }

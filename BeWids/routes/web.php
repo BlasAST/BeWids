@@ -78,6 +78,7 @@ Route::get('/chat',[Chat_Y_Encuestas::class, 'index'])->name('chat')->middleware
 Route::get('/encuestas',[Chat_Y_Encuestas::class, 'index'])->name('encuestas')->middleware('autenticar');
 Route::post('/nuevaEncuesta',[Chat_Y_Encuestas::class, 'newEncuesta'])->name('newEncuesta')->middleware('autenticar');
 Route::get('/pedirDatos',[Chat_Y_Encuestas::class,'pedirDatos']);
+Route::get('/updateEncuesta',[Chat_Y_Encuestas::class,'updateEncuestas']);
 
 
 
