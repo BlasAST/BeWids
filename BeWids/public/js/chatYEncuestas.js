@@ -368,7 +368,6 @@ async function guardarVoto(evt){
 
 function pintarInfoEncuesta(datos){
     let respuesta=datos
-    console.log(respuesta);
     let contenido=`
         <div >
             <h2>${respuesta}</h2>

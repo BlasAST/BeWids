@@ -77,12 +77,10 @@ class Chat_Y_Encuestas extends Controller
         $seleccion = $request->seleccion;
         $encuesta = encuesta::where('id', $id)->where('id_portal', Session::get('portal')->id)->first();
         $participanteActual = Participantes::where('id', auth()->user()->id)->where('id_portal', Session::get('portal')->id)->first();
+        
 
         if (!$encuesta->finalizada) {
             if ($encuesta->fecha_final) {
-                // $fechaActual = new DateTime();
-                // $fechaActualFormateada = $fechaActual->format('Y-m-d');
-                // $resultado = $encuesta->fecha_final->format('Y-m-d') < $fechaActualFormateada ? true : false;//Esto tiene error
                 $resultado= $encuesta->fecha_final< now()?true:false;
                 if ($resultado) {
                     $encuesta->finalizada=true;
@@ -133,6 +131,6 @@ class Chat_Y_Encuestas extends Controller
         } else {
             return response()->json('Esta encuesta finalizo');
         }
-
+        
     }
 }

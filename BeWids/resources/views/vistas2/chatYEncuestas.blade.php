@@ -36,7 +36,7 @@
         </div>
     
         <div class="listadoEncuestas border-4 overflow-y-auto relative grow">
-            <table class=" w-full h-full">
+            {{-- <table class=" w-full h-full">
                 <thead class=" border-4 sticky top-0 max-h-[20%]">
                     <tr>
                         <th>Encuesta</th>
@@ -56,7 +56,7 @@
                             <td><button value="descripcion" class=" btn-info leerDescripcion truncate max-w-64">{{$encuesta->descripcion}}</button></td>
                             <td class="w-4">{{$encuesta->creador}}</td>
                             <td class="text-center"><button value="participantes" class="btn-info text-black p-2 bg-white rounded-full hover:bg-colorDetalles">Ver participantes</button></td>
-                            <td class="text-center"><button value="opciones_votos" class="btn-info text-black p-2 bg-white rounded-full hover:bg-colorDetalles">Ver porcentajes</button></td>   {{-- btn-info --}}
+                            <td class="text-center"><button value="opciones_votos" class="btn-info text-black p-2 bg-white rounded-full hover:bg-colorDetalles">Ver porcentajes</button></td>  
                             <td>{{$encuesta->num_votos_hechos}}/{{$encuesta->num_votos_totales}}</td>
                             <td>{{$encuesta->fecha_final?$encuesta->fecha_final:'Sin fecha'}}</td>
                             <td class="text-center"><button class="mostrarVotacion text-black p-2 bg-white rounded-full hover:bg-colorDetalles">Votar</button></td>
@@ -71,10 +71,55 @@
                            <td><button value="descripcion" class=" btn-info leerDescripcion truncate max-w-64">{{$encuesta->descripcion}}</button></td>
                            <td class="w-4">{{$encuesta->creador}}</td>
                            <td class="text-center"><button value="participantes" class="btn-info text-black p-2 bg-white rounded-full hover:bg-colorDetalles">Ver participantes</button></td>
-                           <td class="text-center"><button value="opciones_votos" class="btn-info text-black p-2 bg-white rounded-full hover:bg-colorDetalles">Ver porcentajes</button></td>   {{-- btn-info --}}
+                           <td class="text-center"><button value="opciones_votos" class="btn-info text-black p-2 bg-white rounded-full hover:bg-colorDetalles">Ver porcentajes</button></td>  
                            <td>{{$encuesta->num_votos_hechos}}/{{$encuesta->num_votos_totales}}</td>
                            <td>{{$encuesta->fecha_final?$encuesta->fecha_final:'Sin fecha'}}</td>
                            <td class="text-center"><button class="mostrarVotacion text-black p-2 bg-white rounded-full hover:bg-colorDetalles">Votar</button></td>
+                           <input type="hidden" value="{{$encuesta->id}}">
+                       </tr>
+                   @endforeach 
+               </tbody>
+            </table> --}}
+
+            <table class=" w-full">
+                <thead class=" border-4 sticky top-0 h-[20%]">
+                    <tr>
+                        <th>Encuesta</th>
+                        <th>Descripción</th>
+                        <th>Creador</th>
+                        <th>Participantes</th>
+                        <th>Porcentajes</th>
+                        <th>Votos</th>
+                        <th>Fecha fin</th>
+                        <th><button>Votar</button></th>
+                    </tr>
+                </thead>
+                <tbody class="border-4 border-solid border-blue-700 h-screen tablaNoFinalizados">
+                     @foreach ($encuestas as $encuesta) 
+                        <tr class="hover:bg-colorComplem bg-colorCaberaTras all-td:border-2 all-td:border-colorCaberaTras2 ">
+                            <td>{{$encuesta->title}}</td>
+                            <td><button value="descripcion" class="btn-info leerDescripcion truncate max-w-64">{{$encuesta->descripcion}}</button></td>
+                            <td class="w-4">{{$encuesta->creador}}</td>
+                            <td class="text-center"><button value="participantes" class="btn-info p-2 bg-white rounded-full hover:bg-colorDetalles">Ver participantes</button></td>
+                            <td class="text-center"><button value="opciones_votos" class="btn-info p-2 bg-white rounded-full hover:bg-colorDetalles">Ver porcentajes</button></td>   {{-- btn-info --}}
+                            <td>{{$encuesta->num_votos_hechos}}/{{$encuesta->num_votos_totales}}</td>
+                            <td>{{$encuesta->fecha_final?$encuesta->fecha_final:'Sin fecha'}}</td>
+                            <td class="text-center"><button class="mostrarVotacion p-2 bg-white rounded-full hover:bg-colorDetalles">Votar</button></td>
+                            <input type="hidden" value="{{$encuesta->id}}">
+                        </tr>
+                    @endforeach 
+                </tbody>
+                <tbody class="border-4 border-solid hidden border-blue-700 h-screen bg-colorComplem tablaFinalizados">
+                    @foreach ($encuestasF as $encuesta) 
+                       <tr class="hover:bg-colorComplem bg-colorCaberaTras all-td:border-2 all-td:border-colorCaberaTras2 ">
+                           <td>{{$encuesta->title}}</td>
+                           <td><button value="descripcion" class="btn-info leerDescripcion truncate max-w-96">{{$encuesta->descripcion}}</button></td>
+                           <td class="w-4">{{$encuesta->creador}}</td>
+                           <td class="text-center"><button value="participantes" class="btn-info p-2 bg-white rounded-full hover:bg-colorDetalles">Ver participantes</button></td>
+                           <td class="text-center"><button value="opciones_votos" class="btn-info p-2 bg-white rounded-full hover:bg-colorDetalles">Ver porcentajes</button></td>   {{-- btn-info --}}
+                           <td>{{$encuesta->num_votos_hechos}}/{{$encuesta->num_votos_totales}}</td>
+                           <td>{{$encuesta->fecha_final?$encuesta->fecha_final:'Sin fecha'}}</td>
+                           <td class="text-center"><button class="mostrarVotacion p-2 bg-white rounded-full hover:bg-colorDetalles">Votar</button></td>
                            <input type="hidden" value="{{$encuesta->id}}">
                        </tr>
                    @endforeach 
@@ -142,10 +187,6 @@
 
 
             
-
-
-
-
 
             <div class="contenedorMuestraInfo hidden absolute bottom-0 flex justify-center items-center w-full h-full">
                 <div class="fixed bg-colorBarra2 w-[30%] h-[40%] ">

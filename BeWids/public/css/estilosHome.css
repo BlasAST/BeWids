@@ -3,7 +3,7 @@ body{
 
 }
 header{
-     position: fixed; 
+
     width: 100%; 
     }
 .margen{
@@ -13,6 +13,12 @@ header{
 /* Colocacion apartir del header */
 .contenedor > div{
     display: flex;
+}
+
+.content {
+    
+    margin: 20px 0;
+    background: #f0f0f0;
 }
 /* Colocacion imagen 1 con el texto */
 .hero{
@@ -34,10 +40,9 @@ header{
     justify-content: center;
     background-repeat: no-repeat;
 }
-.contenedor >div:nth-child(even){
+.contenedor >div:nth-child(even):not(:last-child){
     margin-right: -20px;
     background-position: right;
-    align-items: start;
 }
 .contenedor >div:nth-child(odd):not(:first-child){
     margin-left: -20px;
@@ -48,15 +53,19 @@ header{
     align-items: center;
     height: 25vw;
 }
+.contenedor >div:nth-child(n+2):not(:last-child) >div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .contenedor >div:nth-child(n+2) p,
 .contenedor >div:nth-child(n+2) h2{
-
     text-align: center;
 }
 .contenedor div:nth-child(n+2) p{
     color: crimson;
     font-weight: bold;
-    /* text-shadow: 0px 0px 4px rgb(0, 0, 0); */
 }
 .contenedor> div:nth-child(3){
     background-image: url(../imagenes/imagenesHome/imagenPersonasSombras.jpg);
@@ -103,30 +112,61 @@ header{
 .contenedor button{
     background-color: transparent;
     border: 0;
-    padding: 10px;
+    font-size: var(--mediano);
+    padding: 20px;
+    transition: 2s;
 }
 .contenedor a{
     font-size: var(--mediano);
     color: var(--color-terciario);
+    
 }
 .contenedor button:hover{
-    padding: 10px;
+    padding: 20px;
     font-size: var(--grande);
     background-color: transparent;
     color: var(--color-terciario); 
 }
 .contenedor #muestraBreve{
+    /* padding: 0 10%; */
     flex-direction: column;
     align-items:center;
 }
 #muestraBreve{
     background-color: var(--color-secundario);
-    margin-left: -20px;
+    /* margin-left: -20px; */
 }
 #muestraBreve button{
     background-color: white;
     margin: 40px 0;
 }
+.muestraSeleccionada{
+    padding: 0 20%;
+    margin-bottom: 15%;
+}
+.muestraSeleccionada > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.muestraSeleccionada >*:not(:first-child){
+    display: none;
+}
+.muestraSeleccionada >*{
+    color: white;
+}
+.subir{
+    width: 5%;
+    position: fixed;
+    right: 5%;
+    bottom: 10%;
+    background-color: rgba(124, 103, 110, 0.7);
+}
+.subir img{
+    width: 100%;
+}
+
 
 .botonesSesion#eleccion{
     display: flex;
@@ -138,4 +178,78 @@ header{
     background-color: var(--color-terciario);
     color: white;
     font-size: var(--grande);
+}
+
+@media screen and  (max-width:1440px){
+    .muestraSeleccionada{
+        padding: 0;
+    }
+    h2{
+        font-size: var(--mediano);
+    }
+    p{
+        width: 80%;
+        font-size: calc(var(--mediano) - 40%);
+    }
+    
+    .contenedor button:hover{
+        padding: 0%;
+    }
+}
+@media screen and  (max-width:920px){
+    .contenedor >div:nth-child(n+2){
+        background-size: 100%;
+    }
+    .contenedor >div:nth-child(even):not(:last-child),
+    .contenedor >div:nth-child(odd):not(:first-child){
+        margin: 0;
+    }
+    .muestraSeleccionada img{
+        width: 80%;
+    }
+    .contenedor button{
+        padding: 20px 10px;
+        border-radius: 50px;
+        transition: none;
+        font-size: calc(var(--mediano) - 40%);
+    }
+    .contenedor button:hover{
+        padding: 20px 10px;
+        font-size: calc(var(--mediano) - 40%);
+    }
+    .contenedor div:nth-child(n+3) p,
+    .contenedor div:nth-child(n+3) h2 {
+        color:white
+    }
+    h2{
+        font-size: calc(var(--mediano) - 40%);
+    }
+
+}
+@media screen and  (max-width:680px){
+    .hero{
+        height: 400px;
+    }
+    .contenedor >div:nth-child(even):not(:last-child),
+    .contenedor >div:nth-child(odd):not(:first-child){
+        align-items: center;
+    }
+
+    .contenedor button{
+        padding: 5px;
+        font-size: calc(var(--mediano) - 80%);
+    }
+    .contenedor button:hover{
+        padding: 5px;
+        font-size: calc(var(--mediano) - 80%);
+    }
+    h2{
+        font-size: calc(var(--mediano) - 80%);
+    }
+    .contenedor div:nth-child(n+3){
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }
