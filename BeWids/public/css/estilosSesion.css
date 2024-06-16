@@ -9,7 +9,7 @@ body{
     min-height: 100dvh;
 }
 body > div{
-    width: 50%;
+    width: min(700px,90%);
     background-color: gray;
     display: flex;
     margin: 50px auto;
@@ -176,4 +176,17 @@ div > p:first-of-type{
 }
 .reenvio{
     color: #4465B8;
+}
+.reset label{
+    text-decoration:none;
+}
+.reset button{
+    width:70%;
+}
+.reset form{
+    padding-top: 20px;
+    align-items: center;
+}
+.reset > div{
+    color: #D63865;
 }

@@ -57,7 +57,7 @@
 </div>
 <div class="w-[100dvw] h-[100dvh] fixed hidden justify-center items-center top-0 left-0  mostrarEvt">
     <div class="hidden mapa" id="40.44820807603311|-3.6754035358523303"></div>
-    <div class="basis-1/2 bg-colorCabera flex flex-col text-center items-end rounded-xl border-4 border-colorLetra text-colorLetra p-3">
+    <div class="basis-[94%] md:basis-3/4 lg:basis-1/2 bg-colorCabera flex flex-col text-center items-end rounded-xl border-4 border-colorLetra text-colorLetra p-3">
         <figure class="w-7 h-7 logoCancel btnCerrar"></figure>
         <div class="w-full flex flex-col text-center items-center max-h-96 overflow-y-auto gap-6">  
             

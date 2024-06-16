@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'contabilidad'=> \App\Http\Middleware\Contabilidad::class,
         'eventos'=> \App\Http\Middleware\EventosMid::class,
         'autenticar'=> \App\Http\Middleware\Autentificar::class,
+        'portal'=> \App\Http\Middleware\PortalOk::class,
+
     ];
 }

@@ -35,9 +35,9 @@ class Contabilidad
         $partNull = Participantes::where('id_portal',$portal->id)->where('id_usuario', NULL)->pluck('nombre_en_portal')->toArray();
         $notificaciones = [];
         if(Session::get('participanteUser')->admin){
-            $notficacionesComunes = Notificaciones::where('id_portal',$portal->id)->whereIn('receptor',$partNull)->get();
-            foreach($notficacionesComunes as $not){
-                $notficaciones[] = $not;
+            $notificacionesComunes = Notificaciones::where('id_portal',$portal->id)->whereIn('receptor',$partNull)->whereNotNull('id_reembolso')->get();
+            foreach($notificacionesComunes as $not){
+                $notificaciones[] = $not;
             }
         }
         $notificacionesPropias = Notificaciones::where('id_portal',$portal->id)->where('receptor',Session::get('participanteUser')->nombre_en_portal)->get();

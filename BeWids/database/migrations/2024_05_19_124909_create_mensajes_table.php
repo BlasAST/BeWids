@@ -23,8 +23,7 @@ return new class extends Migration
 
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
             $table->foreign('conversacion_id')->references('id')->on('conversacions')->onDelete('cascade');
-            $table->foreign('receptor')->references('nombre_en_portal')->on('participantes');
-            $table->foreign('emisor')->references('nombre_en_portal')->on('participantes');
+
             $table->boolean('read')->default(0)->nullable();
             $table->json('body')->nullable();
             $table->string('type')->nullable();

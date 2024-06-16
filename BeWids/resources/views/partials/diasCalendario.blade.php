@@ -3,13 +3,13 @@
 
     @switch(true)
         @case($i->format('m') == $fechaFinal->format('m'))
-            <div class="dia bg-colorComplem border-2 row-span-1 flex flex-col border-black">
+            <div class="dia bg-colorComplem border-2 row-span-1 flex flex-col border-black pb-[1px]">
                 <h1 class="text-gray-300 indent-1">{{$i->format('d')}}</h1>
-                <div class="w-full grow flex flex-col gap-1 justify-around py-1  dropZone">
+                <div class="w-full grow flex flex-col gap-1 justify-around py-1  dropZone overflow-y-auto">
                     
                     @foreach ($eventos as $evt)
                         @if($evt['fecha_cal'] == $i->format('Y-m-d'))
-                        <div @if($yo->admin ||!$ajustes->modif_cal) draggable="true" @endif class="w-11/12 text-[9px] bg-white rounded-2xl px-2 text-center flex gap-1 justify-evenly items-center mx-auto evt">
+                        <div @if($yo->admin ||!$ajustes->modif_cal) draggable="true" @endif class="w-11/12 md:text-[9px] text-[7px] bg-white rounded-2xl px-2 text-center flex gap-1 justify-evenly items-center mx-auto evt">
                             <p>{{$evt['hora_inicio']}}</p>
                             <h1 class="font-bold whitespace-nowrap overflow-hidden text-ellipsis">{{$evt['titulo']}}</h1>
                             <p>{{$evt['hora_fin']}}</p>

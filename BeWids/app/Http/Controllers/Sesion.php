@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Infousuario;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -21,7 +22,9 @@ class Sesion extends Controller
         }
     }
     public function formulario(){
+        //Comprobamos que tipo de formulario se ha activado
         if(request('tipo') == 'iniciar'){
+            //intentamos iniciar sesión, en caso de que los datos sean incorrectos, se vuelve con el error
             if(!auth()->attempt(request(['email','password']),request('recordar'))){
                 return back()->withErrors([
                     'message' => 'Correo o contraseña incorrectos'
@@ -31,8 +34,21 @@ class Sesion extends Controller
             session()->regenerate();
             return redirect()->to('/');
         }else{
+            //intentamos crear cuenta, en caso de que el correo esté en uso, se vuelve con el error
+            if(User::where('email',request('email'))->exists()){
+                return back()->withErrors([
+                    'message' => 'Correo no válido'
+                ]);
+            }
             $user = User::create(request(['name','email','password']));
             Auth::login($user);
+
+            $info = new Infousuario();
+            $info->nombre = $user->name;
+            $info->foto_perfil = 'default'. rand(0,14) . '.jpg';
+            $info->id_user = Auth::user()->id;
+            $info ->save();
+            //una vez registrados se les envia el correo de verificación
             $user->sendEmailVerificationNotification();
             return redirect()->to('/');
         }

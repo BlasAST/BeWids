@@ -224,22 +224,24 @@
     @endif
 
     @foreach ($notificaciones as $notificacion)      
-        <div class=" bg-colorDetalles w-9/12 mx-auto mt-10 space-y-5 py-4 rounded-2xl">
-            <p class="text-center">{{$notificacion->mensaje}}</p>
-            <div class="flex justify-center w-full space-x-10">
-                @if ($notificacion -> id_reembolso)
-                    <button class="bg-colorComplem px-8 rounded-lg" data-action="confirmar">Confirmar</button>
-                    <button class="bg-colorCabera px-8 rounded-lg" data-action="denegar">Denegar</button>
-                @else
-                    <button class="bg-colorComplem px-8 rounded-lg" data-action="aceptar">Aceptar</button>
-                @endif
-                <form method="POST" action="{{route('responderNot')}}">
-                    @csrf
-                    <input type="hidden" name="notificacion" value="{{json_encode($notificacion)}}">
-                    <input type="hidden" name="respuesta" value="">
-                </form>
-            </div>
-        </div>       
+        @if ($notificacion -> id_reembolso || $notificacion->receptor == $participanteUser->nombre_en_portal)
+            <div class=" @if ($notificacion -> id_reembolso) bg-colorDetalles @else bg-colorComplem @endif w-9/12 mx-auto mt-10 space-y-5 py-4 rounded-2xl">
+                <p class="text-center">{{$notificacion->mensaje}}</p>
+                <div class="flex justify-center w-full space-x-10">
+                    @if ($notificacion -> id_reembolso)
+                        <button class="bg-colorComplem px-8 rounded-lg" data-action="confirmar">Confirmar</button>
+                        <button class="bg-colorCabera px-8 rounded-lg" data-action="denegar">Denegar</button>
+                    @else
+                        <button class="bg-colorDetalles px-8 rounded-lg" data-action="aceptar">Aceptar</button>
+                    @endif
+                    <form method="POST" action="{{route('responderNot')}}">
+                        @csrf
+                        <input type="hidden" name="notificacion" value="{{json_encode($notificacion)}}">
+                        <input type="hidden" name="respuesta" value="">
+                    </form>
+                </div>
+            </div>      
+        @endif
     @endforeach
 
 </section>

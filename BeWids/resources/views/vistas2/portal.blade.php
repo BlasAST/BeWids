@@ -9,38 +9,67 @@
     $participantes=Participantes::where('id_portal',$portal->id)->get();
 
 @endphp
-<div class="contenedor h-screen w-screen grid grid-cols-12 grid-rows-12 relative">
-    <!-- <h1>Benefits With friends</h1>
-    <h1>{{$portal->nombre}}</h1>
-    <h1>{{$portal->id}}</h1> -->
-    @if($usuario)<h1 class="col-[1/3] row-[1] text-colorLetra flex justify-center items-center">{{$yo->nombre_en_portal}} en</h1>@endif
-    <h1 class="row-[1/3] col-[2/4] flex justify-center items-center text-4xl text-colorLetra">{{$portal->nombre}}</h1>
-    <div  id="calendario" class=" cursor-pointer btn bg-blue-800 row-[1/5] col-[5/10] w-[100%] h-[80%] self-center justify-self-center">
-        @include('partials.calendarioMini')
+<div class="contenedor md:h-screen w-screen grid grid-cols-1 auto-rows-auto md:grid-cols-12 md:grid-rows-12 gap-4 relative px-[2.5%] py-[4dvh]">
+
+    {{-- CUENTAS --}}
+    <div class="row-start-5 min-h-[500px] md:col-start-1 md:col-span-3 md:row-start-2 md:row-span-9 h-full flex flex-col self-end gap-6 items-center w-[75%] justify-self-center">
+        <div class="bg-colorCaberaTras border-colorCabera border-2 justify-self-center flex items-stretch grow w-full">
+            @include('partials.contabilidadMini')
+        </div>
+        <button id="contabilidad" class="btn text-center py-1 w-1/2 rounded-2xl bg-colorCabera text-colorLetra">Ir a Gastos</button>
     </div>
-    <div class=" row-[1/2] col-[10/13] h-[70%] flex items-center justify-around">
+
+
+    {{-- TITULO --}}
+    <div class="text-white flex flex-col row-start-2 md:col-start-5 md:col-span-4 md:row-start-1 md:row-span-2 gap-2 h-[75%]" style="color:{{$portal->color_titulo}}" >
+        @if($usuario)<h1 class=" text-shadow">{{$yo->nombre_en_portal}} en</h1>@endif
+        <h1 class="text-center text-4xl">{{$portal->nombre}}</h1>
+    </div>
+
+
+    {{-- SALIR Y AJUSTES--}}
+    <div class="flex justify-end items-center md:justify-around row-start-1 md:col-start-10 md:col-span-3 md:row-start-1 gap-2">
         <button class="closeSession text-base font-bold border-b-2 hover:border-b-black">Salir del portal</button>
         <figure class="w-10 relative btnAjustes cursor-pointer"><img src="{{asset('imagenes/imagenesBasic/ajustes2.png')}}" alt=""></figure>
     </div>
-    <div class="bg-colorCaberaTras border-colorCabera border-2 row-[2/8] col-[10/13] w-[70%] justify-self-center flex flex-col items-center text-colorLetra">
-        @if (count($eventos) == 0)
-            <h1 class="text-center text-colorLetra mt-6">No se han añadido eventos a la lista</h1>
-        @endif
-        <div class="grow w-full flex flex-col-reverse justify-end items-center gap-2 py-2 overflow-y-auto">
-            @foreach ($eventos as $evt)
-            @php
-                $cat = explode(" ",$evt->categoria)[0] . ".jpg"   
-            @endphp
-                <div class="flex w-10/12 bg-colorComplem rounded-2xl">
-                    <figure class="basis-3/12 m-0 imagenEvento rounded-l-2xl" style="background-image: url('{{ asset('imagenes/imagenesEventos/' . $cat) }}');"></figure>
-                    <h1 class="py-4  px-1 text-center basis-9/12  whitespace-nowrap overflow-hidden text-ellipsis">{{$evt->titulo}}</h1>
-                </div>
-            @endforeach
 
+
+
+    {{-- EVENTOS --}}
+    <div class=" md:col-start-10 row-start-4 min-h-[400px] md:min-h-0  md:col-span-3 md:row-start-2 md:row-span-6 w-[75%] justify-self-center h-full">
+        <div class="bg-colorCaberaTras border-colorCabera border-2  flex flex-col items-center text-colorLetra h-full">
+            @if (count($eventos) == 0)
+                <h1 class="text-center text-colorLetra mt-6">No se han añadido eventos a la lista</h1>
+            @endif
+            <div class="grow w-full flex flex-col items-center gap-2 pt-2 overflow-y-auto">
+                @foreach ($eventos as $evt)
+                @php
+                    $cat = explode(" ",$evt['categoria'])[0] . ".jpg"   
+                @endphp
+                    <div class="flex w-10/12 bg-colorComplem rounded-2xl">
+                        <figure class="basis-3/12 m-0 imagenEvento rounded-l-2xl" style="background-image: url('{{ asset('imagenes/imagenesEventos/' . $cat) }}');"></figure>
+                        <h1 class="py-4  px-1 text-center basis-9/12  whitespace-nowrap overflow-hidden text-ellipsis">{{$evt['titulo']}}</h1>
+                    </div>
+                @endforeach
+
+            </div>
+            <button id='eventos' class="btn bg-colorDetallesTras rounded-2xl w-3/4 my-4">Ir a Eventos</button>
         </div>
-        <button id='eventos' class="btn bg-colorDetallesTras rounded-2xl w-3/4 mb-4">Ir a Eventos</button>
     </div>
-    <div class="bg-colorCaberaTras border-colorCabera border-2 row-[9/12] col-[8] text-colorLetra flex flex-col text-center px-2 py-1">
+
+
+
+    {{-- CALENDARIO --}}
+    <div  id="calendario" class=" btn cursor-pointer row-start-3 md:col-start-4 md:col-span-6 md:row-start-7 md:row-span-5 md:h-full md:mt-5">
+        <div class="h-full w-full">
+            @include('partials.calendarioMini')
+        </div>
+    </div>
+
+
+
+    {{-- PARTICIPANTES --}}
+    <div class="bg-colorCaberaTras border-colorCabera border-2 text-colorLetra flex flex-col text-center px-2 py-1 row-start-6 min-h-[300px] md:min-h-0 md:col-start-10 md:col-span-3 md:row-start-8 md:row-span-4 w-[75%] justify-self-center">
         <h1>Participantes</h1>
         <div class="grow overflow-y-auto py-2 gap-2 ">
             @foreach ($participantes as $part)
@@ -48,40 +77,41 @@
             @endforeach
         </div>
         <button id="participantes" class="rounded-xl bg-colorDetalles btn">Ver Participantes</button>
-        
+    </div>
 
-    </div>
-    <div class="bg-gray-800 row-[8/13] col-[9/13] w-[80%] h-[70%] self-center justify-self-center">
-        Mapa
-    </div>
+
+    {{-- ENLACE INVITACION --}}
     @if ($usuario && ($yo->admin || !$ajustes->crear_invitacion))
-        <div class= " absolute bottom-0 right-0 mr-5 text-colorComplem underline cursor-pointer decoration-colorCabera btnEnlace">Enlace de invitación</div>
+        <div class= " absolute top-5 left-5 bg-colorCabera rounded-xl px-3  md:top-auto md:left-auto md:bottom-5 md:right-5 mr-5 text-colorComplem underline cursor-pointer decoration-colorCabera btnEnlace">Enlace de invitación</div>
     @endif
-    <div class="bg-pink-800 row-[5/12] col-[4/7] w-[100%] h-[40%] self-end">Planificador</div>
-    <figure class=" btnCE row-[10] col-[1] w-[80%] h-[40%] self-end mb-5 justify-self-center">
+
+
+
+    <figure class=" btnCE hidden row-[10] col-[1] w-[80%] h-[40%] self-end mb-5 justify-self-center">
         <img src="{{asset('imagenes/imagenesBasic/chat2.png')}}" alt="">
     </figure>
-    <figure class=" btnCE2 row-[10] col-[2] w-[80%] h-[40%] self-end mb-5 justify-self-end">
+    <figure class=" btnCE2 hidden row-[10] col-[2] w-[80%] h-[40%] self-end mb-5 justify-self-end">
         <img src="{{asset('imagenes/imagenesBasic/encuestas.png')}}" alt="">
     </figure>
-    <div class="bg-colorCaberaTras row-[3/9] col-[1/5] w-3/4 justify-self-center flex items-stretch border-colorCabera border-2">
-        @include('partials.contabilidadMini')
-    </div>
-    <div class="row-[9] col-[2/4] flex flex-col items-center justify-center">
-        <button id="contabilidad" class="btn px-6 py-1 rounded-2xl bg-colorCabera text-colorLetra">Ir a Gastos</button>
-    </div>
+   
+
+
     <div class="w-[min(50%,300px)] hidden h-full absolute right-0 bg-colorBarra2 ajustes flex-col items-start pt-3 text-colorLetra">
         <figure class="w-7 h-7 ml-2 logoCancel btnAjustes cursor-pointer"></figure>
         <h1 class="text-3xl self-center mb-2">AJUSTES</h1>
         <div class="grow w-full flex-col flex overflow-y-auto gap-3">
             @if ($usuario && ($yo->admin || !$ajustes->pers_portal))
                 <h1 class="self-start ml-2 text-xl text-colorComplem">Personalizar Portal</h1>
-                <div class="flex flex-col gap-2 w-full text-sm px-1 py-2">
+                <form class="flex flex-col gap-2 w-full text-sm px-1 py-2" action="/personalizar" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <label for="nombre">Cambiar nombre:</label>
                     <input type="text" name="nombre" class=" indent-2 bg-colorCabera w-3/4 rounded-xl self-center">
-                    <label for="img">Cambiar fondo:</label>
-                    <input type="file">
-                </div>
+                    <label for="color">Color título:</label>
+                    <input type="color" name="color" value="{{$portal->color_titulo}}">
+                    <label for="foto">Cambiar fondo:</label>
+                    <input type="file" name="foto" accept="image/*">
+                    <button type="submit" class="bg-colorCabera w-3/4 self-center mt-4">Modificar</button>
+                </form>
             @endif
             @if ($usuario && $yo->admin)
                 <h1 class="self-start ml-2 text-xl text-colorComplem">Permisos</h1>
@@ -186,8 +216,8 @@
             @endif
         </div>
     </div>
-    <div class="enlace z-10 absolute top-0 h-full w-full hidden justify-center items-center bg-colorFondo bg-opacity-60">
-        <div class="bg-colorSecundario text-white w-[60%] h-[50%] text-center flex flex-col justify-start rounded-xl">
+    <div class="enlace z-10 absolute top-0 h-full w-full hidden justify-center md:items-center pt-40 md:pt-0 items-start bg-colorFondo bg-opacity-60">
+        <div class="bg-colorSecundario text-white w-[90%] h-[20%] md:w-[60%] md:h-[50%] text-center flex flex-col justify-start rounded-xl">
             <figure class="w-10 volverPortal">
                 <img class=" inline-block" src="{{asset('imagenes/imagenesBasic/cerrar.png')}}" alt="">
             </figure>
@@ -225,7 +255,7 @@
             <div class="bg-colorDetalles w-[50%] max-h-[50%] text-center overflow-y-scroll border-2 border-black"> 
             <h2 class="sticky top-0 bg-colorSecundario text-colorLetra p-5 ">¿Eres alguno de estos participantes?</h2>
                 @foreach($participantesLibres as $participante)
-                        <button value={{$participante->nombre_en_portal}} class="bg-colorMain text-colorLetra w-full h-16 border-t-2 border-b-1 border-black hover:bg-colorCaberaTras btnPart">{{$participante->nombre_en_portal}}</button>
+                        <button value={{str_replace(' ','-',$participante->nombre_en_portal)}} class="bg-colorMain text-colorLetra w-full h-16 border-t-2 border-b-1 border-black hover:bg-colorCaberaTras btnPart">{{$participante->nombre_en_portal}}</button>
                 @endforeach
                 <div class="sticky bottom-0 w-full flex items-center text-colorLetra space-x-4 bg-colorDetalles pr-2">
                     <button class=" bg-colorComplem  btnNuevo inline-block p-5 hover:bg-blue-600">Crear nuevo participante</button>

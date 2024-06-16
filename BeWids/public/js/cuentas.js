@@ -6,6 +6,7 @@ let inputsG
 let checkBoxes
 
 function iniciar(){
+    //añadimos eventListeners y variables globales
     let botones = document.querySelectorAll('.reembolso button');
     botones[0] && botones.forEach(e=>e.addEventListener('click',reembolsar));
     let botonesNot = document.querySelectorAll('button[data-action]');
@@ -20,6 +21,7 @@ function iniciar(){
 }
 
 function crearGasto(evt){
+    //validación para añadir gasto
     evt.preventDefault();
     let inputsRellenos = [...inputsG].reduce((acc,e)=>{
         return (acc && e.value.trim())
@@ -39,6 +41,7 @@ function crearGasto(evt){
 }
 
 function abrirGasto(evt){
+    //mostrar más info del gasto
     let extra = evt.currentTarget.lastElementChild
     if(extra.classList.contains('hidden')){
         extra.classList.remove('hidden');
@@ -55,6 +58,7 @@ function abrirGasto(evt){
 }
 
 function reembolsar(evt){
+    //solicitar reembolso siempre y cuando no esté ya solicitado
     !evt.target.nextElementSibling && evt.target.firstElementChild.submit();
 }
 
@@ -66,6 +70,7 @@ function responderNotificacion(evt){
 }
 
 async function salir(){
+    //guardar pestaña en la que se sale para que al entrar se abra en esa
     let actual;
     contenedores.forEach(e=>{
       if(e.classList.contains('mostrar'))

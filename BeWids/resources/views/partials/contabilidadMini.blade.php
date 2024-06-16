@@ -8,26 +8,29 @@
 
 @endphp
 
-<div class="basis-1/4 flex items-stretch justify-center pt-6">
+<div class="basis-1/4 flex justify-center pt-6">
     @if ($usuario)
-        @if ($yo->deuda >= 0)
-            <div class="basis-1/3 relative" style="background-image: linear-gradient(to top, #4465B8,#0b191f {{$porcentaje.'%'}}, #0b191f 100%)">
-                <figure class="absolute bg-colorCabera w-[4vw] h-[4vw] rounded-full translate-x-[-50%] left-[50%] flex flex-col justify-center items-center" style="color:#4465B8; bottom: {{$porcentaje - 5 . "%" }}" ><p>{{"+".$yo->deuda}}€</p></figure>
-            </div>
-        @endif
-        @if($yo->deuda < 0)
-            <div class="basis-1/3 relative" style="background-image: linear-gradient(to top, #D63865,#0b191f {{$porcentaje."%"}}, #0b191f 100%)">
-                <figure class="absolute bg-colorCabera w-[4vw] h-[4vw] rounded-full translate-x-[-50%] left-[50%] flex flex-col justify-center items-center" style="color:#D63865; bottom: {{$porcentaje - 5 . "%"}}"><p>{{$yo->deuda}}€</p></figure>
-            </div>
-        @endif  
-    @else
-    <div class="basis-1/3 relative bg-colorCaberaTras">
-        <figure class="absolute bg-colorCabera w-[4vw] h-[4vw] rounded-full translate-x-[-50%] left-[50%] flex flex-col justify-center items-center text-colorComplem bottom-0"><p>+0.00€</p></figure>
-    </div>
+        <div class="flex flex-col items-center">
+            @if ($yo->deuda > 0)
+                <div class="grow w-[20px] lg:w-[40px] relative" style="background-image: linear-gradient(to top, #4465B8,#0b191f {{$porcentaje.'%'}}, #0b191f 100%)">
+                    <figure class="absolute bg-colorCaberaTras2 w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] rounded-full translate-x-[-50%] left-[50%] flex flex-col justify-center items-center" style="color:#4465B8; bottom: {{$porcentaje - 5 . "%" }}" ><p>{{"+".$yo->deuda}}</p></figure>
+                </div>
+            @endif
+            @if($yo->deuda < 0)
+                <div class="grow w-[20px] lg:w-[40px] relative" style="background-image: linear-gradient(to top, #D63865,#0b191f {{$porcentaje."%"}}, #0b191f 100%)">
+                    <figure class="absolute bg-colorCaberaTras2 w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] rounded-full translate-x-[-50%] left-[50%] flex flex-col justify-center items-center" style="color:#D63865; bottom: {{$porcentaje - 5 . "%"}}"><p>{{$yo->deuda}}</p></figure>
+                </div>
+            @endif
+            @if($yo->deuda == 0)
+                <div class="grow w-[20px] lg:w-[40px] relative bg-[#0b191f]">
+                    <figure class="absolute bg-colorCaberaTras2 w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] rounded-full translate-x-[-50%] left-[50%] flex flex-col justify-center items-center bottom-[-5%] text-colorComplem"><p>+{{$yo->deuda}}</p></figure>
+                </div>
+            @endif
+        </div>
     @endif
 </div>
-<div class="basis-3/4 flex flex-col">
-    <div class="grow flex flex-col gap-3 items-stretch px-3 py-6">
+<div class="basis-3/4 flex flex-col text-sm lg:text-base">
+    <div class="grow flex flex-col gap-3 items-stretch px-3 py-6 overflow-y-auto">
         @if ($usuario)
             @foreach ($reembolsos as $reembolso)
                 <div class="bg-colorComplem text-colorLetra rounded-3xl px-4 text-center">

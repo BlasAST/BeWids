@@ -1,3 +1,6 @@
+@php
+    $fondo = Session::get('fondo');
+@endphp
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +13,7 @@
     @yield('pusher')
     @vite('public/css/tailwindBase.css')
 </head>
-<body class="fondoBewids">
+<body class="min-h-[100dvh] @if($fondo) fondoFoto @else fondoBewids @endif" @if($fondo) style="background-image: url('data:image/jpeg;base64,{{$fondo}}')" @endif>
     @yield('contenido')
 </body>
 </html>

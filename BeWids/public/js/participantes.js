@@ -3,6 +3,7 @@ let formNuevo
 let errorElim
 
 function iniciar(){
+    //añadimos eventListeners y variables globales
     document.querySelector('.btnNuevoPart').addEventListener('click',abrirForm);
     formNuevo = document.querySelector('.formNuevo')
     let elim = document.querySelectorAll('.btnDel')
@@ -16,11 +17,13 @@ function iniciar(){
 
 }
 function cerrarError(){
+    //quitar el popUp informativo de que no se puede eliminar part
     errorElim.classList.remove('flex')
     errorElim.classList.add('hidden') 
 }
 
 function abrirForm(evt){
+    //mostrar u ocultar formulario para crear participante
     if(formNuevo.classList.contains('hidden')){
         formNuevo.classList.remove('hidden')
         formNuevo.classList.add('flex');
@@ -33,6 +36,8 @@ function abrirForm(evt){
 }
 
 async function eliminarPart(evt){
+    //comprobar atraves de petición al servidor si se puede eliminar el part
+    //si se puede se elimina, si no se muestra popUp informativo
     let id = evt.currentTarget.parentElement.lastElementChild.value;
     try {
         let response = await fetch('/comprobarCuentas?id='+id);
