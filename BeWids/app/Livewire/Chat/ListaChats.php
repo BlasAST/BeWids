@@ -38,7 +38,7 @@ class ListaChats extends Component
     // Comprueba la existencia de una conversación en su momento de crearción
     public function comprobarChat($valor)
     {
-        // $this->render(); NO borrar por ahora nose si da fallo
+        $this->render(); //NO borrar por ahora nose si da fallo
         $comprobarConversacion = Conversacion::where('receptor', $this->participanteActual->nombre_en_portal)->where('emisor', $valor)
             ->orwhere('receptor', $valor)->where('emisor', $this->participanteActual->nombre_en_portal)->get();
 

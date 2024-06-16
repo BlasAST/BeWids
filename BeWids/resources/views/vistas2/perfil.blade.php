@@ -69,11 +69,6 @@
                 <input type="submit" name="enviar" style="cursor: pointer" value="Crear">
             </form>
         </div>
-        <!-- Perfil sin Ajustes -->
-        <!-- Sesiones -->
-        <!-- ¿Por defecto abierto perfil, al presionar -->
-        <!-- sobre sesiones hacer perfil como boton de abrir -->
-        <!-- y sesiones se abre?? -->
     </div>
 </main>
 @include('partials.footer')

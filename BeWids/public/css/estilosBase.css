@@ -29,7 +29,8 @@ body{
     
 }
 .cabecera :first-child{margin-left: 2.5%;}
-.cabecera :last-child{margin-right: 2.5%;}
+.cabecera .icoPerfil{margin-right: 2.5%;}
+.cabecera .bajustes{margin-right:2.5%;}
 /* boton de abrir menu en movil? */
 .hamburgesa{
     width: 30px;
@@ -63,7 +64,7 @@ body{
     background-color: white;
     transform: translateY(10px);
 }
-.footer{
+/* .footer{
     background-color: var(--color-secundario);
     display: flex;
     flex-direction: row;
@@ -71,21 +72,67 @@ body{
     text-align: start;
     gap: 5%;
     justify-content: space-evenly;
+} */
+.footer {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-secundario);
+    text-align: center;
 }
 
-.footer :first-child{
-    flex: 0 1 100%; 
-    text-align: center;
+.footer > div:last-of-type{
+    display: grid;
+    grid-template-columns: repeat(2,50%);
+}
+
+.footer> h2{
     background-color: var(--color-terciario);
     color: white;
-    font-size: 20px;
+    font-size: 2rem;
+} 
+
+.footer div h2{
+    color: white;
+    font-size: 4rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+} 
+
+.footer .redes img{
+    width: 4%;
+    filter: invert(100%);
+    transition: 1s;
+}
+.footer .redes img:hover{
+    width: 8%;
+}
+.redes{
+    display: flex;
+    flex-direction: column;
+}
+.redes *{
+    margin: 0;
+}
+.redes >div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.redes > div > *{
+    margin: 3% 5%;
+}
+.footer .iconoFooter{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.footer .iconoFooter img{
+    width: 20%;
 }
 .footer a {
     margin: 0;
-    flex: 0 1 45%;
-    margin-top: 10px;
+    margin: 2% 0;
+    font-size: 2rem;
     text-decoration: none;
-    /* color: var(--color-terciario); */
     color:  rgb(255, 255, 255);
     
 }
