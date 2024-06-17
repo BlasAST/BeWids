@@ -37,6 +37,7 @@ let mapa;
 
 function iniciar(){
 
+    //añadimos los eventListeners y las variables globales
     document.querySelector('header').style.height='20%'
     document.querySelector('main').style.height='80%'
     mapa = document.querySelector('.mapa')
@@ -69,6 +70,7 @@ function iniciar(){
 }
 
 function aniadirListeners(){
+    //añadir eventListeners cada vez que se cambia de mes
     document.querySelectorAll('.dropZone').forEach(e=>e.addEventListener('dragover',evt=>evt.preventDefault()));
     document.querySelectorAll('.dropZone').forEach(e=>e.addEventListener('drop',moverEvento));
     let evt = document.querySelectorAll('.evt')
@@ -80,11 +82,13 @@ function aniadirListeners(){
 
 }
 function cerrarEvt(){
+    //cerrar evento
     mostrarEvt.classList.remove('flex');
     mostrarEvt.classList.add('hidden');
 }
 
 async function abrirEvento(evt){
+    //mostrar evento e iniciar map
     evento = evt.currentTarget;
     await pedirEvt(evento.lastElementChild.value)
     mapa = mostrarEvt.lastElementChild.lastElementChild.lastElementChild;
@@ -94,6 +98,7 @@ async function abrirEvento(evt){
 }
 
 async function pedirEvt(id){
+    //pedir evento específico al servidor para mostrarlo
     try {
         let response = await fetch('/pedirEvt?id='+id);
   
@@ -114,11 +119,13 @@ async function pedirEvt(id){
 }
 
 function iniciarDrag(evt){
+    //al iniciar un drag se guarda el evento que se está moviendo y el dia de origen
     evento = evt.currentTarget;
     origen.innerText = evt.currentTarget.parentElement.previousElementSibling.innerText
 
 }
 async function retirarCal(){
+    //soliciatar al servidor quitar un evento del calendario
     try {
         let response = await fetch('/retirarCal?id='+evento.lastElementChild.value);
   
@@ -137,6 +144,7 @@ async function retirarCal(){
 }
 
 function moverEvento(evt){
+    //cuando se suelta un drag en un dropZone se muestra un popUp de confirmación
     confirmMov.classList.remove('hidden');
     confirmMov.classList.add('flex');
     destino.innerText = evt.currentTarget.previousElementSibling.innerText;
@@ -147,10 +155,12 @@ function moverEvento(evt){
     
 }
 function aceptarCambio(){
+    //Si se acepta el cambio se solicita el cambio de horas al serividor
     confirmMov.classList.remove('flex');
     confirmMov.classList.add('hidden');
     zonaDestino.insertBefore(evento,zonaDestino.firstElementChild)
     let fecha
+    //identificamos el mes en el que se intenta cambiar el evento
     if(zonaDestino.classList.contains('mesMenor'))
         fecha = new Date(selects[0].value,Number(selects[1].value) - 1,destino.innerText);
     else if(zonaDestino.classList.contains('mesMayor'))
@@ -182,13 +192,16 @@ async function solicitarCambio(fecha,id){
 
 }
 function negarCambio(){
+    //ocultar popUp
     confirmMov.classList.remove('flex');
     confirmMov.classList.add('hidden');
 }
 
 async function cambiarFecha(evt){
+    //se solicita al servidor el calendario de una fecha específica
     let fecha = new Date(selects[0].value,selects[1].value);
     if(evt.target.nodeName == 'BUTTON'){
+        //Si se ha dado a las flechas se pasa una fecha anterior o posterior
         fecha.setMonth(fecha.getMonth() + Number(evt.target.value));
         seleccionar(selects[0],fecha.getFullYear())
         seleccionar(selects[1],fecha.getMonth())
@@ -199,6 +212,7 @@ async function cambiarFecha(evt){
 }
 
 function seleccionar(cont,opt){
+    //indicar en los selects que fecha es
     cont.removeEventListener('change',cambiarFecha);
     [...cont.children].forEach((e,i)=>{
         if (e.value == opt) {
@@ -213,7 +227,7 @@ function seleccionar(cont,opt){
 
 
 function rellenarMesesAnios(){
-
+    //rellenar los selects con meses y años
     cont = selects[1];
     cont2 = selects[0];
 
@@ -272,7 +286,7 @@ async function datos(fecha) {
     coords = {lat:Number(coordsArr[0]),lng:Number(coordsArr[1])}
   
     let map = new google.maps.Map(mapa,{
-      zoom:20,
+      zoom:15,
       center: coords,
     });
     let marker = new google.maps.Marker({

@@ -38,7 +38,7 @@ class Contrasenia extends Controller
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/|confirmed',
         ]);
 
         $status = Password::reset(
@@ -50,7 +50,7 @@ class Contrasenia extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
+                    ? redirect()->route('sesion',['dir'=>'iniciar'])->with('status', __($status))
                     : back()->withErrors(['email' => [__($status)]]);
     }
 }

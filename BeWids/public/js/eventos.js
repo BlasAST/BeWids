@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', iniciar);
 window.addEventListener("beforeunload",salir);
 let categorias;
-let listaTerm = [
-    '206974-0-agenda-eventos-culturales-100.json'
-]
 let coordsArr = [];
 let mapa;
 let contEventos;
@@ -23,6 +20,7 @@ let formCal;
 let fechaCal;
 
 async function iniciar(){
+  //añadimos los eventoListeners y las variables globales
     document.querySelector('.btnBurger').addEventListener('click', desplegCat);
     categorias = document.querySelector('.categorias');
     contenedores = document.querySelectorAll('section');
@@ -62,6 +60,7 @@ async function iniciar(){
     
 }
 function confirmarCal(evt){
+  //añadir evento a calendario
   evt.preventDefault();
   if(fechaCal.value)
     evt.target.submit();
@@ -69,6 +68,7 @@ function confirmarCal(evt){
 }
 
 function aniadirCal(evt){
+  //mostrar form para meter fecha y añadir al calendario
   if(formCal.classList.contains('hidden')){
     formCal.classList.remove('hidden')
     formCal.classList.add('flex')
@@ -81,6 +81,7 @@ function aniadirCal(evt){
 }
 
 function abrirForm(evt){
+  //abrir form para crear evento personalizado
   if(evt.target.innerText == 'Evento personalizado'){
     formNuevo.style.display = 'flex';
     evt.target.innerText = 'Cancelar';
@@ -91,6 +92,7 @@ function abrirForm(evt){
 }
 
 async function aniadirEvento(evt){
+  //añadir evento a nuestra lista
   animacionAniadir(evt.currentTarget.firstElementChild);
   console.log(evt.target.parentElement.parentElement.nextElementSibling.firstElementChild.value)
   try {
@@ -101,7 +103,7 @@ async function aniadirEvento(evt){
     }
     let data = await response.json();
 
-
+    //recibe el evento añadido a la bd y lo añadimos al DOM
     contMisEvt.lastElementChild.previousElementSibling.insertAdjacentHTML('beforebegin', data);
     contMisEvt.lastElementChild.previousElementSibling.previousElementSibling.addEventListener('click', abrirEvento)
     contMisEvt.lastElementChild.previousElementSibling.previousElementSibling.lastElementChild.previousElementSibling.firstElementChild.nextElementSibling.addEventListener('click',aniadirCal);
@@ -113,6 +115,7 @@ async function aniadirEvento(evt){
 
 }
 function filtrar(){
+  //guardamos en un array los filtros seleccionados
   filtros.forEach(e=>{
     if(e.name != 'gratis'){
       if(e.checked)
@@ -130,6 +133,7 @@ function filtrar(){
   cambiarFiltrar();
 }
 function animacionAniadir(spinner){
+  //genera la animación de añadir evento para que quede mas bonito
   if(spinner.classList.contains('hidden')){
     spinner.classList.remove('hidden')
     spinner.classList.remove('logoCarga');
@@ -152,6 +156,7 @@ function animacionAniadir(spinner){
 }
 
 function cambiarFiltrar(){
+  //abrir y cerrar pestaña de filtros
     if(contFilt.classList.contains('hidden')){
       contFilt.classList.remove('hidden');
       contFilt.classList.add('flex');
@@ -168,10 +173,16 @@ function cambiarFiltrar(){
 }
 
 function aniadirCat(evt){
+  //seleccionar categoria 
+
+  //Si el evento se ha lanzado por el boton de buscar se realiza la busqueda
+  //con las categorias seleccionadas
+
   if(evt.target == btnCat){
     pagYCat();
     return
   }
+  //marcamos las categorias seleccionadas
   if(evt.target.classList.contains('border-2')){
       evt.target.classList.remove('border-2');
       categoriasSel = categoriasSel.filter(e=>e != evt.target.id);
@@ -184,9 +195,11 @@ function aniadirCat(evt){
 }
 
 function cambPag(evt){
+  //inidicamos que pagina se ha seleccionado
   pagYCat(evt.target.value);
 }
 async function pagYCat(pag = 1){
+  //crea el URL de la peticion de datos teniendo en cuenta los filtros, las categorias y la paginación
   let categoriasGet = (categoriasSel[0] && categoriasSel.join('%')) || '';
   let filtrosGet = (checks[0] && checks.join('%')) || '';
   contEventos.innerHTML = '';
@@ -195,6 +208,7 @@ async function pagYCat(pag = 1){
 
 }
 async function datos(url) {
+  //Solicitud de los eventos según los filtros indicados en la URL
   try {
       let response = await fetch(url);
 
@@ -227,6 +241,7 @@ async function datos(url) {
   }
 }
 function actualizarPaginacion(currentPage, totalPages, contenedor) {
+  //Creamos la paginación guardando la información de a que página corresponde
   contenedor.innerHTML = ''; // Limpiar botones de paginación anteriores
   currentPage = Number(currentPage);
 
@@ -318,6 +333,7 @@ function actualizarPaginacion(currentPage, totalPages, contenedor) {
 // }
 
 function abrirEvento(evt){
+  //Mostrar más información del evento
     if(mapa.contains(evt.target) || mapa == evt.target )return
     if(evt.currentTarget.nodeName == 'H3'){
       mapa.parentElement.classList.add('hidden');
@@ -359,13 +375,14 @@ function abrirEvento(evt){
     //document.body.appendChild(script);
 }
 function initMap(){
+  //Creamos el mapa correspondiente al evento
   let coordsArr = [];
   coordsArr = mapa.id.split('|');
   if(!Number(coordsArr[0]))return
   coords = {lat:Number(coordsArr[0]),lng:Number(coordsArr[1])}
 
   let map = new google.maps.Map(mapa,{
-    zoom:20,
+    zoom:18,
     center: coords,
   });
   let marker = new google.maps.Marker({
@@ -376,6 +393,7 @@ function initMap(){
 }
 
 function desplegCat(evt){
+  //mostrar y quitar barra de categorias
     if(categorias.style.display == 'none'){
         categorias.style.display = 'flex';
         categorias.nextElementSibling.classList.remove('basis-4/4')
@@ -391,6 +409,8 @@ function desplegCat(evt){
     }
 }
 function buscador(evt){
+  //al empezar a buscar en el buscador se despliega una lista donde se van
+  //añadiendo los titulos de evento según se va escribiendo en el buscado
   contBuscador.style.borderBottomRightRadius = '0px';
   contBuscador.style.borderBottomLeftRadius = '0px';
   contBuscador.nextElementSibling.classList.remove('hidden');
@@ -401,6 +421,7 @@ function buscador(evt){
 }
 
 function cerrarBuscador(evt){
+  //cerramos el buscador, quitando las opciones de evento que se están buscando
   if(evt.relatedTarget && evt.relatedTarget.id == 'btnBuscar')return
   contBuscador.style.borderBottomRightRadius = '1rem';
   contBuscador.style.borderBottomLeftRadius = '1rem';
@@ -409,6 +430,8 @@ function cerrarBuscador(evt){
   contBuscador.nextElementSibling.innerHTML = '';
 }
 async function buscar(valor){
+  //Petición a la API del servidor con el valor actual del buscador
+  //y se muestran en la lista que habiamos desplegado
   try {
     let response = await fetch('/buscador?valor='+valor);
 
@@ -428,6 +451,7 @@ async function buscar(valor){
 
 }
 function buscarEventos(evt){
+  //Petición a API con la información de del buscador
   evt.preventDefault();
   if(!evt.target.nextElementSibling.hasChildNodes() && evt.target.firstElementChild.nextElementSibling.value) return
   valor = evt.target.firstElementChild.nextElementSibling.value
@@ -447,23 +471,8 @@ function buscarEventos(evt){
 
 }
 
-async function adquirirEventos(){
-    // let urlIni = "https://datos.madrid.es/egob/";
-    // listaTerm.forEach(e=>recogerEventos(urlIni+e+'?all',guardarDatos,error))
-        const url = '/buscarEventos';
-        try {
-          const response = await fetch(url);
-          if (!response.ok) {
-
-            throw new Error(response.status +  ' -> ' + response.statusText);
-          }
-          const data = await response.json();
-        } catch (error) {
-          console.error('Error:', error);
-        }
-}
-
   async function salir(){
+    //guardar pestaña en la que se sale para que al entrar se abra en esa
     let actual;
     contenedores.forEach(e=>{
       if(e.classList.contains('mostrar'))

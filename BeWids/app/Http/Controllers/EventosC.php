@@ -5,25 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Ajustes;
 use App\Models\Eventos;
 use App\Models\MisEventos;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
-use Ramsey\Uuid\Type\Integer;
 
 class EventosC extends Controller
 {
-    protected $urls = [
-        'https://datos.madrid.es/egob/catalogo/206974-0-agenda-eventos-culturales-100.json?all',
-        'https://datos.madrid.es/egob/catalogo/300107-0-agenda-actividades-eventos.json?all'
-        // Puedes agregar más URLs aquí
-    ];
+
     protected $evtPag = 20;
     //
     
     public function index(){
 
-        
+        //actualizamos los ajustes y mostramos la vista
         $ajustes = Ajustes::where('id_portal',Session::get('portal')->id)->first();
         Session::put('ajustes', $ajustes);
 
@@ -32,6 +25,7 @@ class EventosC extends Controller
     }
 
     public function aniadirEvento(){
+        //creamos un MisEventos y le introducimos los datos del evento seleccionado
         $evt = Eventos::find(request('evt'));
         $evento = new MisEventos();
         $evento ->id_portal = Session::get('portal')->id;
@@ -54,8 +48,11 @@ class EventosC extends Controller
         $evento->categoria = $evt->categoria;
         $evento->url = $evt->url;
         $evento->api = $evt->api;
+        $evento->fecha_cal = null;
+        $evento->hora_inicio = null;
+        $evento->hora_fin = null;
         $evento->save();
-        $ajustes = Session::get('ajustes');
+        $ajustes = Ajustes::where('id_portal',Session::get('portal')->id)->first();
         $yo = Session::get('participanteUser');
         return response()->json(view('partials.divMiEvento', ['evento' => $evento,'yo'=>$yo,'ajustes'=>$ajustes])->render());
 
@@ -66,18 +63,20 @@ class EventosC extends Controller
     
         // Determinar la página actual
         $pagina = $request->input('pag', 1);
-
+        //Creamos una query de Eventos y vamos añadiendo condiciones
+        //según los filtros que se han indicado
         $query = Eventos::query();
         $ajustes = Session::get('ajustes');
         $yo = Session::get('participanteUser');
 
-
+        //si han filtrado por categoria
         $categoriasMostrar = [];
         if ($request->has('cat')) {
             $categoriasMostrar = explode('%', str_replace("-", " ", $request->input('cat')));
             $query->whereIn('categoria', $categoriasMostrar);
         }
 
+        //Si han filtrado por edad de audiencia
         $edades = [];
         $filtrosMostrar = [];
         if ($request->has('filt')) {
@@ -94,7 +93,7 @@ class EventosC extends Controller
             });
             $query->whereIn('edad',$edades);
         }
-        
+        //filtro del buscador
         if($request->has('valor')){
             $valor = $request->input('valor');
             $query->where(function ($subquery) use ($valor) {
@@ -103,7 +102,7 @@ class EventosC extends Controller
             });
         }
         
-        
+        //filtro por Gratis
         if ($request->has('gratis')) {
             $gratis = $request->input('gratis');
             $query->where('precio', $gratis);
@@ -129,6 +128,7 @@ class EventosC extends Controller
     }
 
     public function buscador(){
+        //devuelve el titulo de los eventos para mostrar según van buscando en el buscador
         $valor = request()->valor;
         $titulos = Eventos::where('titulo','LIKE','%'.$valor.'%')->orWhere('lugar','LIKE','%'.$valor.'%')->pluck('titulo')->toArray();
         return $titulos;

@@ -97,7 +97,6 @@ main {
     background-color: var(--color-secundario);
     color: white;
     margin: 10px 0;
-    padding: 20px 0;
     text-align: center;
 }
 
@@ -184,4 +183,18 @@ main {
 }
 .portal form{
     height: 1px;
+}
+.portal{
+    display:flex;
+    padding:0;
+    align-items:center
+}
+.portal div{
+    flex-basis:max(100px,20%);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    padding:0;
+    height:90px;
+    margin: 0 10px 0 0;
 }

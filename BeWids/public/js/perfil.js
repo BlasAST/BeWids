@@ -1,12 +1,11 @@
-addEventListener('DOMContentLoaded', () => {
-    iniciar();
-})
+addEventListener('DOMContentLoaded', iniciar)
 
 let contParticipantes = 1;
 let formPortal;
 let participantes = [];
 
 function iniciar() {
+    //añadimos eventListeners y damos valor a variables globales
     let perfil = document.querySelector('.perfil');
     let inputsPerfil = perfil.querySelectorAll('.formPerfil input');
     inputsPerfil.forEach(inpu => inpu.style.display = 'none')
@@ -25,6 +24,8 @@ function iniciar() {
     info(botonP,perfil, inputsPerfil);
 }
 function crearPortal(evt){
+    //validamos los datos antes de crear el portal
+    //comprobamos que no se llamen igual algun participante
     evt.preventDefault()
     let usados = [];
     let correcto = true;
@@ -41,10 +42,12 @@ function crearPortal(evt){
 }
 
 function enviarPortal(evt){
+    //abrimos el portal
     evt.target.firstElementChild.submit()
 }
 
 function mostrarForm(evt){
+    //variamos la visibilidad del formulario de creación de portal
     if(evt.target.innerText == 'Crear Portal'){
         formPortal.style.display = 'flex';
         evt.target.innerText = 'Cancelar';
@@ -55,7 +58,7 @@ function mostrarForm(evt){
 }
 
 function move(botonS, botonP) {
-
+    //cambiamos el contenido de la página entre info perfil y portales
     let sesiones = document.querySelector('.sesiones');
     let perfil = document.querySelector('.perfil')
     botonS.addEventListener('click', () => {
@@ -73,6 +76,7 @@ function move(botonS, botonP) {
 }
 
 function moveSettings() {
+    //abrir ajustes de perfil
     let bajustes = document.querySelector('.bajustes');
     let ajustes = document.querySelector('.ajustes');
     bajustes.addEventListener('click', () => {
@@ -81,6 +85,7 @@ function moveSettings() {
 }
 
 function info(botonP ,perfil, inputs) {
+    //mostrar inputs para modificar info usuario
     let boton = document.querySelector('.editar');
     boton.addEventListener('click', () => {
     boton.parentElement.parentElement.classList.remove('mostrar');
@@ -102,26 +107,28 @@ function info(botonP ,perfil, inputs) {
 
 
 function guardarInformacion(evt,inputs){
+    //validación de datos antes de cambiar info usuario
     evt.preventDefault();
     let formularioVali = true;
-    for (let input of inputs) {
-        if (contieneCaracteresEspeciales(input.value)) {
-            alert('Uno o más campos contienen caracteres no permitidos');
-            formularioVali = false;
-            break;
-        }
-    }
+    // for (let input of inputs) {
+    //     if (contieneCaracteresEspeciales(input.value)) {
+    //         alert('Uno o más campos contienen caracteres no permitidos');
+    //         formularioVali = false;
+    //         break;
+    //     }
+    // }
     if (formularioVali) {
         console.log('Datos correctos');
         evt.target.form.submit();
     }
 }
 function contieneCaracteresEspeciales(cadena) {
-    var expresionRegular = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]/;
+    var expresionRegular = /[!@#$%^&*()+\=\[\]{};':"\\|,<>\/?]/;
     return expresionRegular.test(cadena);
 }
 
 function aniadirParticipante(evt){
+    //crear input para añadir mas participantes
     let [label,input] = crearInput();
     evt.target.parentElement.insertBefore(label,evt.target.previousElementSibling);
     evt.target.parentElement.insertBefore(input,evt.target.previousElementSibling)

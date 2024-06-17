@@ -1,7 +1,7 @@
 <div class="contentedorMensajes grow flex flex-col">
     @if ($participanteSeleccionado)
         <header class="flex basis-1 items-center relative bg-colorDetallesTras">
-            <figure class=" w-8 mr-auto ml-4"><img src="https://picsum.photos/200" class="rounded-full" alt="">
+            <figure class=" w-8 mr-auto ml-4"><img src="{{ route('foto.mensaje', ['id' => $participanteSeleccionado->id_usuario]) }}" class="rounded-full" alt="">
             </figure>
             <h1 class="mr-auto font-bold">{{ $participanteSeleccionado->nombre_en_portal }}</h1>
             <button class="mostrarListaParticipantes flex items-center" wire:click="$dispatch('toggleParticipantesList')">

@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('receptor')->nullable();
             $table->json('participantes_group')->nullable();
             $table->boolean('chat_global')->default(false);
+
             // $table->foreign('emisor')->references('nombre_en_portal')->on('participantes');
             // $table->foreign('receptor')->references('nombre_en_portal')->on('participantes');
+
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');
             $table->timestamp('ultimo_mensaje')->nullable();
             $table->timestamps();

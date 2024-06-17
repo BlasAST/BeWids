@@ -56,6 +56,14 @@ return [
             'throw' => false,
         ],
 
+        'fotos_perfil' => [
+            'driver' => 'local',
+            'root' => storage_path('app/fotos_perfil'),
+        ],
+        'fondos_portal' => [
+            'driver' => 'local',
+            'root' => storage_path('app/fondos_portal'),
+        ],
     ],
 
     /*

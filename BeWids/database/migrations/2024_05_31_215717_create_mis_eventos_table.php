@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_portal');
             $table->boolean('aniadido')->default(false);
-            $table->string('fecha_cal')->default(null);
-            $table->string('hora_inicio')->default(null);
-            $table->string('hora_fin')->default(null);
+            $table->string('fecha_cal')->nullable()->default(null);
+            $table->string('hora_inicio')->nullable()->default(null);
+            $table->string('hora_fin')->nullable()->default(null);
             $table->string('titulo')->nullable();
             $table->text('descripcion')->nullable();
             $table->string('inicio')->nullable();

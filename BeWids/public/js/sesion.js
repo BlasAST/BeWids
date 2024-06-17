@@ -1,5 +1,7 @@
-console.log('JS iniciado');
+//se añade el evento DOMContentLoaded para que se ejecute la función Iniciar en cuanto se cargue el contenido
 document.addEventListener('DOMContentLoaded', iniciar);
+
+//definimos las variables globales a utilizar
 let inputs
 let divIniciar
 let divCrear
@@ -18,6 +20,7 @@ let idTemp;
 let evtTemp;
 
 function iniciar(){
+    //definimos los eventListeners y guardamos en variables los datos que necesitamos
     inputs = document.querySelectorAll('input');
     inputUsuario = document.querySelector('.crear input[name="name"]')
     inputCorreoC = document.querySelector('.crear input[name="email"]')
@@ -28,11 +31,6 @@ function iniciar(){
     inputCorreoI = document.querySelector('.inicio input[name="email"]')
     errorCrear = document.querySelector('.crear .error');
     errorIniciar = document.querySelector('.inicio .error');
-
-
-
-
-    console.log(inputs)
     inputs.forEach(e=>e.addEventListener('focus',inputFocus));
     inputs.forEach(e=>e.addEventListener('blur',inputBlur));
     divIniciar = document.querySelector('.inicio');
@@ -53,6 +51,7 @@ function iniciar(){
 }
 
 function validarCrear(evt){
+    //validar datos al crear cuenta
     evt.preventDefault();
     error = '';
     if(validarCorreo()){
@@ -62,6 +61,7 @@ function validarCrear(evt){
     errorCrear.innerText = error;
 }
 function validarIniciar(evt){
+    //validación datos iniciar sesión
     evt.preventDefault();
     error = '';
     if( ! /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z]+\.[a-zA-Z]{2,3}$/.test(inputCorreoI.value))
@@ -74,6 +74,7 @@ function validarIniciar(evt){
         evt.target.submit();
 }
 function validarCorreo(){
+    //validación correo crear cuenta
     if(! /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z]+\.[a-zA-Z]{2,3}$/.test(inputCorreoC.value)){
         error = 'Formato correo no valido';
         return false
@@ -85,6 +86,7 @@ function validarCorreo(){
     return true 
 }
 function validarContrasenia(){
+    //validación pass crear cuenta
     if(! /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(inputPassC.value)){
         error = 'Formato contraseña no valido';
         return false
@@ -97,6 +99,7 @@ function validarContrasenia(){
 }
 
 function validarPass(evt){
+    //validación contraseña cada vez que se añade un caracter
     let valor = evt.target.value;
     if(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(valor)){
         evt.target.parentElement.style.borderColor = 'green';
@@ -114,11 +117,13 @@ function validarPass(evt){
     evtTemp = evt.target;
 }
 function erroneo(form){
+    //mostrar el formulario donde ha habido un error
     divMostrar.classList.remove('mostrar');
     divMostrar = form.parentElement;
     divMostrar.classList.add('mostrar');
 }
 function cambiar(evt){
+    //cambiar entre los formularios
     evt.preventDefault();
     divMostrar.classList.remove('mostrar')
     if(evt.target.className == 'botonIniciar'){
@@ -131,6 +136,7 @@ function cambiar(evt){
 }
 
 function contraseña(evt){
+    //modo ver contraseña
     let input = evt.target.parentElement.previousElementSibling;
     if(input.type == 'password'){
         input.type = 'text';

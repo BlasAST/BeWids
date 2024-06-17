@@ -2,27 +2,25 @@
 @section('titulo','BeWids')
 @section('rutaEstilos','css/estilosPerfil.css')
 @section('rutaJs','js/perfil.js')
-
 @section('contenidoCabecera')
-
 @endsection
-
 @section('contenido')
-
 @include('partials.header')
-
 
 <main>
     <div class="contenedor">
         <button class="bperfil" style="cursor: pointer">
             <h1>Perfil</h1>
         </button>
-        <form class="formPerfil" action="{{route('guardar')}}" method="POST">
+        <form class="formPerfil" action="{{route('guardar')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="perfil">
                 <h1>!Bienvenido {{$user->name}}!</h1>
                 <div class="parte1">
-                    <img src="{{asset('imagenes/imagenesPerfil/alvaro.jpg')}}" alt="">
+                    <div>
+                        <img src="{{ route('profile.photo', ['nombreFoto' => $infoUsuario->foto_perfil]) }}" alt="foto">
+                        <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*">
+                    </div>
                     <div>
                         <h3>Nombre->{{$infoUsuario->nombre ??''}} <input type="text" name="nombre" placeholder="Nombre identificativo"></h3>
                         <h4>Edad: </h4>
@@ -53,6 +51,7 @@
                         @csrf
                         <input type="hidden" name="portal" value="{{json_encode($portal)}}">
                     </form>
+                    <div @if($portal->fondo) style="background-image: url('{{ route('foto.fondo',['foto'=>$portal->fondo]) }}')" @endif></div>
                     {{$portal->nombre}} 
                 </div>  
             @endforeach

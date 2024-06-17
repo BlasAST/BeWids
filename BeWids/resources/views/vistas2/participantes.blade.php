@@ -6,7 +6,6 @@
     use App\Models\User;
     $portal = Session::get('portal');
     $participanteUser = Session::get('participanteUser');
-    $ajustes = Session::get('ajustes');
  
 @endphp
 

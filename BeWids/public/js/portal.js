@@ -8,6 +8,8 @@ let contErrorElim;
 let timer;
 
 function iniciar(){
+   //añadimos eventListeners y variables globales
+
    //  document.querySelector('.btnCE').addEventListener('click',irChat);
    //  document.querySelector('.btnCE2').addEventListener('click',irEncuestas);
     document.querySelector('.closeSession').addEventListener('click',volverPerfil);
@@ -47,6 +49,7 @@ function iniciar(){
 }
 
 async function cambiarConf(evt){
+   //cada vez que se modifica un checkbox de ajustes se solicita al servidor cambiarlo en la BD
    try {
       let response = await fetch('/cambiarConf?conf='+evt.currentTarget.checked+'&tipo='+evt.currentTarget.id);
       if(!response.ok){

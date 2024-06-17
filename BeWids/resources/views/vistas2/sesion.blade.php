@@ -4,8 +4,10 @@
 
 @section('contenido')
 @include('partials.header')
-
+    {{-- Comprobamos si no se está logueado para mostrar los formularios de inicio de sesión y registrarse.
+         en caso afirmativo se mostrará la información para cerrar sesión --}}
     @if(!Auth::check())
+        {{-- En caso de que $dir sea null, se mostrarán los botones para elegir entre inicio y registrar --}}
         <div class="botones @if(!$dir) mostrar @endif">
             <h1>NUEVO EN BEWIDS?!</h1>
             <p>Inicia sesión o crea una cuenta BeWids para poder disfrutar de nuestras funcionalidades y empezar a organizarte. A que esperas!</p>
@@ -14,7 +16,7 @@
             <p><a href="/">Volver</a> a home</p>
 
         </div>
-
+        {{-- En caso de que $dir sea 'iniciar', se mostrará el formulario de inicio de sesión --}}
         <div class="inicio @if($dir == 'iniciar') mostrar @endif">
                 <h1>INICIAR SESIÓN</h1>
                 <p>Si ya tienes una cuenta con nosotros, indica tus credenciales y accede a tus sesiones</p>
@@ -42,7 +44,7 @@
                             <input type="checkbox" name="recordar">
                             <label for="recordar" name="recordar">Recordar sesión</label>
                         </div>
-                        <p><a href="">He olvidado mi contraseña</a></p>
+                        <p><a href="/password/forgot">He olvidado mi contraseña</a></p>
                         <p>¿No tienes cuenta? <a href="" class="botonCrear">Registrate</a></p>
 
                     </div>
@@ -55,7 +57,7 @@
                 </form>
         </div>
       
-
+        {{-- En caso de que $dir sea 'registrar', se mostrará el formulario de registrarse --}}
         <div class="crear @if($dir == 'registrar') mostrar @endif">
             <h1>CREAR CUENTA</h1>
             <p>Crea una cuenta con nosotros para descubrir los servicios que ofrecemos</p>
@@ -84,9 +86,9 @@
                     </div>
                 </div>
                 <div>
-                    <label for="password">Contraseña</label>
+                    <label for="password">Contraseña </label>
                     <div class="contInput">
-                        <input class="pass" type="password" name="password" placeholder="Indica tu contraseña">
+                        <input class="pass" type="password" name="password" placeholder="Indica tu contraseña (Min 8 characters, 1 mayus, 1 minus y 1 num)">
                         <div class="borde">
                             <figure class="ojo"></figure>
                         </div>
@@ -103,6 +105,9 @@
                     <p><a href="" class="botonIniciar">¿Ya tienes cuenta?</a></p>
                 </div>
                 <p class="error"></p>
+                @error('message')
+                    <p class="error">{{$message}}</p>
+                @endError
                 <input type="submit" name="registro" value="CREAR CUENTA">
                 <p><a href="/">Volver</a> a home</p>
             </form>

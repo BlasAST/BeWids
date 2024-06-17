@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Ajustes;
 use App\Models\MisEventos;
 use DateTime;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class Calendario extends Controller
@@ -27,7 +26,9 @@ class Calendario extends Controller
     ];
 
     public function mostrar(){
+        //obtenemos las fechas necesarias para el formulario teniendo en cuenta que se empieza por el mes en el que estamos
 
+        //Obtenemos el primer dia del mes y le restamos tantos días como sea necesario para empezar en lunes
         $fechaInicio = new DateTime();
         $fechaInicio->modify('first day of this month');
         while($fechaInicio->format('w')!= 1){
@@ -36,17 +37,21 @@ class Calendario extends Controller
         $fechaFinal = new DateTime();
         $mes = $this->meses[$fechaFinal->format('m')-1];
         
-
+        //Obtenemos los eventos añadidos al calendario y los ordenamos por hora
+        //Los que no tienen hora se ordenan primero
         $eventos = MisEventos::where('aniadido', true)->where('id_portal',Session::get('portal')->id)->get()->toArray();
         usort($eventos, [$this, 'ordenarEventos']);
         $yo=Session::get('participanteUser');
         $ajustes = Ajustes::where('id_portal',Session::get('portal')->id)->first();
         Session::put('ajustes', $ajustes);
 
+        //Pasamos a la vista datos necesarios como los ajustes o el participante usuario
         return view('vistas2/calendario')->with(['eventos'=>$eventos,'fechaInicio'=> $fechaInicio,'fechaFinal'=>$fechaFinal,'mes'=>$mes,'numMes'=>$fechaFinal->format('m')-1,'yo'=>$yo,'ajustes'=>$ajustes]);
     }
 
     public function cambiarMes(){
+
+        //Mismas funcionalidades que en el index pero con la fecha que se le pase
         $fechaString = request('fecha');
         $fechaInicio = new DateTime($fechaString);
         while($fechaInicio->format('w')!= 1){
@@ -58,7 +63,7 @@ class Calendario extends Controller
         usort($eventos, [$this, 'ordenarEventos']);
 
         $yo=Session::get('participanteUser');
-        $ajustes = Session::get('ajustes');
+        $ajustes = Ajustes::where('id_portal',Session::get('portal')->id)->first();
 
         return response()->json(view('partials.diasCalendario', ['eventos'=>$eventos,'fechaInicio'=> $fechaInicio,'fechaFinal'=>$fechaFinal,'yo'=>$yo,'ajustes'=>$ajustes])->render());
 
@@ -75,6 +80,7 @@ class Calendario extends Controller
     }
 
     public function cambiarFechaEvt(){
+        //cambiar fecha de un evento específico
         $fechaString = request('fecha');
         $idEvt = request('evt');
         $evt = MisEventos::where('id',$idEvt)->where('id_portal',Session::get('portal')->id)->first();
@@ -85,6 +91,7 @@ class Calendario extends Controller
     }
 
     public function pedirEvt(){
+        //devuelve el html mostrando el evento especificado en la url
         $id = request('id');
         $evento = MisEventos::where('id',$id)->where('id_portal',Session::get('portal')->id)->first();
 
@@ -94,6 +101,7 @@ class Calendario extends Controller
 
     }
     public function retirarCal(){
+        //retirar el evento indicado del calendario
         $id = request('id');
         $evento = MisEventos::where('id',$id)->where('id_portal',Session::get('portal')->id)->first();
         $evento->aniadido = false;
@@ -105,6 +113,7 @@ class Calendario extends Controller
     }
 
     public function aniadirEvento(){
+        //añadir evento al calendario
         $titulo = request('titulo',false);
         $horaInicio = request('hora_inicio',false);
         $horaFin = request('hora_fin',false);

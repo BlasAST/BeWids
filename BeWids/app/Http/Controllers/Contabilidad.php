@@ -4,25 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Ajustes;
 use App\Models\Gastos;
-use App\Models\Deudas;
 use App\Models\Notificaciones;
 use App\Models\Participantes;
 use App\Models\Reembolsos;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Services\Transacciones;
 use function PHPUnit\Framework\isEmpty;
 
 class Contabilidad extends Controller
 {
     public function index(){
-
+        //obtenemos la info de ajustes
         $ajustes = Ajustes::where('id_portal',Session::get('portal')->id)->first();
         Session::put('ajustes', $ajustes);
+
+        //actualizamos los participantes en sesión por si ha cambiado
+        $participantes = Participantes::where('id_portal',Session::get('portal')->id)->get();
+        Session::put('participantes',$participantes);
         
         return view('/vistas2/contabilidad');
     }
     public function aniadirGasto(){
+        //creamos el gasto con la info del formulario
         $gasto = new Gastos();
         $gasto->id_portal = Session::get('portal')->id;
         $gasto->titulo = request('titulo');
@@ -32,6 +34,7 @@ class Contabilidad extends Controller
         $gasto->pagado_por = request('pagador');
         $participantes = "";
         if(request('participantes')){
+            //calculamos la parte de gasto que corresponde a cada uno y se la añadimos a su deuda
             $parte = round(request('cantidad') / count(request('participantes')),2);
             $dif = request('cantidad') - $parte * count(request('participantes'));
             foreach(request('participantes') as $participante){
@@ -45,12 +48,14 @@ class Contabilidad extends Controller
         $gasto->creado_por = Session::get('participanteUser')->id_usuario;
         $gasto->save();
 
+        //le sumamos en la deuda el dinero que le deben al pagador
         $pagador= Participantes::where('id_portal',Session::get('portal')->id)->where('nombre_en_portal',request('pagador'))->first();
         $pagador->deuda += request('cantidad') - $dif;
         $pagador->save();
-        $participantes = Participantes::where('id_portal',Session::get('portal')->id)->get();
-        Session::put('participantes',$participantes);
+        
+        //obtenemos un array con las deudas repartidas en reembolsos
         $deudas = $this->hacerCuentas();
+        //creamos los reembolsos
         Reembolsos::where('id_portal', Session::get('portal')->id)->where('saldado', false)->where('solicitado',false)->delete();
         foreach($deudas as $deuda){
             $reembolso = new Reembolsos();
@@ -66,6 +71,7 @@ class Contabilidad extends Controller
     }
 
     public function solicitarReembolso(){
+        //modificamos el reembolso a solicitado
         $reembolso = json_decode(request('reembolso'));
         $reembolso = Reembolsos::find($reembolso->id);
         $notificacion = new Notificaciones();
@@ -76,6 +82,8 @@ class Contabilidad extends Controller
         $reembolso -> solicitado = true;
         $notificacion -> save();
         $reembolso ->save();
+
+        //saldamos temporalmente las deudas para que no se tengan en cuenta las deudas de reembolsos solicitados a la hora de añadir un gasto y generar los reembolsos
         $pagador = Participantes::where('id_portal', Session::get('portal')->id)->where('nombre_en_portal',$reembolso->pagador)->first();
         $receptor = Participantes::where('id_portal', Session::get('portal')->id)->where('nombre_en_portal',$reembolso->receptor)->first();
         $pagador->deuda += $reembolso->cantidad;
@@ -86,19 +94,17 @@ class Contabilidad extends Controller
     }
 
     public function responderNotificacion(){
+        //en caso de que se haya aceptado el reembolso se indica este como saldado y se elimina la notificación
         $noti = json_decode(request('notificacion'));
         if(request('respuesta') == 'confirmar'){
             $reembolso = Reembolsos::find($noti->id_reembolso);
             $reembolso -> saldado = true;
-            $pagador = Participantes::where('id_portal', Session::get('portal')->id)->where('nombre_en_portal',$reembolso->pagador)->first();
-            $receptor = Participantes::where('id_portal', Session::get('portal')->id)->where('nombre_en_portal',$reembolso->receptor)->first();
-            $pagador->deuda += $reembolso->cantidad;
-            $receptor->deuda -= $reembolso->cantidad;
+
             $reembolso->save();
-            $pagador->save();
-            $receptor->save();
+
             Notificaciones::find($noti->id)->delete();
         }else{
+        //en caso contrario se vuelve a sumar la deuda que habiamos quitado temporalmente y se elimina la notificación
             if(request('respuesta') == 'denegar'){
                 $reembolso = Reembolsos::find($noti->id_reembolso);
                 $reembolso -> solicitado = false;
@@ -111,9 +117,10 @@ class Contabilidad extends Controller
                 $receptor->save();
                 Notificaciones::find($noti->id)->delete();
                 $notificacion = new Notificaciones();
-                $notificacion -> id_portal = Session::get('id_portal');
+                $notificacion -> id_portal = Session::get('portal')->id;
                 $notificacion -> receptor = $reembolso->pagador;
                 $notificacion -> mensaje = "$reembolso->receptor ha denegado la solicitud de reembolso de $reembolso->cantidad €";
+                $notificacion -> save();
             }else{
                 Notificaciones::find($noti->id)->delete();
             }
@@ -131,20 +138,25 @@ class Contabilidad extends Controller
             if($participante->deuda > 0)
                 $receptores[$participante->nombre_en_portal] = round($participante->deuda,2);
         }
+        //creamos 2 arrays, 1 de personas que deben y otro de los que les deben
+        //si no hay deudas se devuelve un array vacio.
         if(count($pagadores) == 0 && count($receptores) == 0)
             return [];
         
-
+        //se crean todas las combinaciones de los 2 arrays
         $min = PHP_INT_MAX;
         $minTransacciones = [];
         $combP = $this->crearCombinaciones($pagadores);
         $combR = $this->crearCombinaciones($receptores);
+
+        //creamos las transacciones necesarias para saldar deudas con todas las combinaciones de arrays
         foreach($combP as $pagar){
             foreach($combR as $recibir){
                 $transaccion = $this->generarTransacciones2($pagar,$recibir);//new Transacciones($pagar,$recibir,$transacciones);
                 // $vuelta = $transaccion->devolverTransaccion();
                 // $totalTransacciones[] = $vuelta;
                 switch(true){
+                    //guardamos solo las que tengan el minimo numero de transacciones
                     case count($transaccion) < $min:
                         $minTransacciones = [];
                         $minTransacciones[] = $transaccion;
@@ -162,6 +174,18 @@ class Contabilidad extends Controller
                 }
             }
         }
+        //de todas las posibilidades de con transacciones minimas, cogemos una aleatorea
+        do{
+            foreach($minTransacciones as $key => $opcion){
+                if(round(rand(0,1)) && count($minTransacciones) > 1){
+                   unset($minTransacciones[$key]);
+                } 
+            }
+        }while(count($minTransacciones) != 1);
+        return $minTransacciones[array_key_first($minTransacciones)];
+
+
+
         // echo "<pre>";
         // var_dump($totalTransacciones);
         // echo "</pre>";
@@ -209,22 +233,13 @@ class Contabilidad extends Controller
         //     }
         // }
 
-        do{
-            foreach($minTransacciones as $key => $opcion){
-                if(round(rand(0,1)) && count($minTransacciones) > 1){
-                   unset($minTransacciones[$key]);
-                } 
-            }
-        }while(count($minTransacciones) != 1);
-        return $minTransacciones[array_key_first($minTransacciones)];
+        
 
 
     }
 
     private function generarTransacciones2($pagar, $recibir){
-
-
-
+        //vamos saldando deudas y guardando las transacciones en un array
         do{
             foreach ($recibir as $receptor => $cantidad){
                 $pagador = array_search($cantidad,$pagar);

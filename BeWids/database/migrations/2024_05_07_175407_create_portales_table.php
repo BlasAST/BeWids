@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('portales', function (Blueprint $table) {
             $table->id();
             $table->string('nombre',30);
-            $table->timestamps();
+            $table->string('fondo')->nullable()->default(null);
+            $table->string('color_titulo')->default('#ffffff');
             $table->string('token_portal')->nullable()->default(null);
+            $table->timestamps();
         });
     }
 
