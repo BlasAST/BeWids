@@ -61,7 +61,7 @@ Route::get('/portal',[Portal::class, 'index'])->middleware(['autenticar','verifi
 Route::post('/abrirPortal',[Portal::class, 'irPortal'])->middleware(['autenticar','verified'])->name('abrirPortal');
 Route::get('/cambiarConf', [Portal::class, 'cambiarConf'])->middleware(['autenticar','verified','portal']);
 Route::post('/personalizar',[Portal::class, 'cambiarFondo'])->middleware(['autenticar','verified','portal']);
-Route::get('/portal/foto/{foto}', [portal::class, 'pedirFoto'])->middleware(['autenticar','verified','portal'])->name('foto.fondo');
+Route::get('/portal/foto/{foto}', [portal::class, 'pedirFoto'])->middleware(['autenticar','verified'])->name('foto.fondo');
 
 
 Route::get('/contabilidad',[Contabilidad::class, 'index'])->middleware(['autenticar','verified','portal','contabilidad']);
