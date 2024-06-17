@@ -4,6 +4,9 @@ window.addEventListener("beforeunload",salir);
 let contenedores;
 let inputsG
 let checkBoxes
+let positivos;
+let negativos;
+
 
 function iniciar(){
     //añadimos eventListeners y variables globales
@@ -18,6 +21,46 @@ function iniciar(){
     form && form.addEventListener('submit', crearGasto)
     inputsG = document.querySelectorAll('.inputG');
     checkBoxes = document.querySelectorAll('.checkBoxes');
+    positivos = document.querySelectorAll('.positivo');
+    negativos = document.querySelectorAll('.negativo');
+    window.addEventListener('resize',grafResponsive);
+    grafResponsive();
+
+}
+
+function grafResponsive(){
+    if (window.innerWidth >= 768) {
+        [...positivos].forEach(e=>{
+            e.style.backgroundImage = "linear-gradient(to top, #4465B8,#2B2C30 "+e.dataset.porcentaje+"%, #2B2C30 100%)";
+            e.firstElementChild.style.bottom=e.dataset.porcentaje+ "%";
+            e.firstElementChild.style.left="50%";
+
+
+        });
+        [...negativos].forEach(e=>{
+            e.style.backgroundImage = "linear-gradient(to top, #D63865,#2B2C30 "+e.dataset.porcentaje+"%, #2B2C30 100%)"
+            e.firstElementChild.style.bottom=e.dataset.porcentaje+ "%";
+            e.firstElementChild.style.left="50%";
+
+
+        });
+    } else {
+        [...positivos].forEach(e=>{
+            e.style.backgroundImage = "linear-gradient(to right, #4465B8,#2B2C30 "+e.dataset.porcentaje+"%, #2B2C30 100%)"
+            e.firstElementChild.style.left=Number(e.dataset.porcentaje) - 5 + "%";
+            e.firstElementChild.style.bottom="50%";
+
+            
+
+        });
+        [...negativos].forEach(e=>{
+            e.style.backgroundImage = "linear-gradient(to right, #D63865,#2B2C30 "+e.dataset.porcentaje+"%, #2B2C30 100%)"
+            e.firstElementChild.style.left=Number(e.dataset.porcentaje) - 5 + "%";
+            e.firstElementChild.style.bottom="50%";
+
+
+        });
+    }
 }
 
 function crearGasto(evt){

@@ -1,8 +1,8 @@
-<figure class="btnCE absolute bottom-[3%] left-[5%] w-16 z-20">
-    <img src="{{asset('imagenes/imagenesBasic/chat2.png')}}" alt="">
+<figure class="btnCE fixed md:absolute bottom-5 left-5 md:bottom-[3%] md:left-[5%] w-16 z-20">
+    <img src="{{asset('imagenes/imagenesBasic/chat.svg')}}" alt="">
 </figure>
-<figure class="btnCE2 absolute bottom-[3%] left-[14%] w-16 z-20">
-    <img src="{{asset('imagenes/imagenesBasic/encuestas.png')}}" alt="">
+<figure class="btnCE2 fixed md:absolute bottom-5 left-28 md:bottom-[3%] md:left-[14%] w-16 z-20">
+    <img src="{{asset('imagenes/imagenesBasic/encuestas.svg')}}" alt="">
 </figure>
 <script>
     document.addEventListener('DOMContentLoaded',iniciar);

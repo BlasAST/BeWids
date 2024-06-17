@@ -47,26 +47,26 @@
 
 <section id="buscador" class="@if($pantalla == 'buscador' || !$pantalla) mostrar flex @else hidden @endif items-stretch h-full w-full p-3 relative overflow-y-auto contenedor">
     <figure class="fixed w-7 h-7 m-2 logoCancel logoDesp btnBurger z-10"></figure>
-    <div class="bg-colorCabera text-white text-center basis-1/4 flex flex-col justify-evenly p-2 min-h-[70dvh] categorias">
+    <div class="bg-colorCabera text-white text-center basis-[10%] md:basis-1/4 flex flex-col justify-evenly min-h-[550px] md:min-h-[500px] text-sm p-2 py-7 md:py-5 space-y-2 categorias">
         <h1 class="mt-2">Categorias</h1>
         @foreach ($categorias as $categoria)
-        <button class="bg-colorComplem py-2 border-colorDetalles" id={{str_replace(" ","-",$categoria)}}>{{$categoria}}</button>
+        <button class="bg-colorComplem py-1 border-colorDetalles" id={{str_replace(" ","-",$categoria)}}>{{$categoria}}</button>
             
         @endforeach
         <button class="bg-colorDetalles py-2 btnCat">Buscar</button>
 
     </div>
-    <div class="basis-3/4 flex flex-col pl-2 space-y-1">
-        <div class="basis-1/12 flex flex-col items-center pb-1 relative">
-            <form action="" class="w-1/2 bg-colorCabera rounded-2xl  items-stretch p-1 flex contBusc">
+    <div class="basis-[90%] sm:basis-11/12 md:basis-3/4 flex flex-col sm:pl-2 space-y-1">
+        <div class="basis-1/12 w-[90%] flex flex-col items-center pb-1 relative">
+            <form action="" class="w-[90%] md:w-3/4 lg:w-1/2 bg-colorCabera rounded-2xl  items-stretch p-1 flex contBusc text-sm ">
                 <button id="btnBuscar" type="submit" class="basis-1/12 logoBuscador m-[2px]"></button>
                 <input type="text" name="buscador" placeholder="Buscar evento....." class="bg-transparent grow placeholder:text-gray-400 text-white indent-1 focus:outline-none buscador" >
                 <button type="button" class="basis-2/6 text-white border-l-[1px] border-white filtrar">Filtrar</button>
             </form>
-            <div class="hidden w-1/2 flex-col bg-colorCaberaTras2 min-h-5 max-h-[30dvh] rounded-b-2xl absolute top-[90%] border-t border-colorLetra overflow-y-scroll text-gray-300">
+            <div class="hidden w-[90%] md:w-3/4 lg:w-1/2 flex-col bg-colorCaberaTras2 min-h-5 max-h-[30dvh] rounded-b-2xl absolute top-[90%] border-t border-colorLetra overflow-y-scroll text-gray-300">
                 <p class="hidden w-full p-5 hover:bg-colorCabera hover:text-colorComplem"></p>
             </div>
-            <div class=" hidden w-1/2 bg-colorCaberaTras2 rounded-b-2xl absolute top-[90%] border-t border-colorLetra text-gray-300 contFiltros">
+            <div class=" hidden w-[90%] md:w-3/4 lg:w-1/2 bg-colorCaberaTras2 rounded-b-2xl absolute top-[90%] border-t border-colorLetra text-gray-300 contFiltros">
                     <div class="grow flex flex-col items-stretch mt-4 pl-2">
                         @foreach ($edades as $edad)
                             @if ($edad)
@@ -90,12 +90,12 @@
 
             </div>
         </div>
-        <div class="contPag flex justify-center items-stretch w-1/2 mx-auto gap-3 pt-4 text-colorLetra">
+        <div class="contPag flex justify-center items-stretch w-[80%] md:w-3/4 lg:w-1/2 sm:text-base text-xs self-center sm:gap-3 pt-4 text-colorLetra">
             
         </div>
-        <div class="grow space-y-4 pt-2 contEventos">           
+        <div class="space-y-4 w-[90%] pt-2 contEventos">           
         </div>
-        <div class="contPag flex justify-center items-stretch w-1/2 mx-auto gap-3 py-4 text-colorLetra">
+        <div class="contPag flex justify-center items-stretch w-[80%] md:w-3/4 lg:w-1/2 mx-auto gap-3 self-center py-4 text-colorLetra">
             
         </div>
     </div>
@@ -126,7 +126,7 @@
 
 </section>
 <div class="w-[100dvw] h-[100dvh] fixed hidden justify-center items-center top-0 left-0 confirmCal">
-    <form action="/aniadirCal" method="POST" class="basis-1/3 bg-colorComplem flex flex-col items-center rounded-xl border-4 border-colorCabera text-colorLetra">
+    <form action="/aniadirCal" method="POST" class="basis-2/4 md:basis-1/3 bg-colorComplem flex flex-col items-center rounded-xl border-4 border-colorCabera text-colorLetra">
         @csrf
         <div class="w-full flex justify-end">
             <figure class="w-7 h-7 mr-3 logoCancel fixed"></figure>

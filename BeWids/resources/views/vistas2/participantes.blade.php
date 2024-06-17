@@ -17,13 +17,13 @@
 @section('contenidoServicio')
 
 @include('componentes.componenteChatEncuestas')
-<section id="participantes" class="mostrar flex h-full flex-col gap-6 py-5 items-center">
+<section id="participantes" class="mostrar flex h-full flex-col gap-6 py-5 items-center text-xs sm:text-base">
     @foreach ($participantes as $participante)
         @if ($participante->nombre_en_portal != $participanteUser->nombre_en_portal)
             @php
                 $user = User::find($participante->id_usuario);
             @endphp
-            <div class="bg-colorCaberaTras border-2 border-colorCabera rounded-md flex @if($participante->admin) text-colorDetalles @else text-colorComplem @endif w-[min(80%,800px)] justify-around py-2">
+            <div class="bg-colorCaberaTras border-2 border-colorCabera rounded-md flex @if($participante->admin) text-colorDetalles @else text-colorComplem @endif w-[min(95%,800px)] justify-around py-2 text-center">
                 <div class="flex flex-col items-center justify-center gap-1">
                     <h1 class="text-colorLetra">Nombre en portal</h1>
                     <h2>{{$participante->nombre_en_portal}}</h2>
@@ -62,8 +62,8 @@
         </form>
     @endif
 </section>
-<div class="errorElim z-30 absolute top-0 h-full w-full hidden justify-center items-center bg-colorFondo bg-opacity-60">
-    <div class="bg-colorSecundario text-white w-[60%] py-10 text-center flex flex-col justify-start rounded-xl gap-5 items-center">
+<div class="errorElim z-30 absolute top-0 left-0 h-full w-full hidden justify-center items-center bg-colorFondo bg-opacity-60">
+    <div class="bg-colorSecundario text-white w-[85%] md:w-[60%] py-10 text-center flex flex-col justify-start rounded-xl gap-5 items-center">
         <h1>No puedes eliminar participantes con cuentas pendientes.</h1>
         <h1>Asegurate de que el participante no deba ni le deban dinero.</h1>
         <button class="bg-colorDetalles w-1/4 rounded-xl btnCerrar">OK</button>

@@ -3,7 +3,6 @@
 @section('rutaJs','../js/sesion.js')
 
 @section('contenido')
-@include('partials.header')
     {{-- Comprobamos si no se está logueado para mostrar los formularios de inicio de sesión y registrarse.
          en caso afirmativo se mostrará la información para cerrar sesión --}}
     @if(!Auth::check())

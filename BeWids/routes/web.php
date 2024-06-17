@@ -90,6 +90,8 @@ Route::get('/eventos',[EventosC::class,'index'])->middleware(['autenticar','veri
 Route::get('/buscarEventos',[EventosC::class,'mostrarEventos'])->middleware(['autenticar','verified','portal']);
 Route::get('/buscador',[EventosC::class,'buscador'])->middleware(['autenticar','verified','portal']);
 Route::get('/aniadir',[EventosC::class, 'aniadirEvento'])->middleware(['autenticar','verified','portal']);
+Route::get('/eliminarEvt',[EventosC::class, 'eliminar'])->middleware(['autenticar','verified','portal']);
+
 
 
 // Ruta invitación
