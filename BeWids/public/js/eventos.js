@@ -41,6 +41,8 @@ async function iniciar(){
     formCal.firstElementChild.addEventListener('submit',confirmarCal);
     let btnCal = document.querySelectorAll('.btnCal');
     btnCal[0] && btnCal.forEach(e=>e.addEventListener('click',aniadirCal))
+    let btnElim = document.querySelectorAll('.btnElim');
+    btnElim[0] && btnElim.forEach(e=>e.addEventListener('click',eliminarEvt))
     document.querySelector('.confirmCal figure').addEventListener('click',aniadirCal)
     filtros = document.querySelectorAll('input[type="checkbox"]');
     document.querySelector('.btnNuevoEvt').addEventListener('click',abrirForm);
@@ -90,6 +92,25 @@ function abrirForm(evt){
     evt.target.innerText = 'Evento personalizado';
   }
 }
+async function eliminarEvt(evt){
+  console.log('hola');
+  try {
+    let response = await fetch('/eliminarEvt?evt='+evt.target.parentElement.parentElement.nextElementSibling.firstElementChild.value);
+
+    if (!response.ok) {
+        throw new Error('Error al eliminar el evento');
+    }
+    let data = await response.json();
+
+    //recibe el evento añadido a la bd y lo añadimos al DOM
+    data && evt.target.parentElement.parentElement.parentElement.remove();
+
+
+
+  } catch (error) {
+      console.error('Error:', error);
+  }
+}
 
 async function aniadirEvento(evt){
   //añadir evento a nuestra lista
@@ -106,7 +127,10 @@ async function aniadirEvento(evt){
     //recibe el evento añadido a la bd y lo añadimos al DOM
     contMisEvt.lastElementChild.previousElementSibling.insertAdjacentHTML('beforebegin', data);
     contMisEvt.lastElementChild.previousElementSibling.previousElementSibling.addEventListener('click', abrirEvento)
-    contMisEvt.lastElementChild.previousElementSibling.previousElementSibling.lastElementChild.previousElementSibling.firstElementChild.nextElementSibling.addEventListener('click',aniadirCal);
+    let cal = contMisEvt.lastElementChild.previousElementSibling.previousElementSibling.lastElementChild.previousElementSibling.lastElementChild.lastElementChild.previousElementSibling;
+    cal && cal.addEventListener('click',aniadirCal)
+    contMisEvt.lastElementChild.previousElementSibling.previousElementSibling.lastElementChild.previousElementSibling.lastElementChild.lastElementChild.addEventListener('click',eliminarEvt);
+
 
 
   } catch (error) {
@@ -397,12 +421,22 @@ function desplegCat(evt){
     if(categorias.style.display == 'none'){
         categorias.style.display = 'flex';
         categorias.nextElementSibling.classList.remove('basis-4/4')
-        categorias.nextElementSibling.classList.add('basis-3/4')
+        if (window.innerWidth >= 768){
+          categorias.nextElementSibling.classList.add('basis-3/4')
+        }else{
+          categorias.nextElementSibling.classList.add('basis-11/12')
+        }
+        
         evt.target.classList.remove('logoDesp')
         evt.target.classList.add('logoCancel')
     }else{
         categorias.style.display = 'none';
-        categorias.nextElementSibling.classList.remove('basis-3/4')
+        if (window.innerWidth >= 768){
+          categorias.nextElementSibling.classList.remove('basis-3/4')
+        }else{
+          categorias.nextElementSibling.classList.remove('basis-11/12')
+        }
+        
         categorias.nextElementSibling.classList.add('basis-4/4')
         evt.target.classList.remove('logoCancel')
         evt.target.classList.add('logoDesp')

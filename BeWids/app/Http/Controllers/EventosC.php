@@ -24,6 +24,11 @@ class EventosC extends Controller
 
     }
 
+    public function eliminar(){
+        MisEventos::where('id_portal',Session::get('portal')->id)->where('id',request('evt'))->delete();
+        return true;
+    }
+
     public function aniadirEvento(){
         //creamos un MisEventos y le introducimos los datos del evento seleccionado
         $evt = Eventos::find(request('evt'));

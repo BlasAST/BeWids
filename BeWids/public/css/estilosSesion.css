@@ -22,7 +22,7 @@ body > div{
 }
 .mostrar{
     display: flex;
-    margin: 50px auto;
+    margin: 100px auto;
     transition: all 2s ease;
 }
 body > div:not(.mostrar):not(.cerrar){

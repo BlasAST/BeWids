@@ -145,31 +145,31 @@
     </div>
 </section>
 
-<section id="graficos" class="@if($pantalla == 'graficos') mostrar flex @else hidden @endif w-full pb-5 pt-20 contenedor overflow-x-auto h-full items-stretch text-colorLetra justify-evenly">
+<section id="graficos" class="@if($pantalla == 'graficos') mostrar flex @else hidden @endif flex-col md:flex-row w-full  contenedor h-full items-stretch text-colorLetra overflow-auto px-12 md:px-4 md:py-12 md:justify-evenly">
 
-    @foreach ($participantes as $participante)
-        @php
-            if($deudaMayor != 0) $porcentaje = (abs($participante->deuda)/$deudaMayor)*100;
-        @endphp
-        <div class="flex flex-col items-center">
-            @if ($participante->deuda > 0)
-                <div class="grow w-[20px] lg:w-[40px] relative" style="background-image: linear-gradient(to top, #4465B8,#2B2C30 {{$porcentaje.'%'}}, #2B2C30 100%)">
-                    <figure class="absolute bg-colorCaberaTras2 w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] rounded-full translate-x-[-50%] left-[50%] flex flex-col justify-center items-center" style="color:#4465B8; bottom: {{$porcentaje - 5 . "%" }}" ><p>{{"+".$participante->deuda}}</p></figure>
-                </div>
-            @endif
-            @if($participante->deuda < 0)
-                <div class="grow w-[20px] lg:w-[40px] relative" style="background-image: linear-gradient(to top, #D63865,#2B2C30 {{$porcentaje."%"}}, #2B2C30 100%)">
-                    <figure class="absolute bg-colorCaberaTras2 w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] rounded-full translate-x-[-50%] left-[50%] flex flex-col justify-center items-center" style="color:#D63865; bottom: {{$porcentaje - 5 . "%"}}"><p>{{$participante->deuda}}</p></figure>
-                </div>
-            @endif
-            @if($participante->deuda == 0)
-                <div class="grow w-[20px] lg:w-[40px] relative bg-colorCabera">
-                    <figure class="absolute bg-colorCaberaTras2 w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] rounded-full translate-x-[-50%] left-[50%] flex flex-col justify-center items-center bottom-[-5%] text-colorComplem"><p>+{{$participante->deuda}}</p></figure>
-                </div>
-            @endif
-            <p class="mt-5">{{$participante->nombre_en_portal}}</p>
-        </div>
-    @endforeach
+            @foreach ($participantes as $participante)
+                @php
+                    if($deudaMayor != 0) $porcentaje = (abs($participante->deuda)/$deudaMayor)*100;
+                @endphp
+            <div class="flex flex-col-reverse md:flex-col items-stretch min-h md:min-h-16 md:items-center gap-4">
+                @if ($participante->deuda > 0)
+                    <div class="grow md:w-[20px] lg:w-[40px] h-[30px] md:h-auto relative positivo" data-porcentaje="{{$porcentaje}}">
+                        <figure class="absolute bg-colorCaberaTras2 w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] rounded-full translate-y-[50%] md:translate-x-[-50%] bottom-[50%] md:left-[50%] flex flex-col justify-center items-center text-[#4465B8]"><p>{{"+".$participante->deuda}}</p></figure>
+                    </div>
+                @endif
+                @if($participante->deuda < 0)
+                    <div class="grow md:w-[20px] lg:w-[40px] h-[30px] md:h-auto relative negativo" data-porcentaje="{{$porcentaje}}">
+                        <figure class="absolute bg-colorCaberaTras2 w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] rounded-full translate-y-[50%] md:translate-x-[-50%] bottom-[50%] md:left-[50%] flex flex-col justify-center items-center text-[#D63865]"><p>{{$participante->deuda}}</p></figure>
+                    </div>
+                @endif
+                @if($participante->deuda == 0)
+                    <div class="grow md:w-[20px] lg:w-[40px] h-[30px] md:h-auto relative bg-colorCabera">
+                        <figure class="absolute bg-colorCaberaTras2 w-[55px] h-[55px] lg:w-[75px] lg:h-[75px] rounded-full translate-y-[50%] translate-x-[-50%] bottom-[50%] md:left-[50%] left-0 md:bottom-0 flex flex-col justify-center items-center  text-colorComplem"><p>+{{$participante->deuda}}</p></figure>
+                    </div>
+                @endif
+                <p class="mt-5">{{$participante->nombre_en_portal}}</p>
+            </div>
+        @endforeach
 
 </section>
 
