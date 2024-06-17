@@ -1,6 +1,11 @@
 <header>
     <div class="cabecera">
-        <button class="hamburgesa"></button>
+        @if (Request::is('perfil'))
+            <img class="icoHome" src="{{ asset('imagenes/imagenesBase/home.svg')}}">
+        @else
+        <span></span>
+
+        @endif
         <div class="logo"></div>
         <img class="icoPerfil" src="{{ asset('imagenes/imagenesBase/perfil.svg')}}" alt="">
         <div class="ajustes">

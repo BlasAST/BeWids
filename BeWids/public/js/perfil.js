@@ -18,6 +18,10 @@ function iniciar() {
     formPortal.addEventListener('submit',crearPortal);
     document.querySelectorAll('.portal').forEach(e=>e.addEventListener('click',enviarPortal));
     participantes.push(document.querySelector('.nombreP'));
+    let home = document.querySelector('.icoHome');
+    home && home.addEventListener('click',  ()=>{window.location.href = '/home';} )
+    let logo = document.querySelector('.logo');
+    logo && logo.addEventListener('click',  ()=>{window.location.href = '/home';} )
 
     move(botonS, botonP);
     moveSettings();
