@@ -27,10 +27,9 @@ function mostrar(evt){
     busqueda=busqueda.split('-');
     busqueda=busqueda[1]
     muestras.forEach(muestra=>{
+        muestra.style.display='none';
         if(muestra.classList.contains(busqueda)){
             muestra.style.display='flex';
-        }else{
-            muestra.style.display='none';
         }
     })
 }

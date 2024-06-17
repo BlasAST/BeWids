@@ -93,12 +93,12 @@ body{
 
 .footer div h2{
     color: white;
-    font-size: 4rem;
+    font-size: 2rem;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 } 
 
 .footer .redes img{
-    width: 4%;
+    width: 6%;
     filter: invert(100%);
     transition: 1s;
 }
@@ -130,7 +130,7 @@ body{
 }
 .footer a {
     margin: 0;
-    margin: 2% 0;
+    margin: 1% 0;
     font-size: 2rem;
     text-decoration: none;
     color:  rgb(255, 255, 255);
@@ -144,3 +144,87 @@ body{
 h2{font-size: var(--grande);}
 a{font-size: var(--pequenio);}
 p{font-size: var(--mediano);}
+
+
+@media screen and  (max-width:1440px){
+    .logo{
+        height: 50px;
+        background-size: 150px;
+    }
+    .icoPerfil{
+        width: 35px;
+        height: 35px;
+    }
+    
+    .hamburgesa::before{
+        height: 2px;
+        box-shadow:0 -10px white;
+    }
+    .hamburgesa::after{
+        height: 2px;
+        transform: translateY(8px);
+    }
+    .footer> h2{
+        font-size: 1rem;
+    }
+    .footer div h2{
+        font-size: 1rem;
+    } 
+    .footer a {
+        font-size: 1rem;
+    }
+    .footer .redes img{
+        width: 4%;
+        filter: invert(100%);
+        transition: 1s;
+    }
+    .footer .redes img:hover{
+        width: 6%;
+    }
+}
+@media screen and  (max-width:920px){
+    .footer> h2{
+        font-size: 1rem;
+    }
+}
+
+@media screen and  (max-width:680px){
+    .logo{
+        height: 30px;
+        background-size: 80px;
+        background-repeat: no-repeat;
+    }
+    .icoPerfil{
+        width: 20px;
+        height: 20px;
+    }
+    
+    .hamburgesa::before{
+        width: 20px;
+        height: 1px;
+        box-shadow:0 -6px white;
+    }
+    .hamburgesa::after{
+        width: 20px;
+        height: 1px;
+        transform: translateY(5px);
+    }
+    .footer> h2{
+        font-size: 0.5rem;
+    }
+
+    .footer div h2{
+        font-size: 0.5rem;
+    } 
+    .footer a {
+        font-size: 0.5rem;
+    }
+    .footer .redes img{
+        width: 2%;
+        filter: invert(100%);
+        transition: 1s;
+    }
+    .footer .redes img:hover{
+        width: 4%;
+    }
+}

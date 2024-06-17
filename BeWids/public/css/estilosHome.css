@@ -58,6 +58,7 @@ header{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 8vw;
 }
 .contenedor >div:nth-child(n+2) p,
 .contenedor >div:nth-child(n+2) h2{
@@ -150,7 +151,7 @@ header{
     justify-content: center;
     align-items: center;
 }
-.muestraSeleccionada >*:not(:first-child){
+.muestraSeleccionada >*:not(.muestraSeleccionada>:first-child){
     display: none;
 }
 .muestraSeleccionada >*{
@@ -195,6 +196,9 @@ header{
     .contenedor button:hover{
         padding: 0%;
     }
+    .contenedor >div:nth-child(n+2):not(:last-child) >div{
+        padding: 0;
+    }
 }
 @media screen and  (max-width:920px){
     .contenedor >div:nth-child(n+2){
@@ -203,6 +207,9 @@ header{
     .contenedor >div:nth-child(even):not(:last-child),
     .contenedor >div:nth-child(odd):not(:first-child){
         margin: 0;
+    }
+    .contenedor >div:nth-child(n+2):not(:last-child) >div{
+        padding: 0;
     }
     .muestraSeleccionada img{
         width: 80%;
@@ -230,6 +237,9 @@ header{
     .hero{
         height: 400px;
     }
+    .hero h2{
+        font-size:0.8rem ;
+    }
     .contenedor >div:nth-child(even):not(:last-child),
     .contenedor >div:nth-child(odd):not(:first-child){
         align-items: center;
@@ -243,9 +253,12 @@ header{
         padding: 5px;
         font-size: calc(var(--mediano) - 80%);
     }
+    .contenedor >div:nth-child(n+2):not(:last-child) >div{
+        padding: 0;
+    }
     h2{
         font-size: calc(var(--mediano) - 80%);
-    }
+}
     .contenedor div:nth-child(n+3){
         display: flex;
         flex-direction: column;
