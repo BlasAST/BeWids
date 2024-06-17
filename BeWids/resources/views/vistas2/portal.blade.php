@@ -84,18 +84,8 @@
     @if ($usuario && ($yo->admin || !$ajustes->crear_invitacion))
         <div class= " absolute top-5 left-5 bg-colorCabera rounded-xl px-3  md:top-auto md:left-auto md:bottom-5 md:right-5 mr-5 text-colorComplem underline cursor-pointer decoration-colorCabera btnEnlace">Enlace de invitación</div>
     @endif
-
-
-
-    <figure class=" btnCE hidden row-[10] col-[1] w-[80%] h-[40%] self-end mb-5 justify-self-center">
-        <img src="{{asset('imagenes/imagenesBasic/chat2.png')}}" alt="">
-    </figure>
-    <figure class=" btnCE2 hidden row-[10] col-[2] w-[80%] h-[40%] self-end mb-5 justify-self-end">
-        <img src="{{asset('imagenes/imagenesBasic/encuestas.png')}}" alt="">
-    </figure>
-   
-
-
+    
+     @include('componentes.componenteChatEncuestas')
     <div class="w-[min(50%,300px)] hidden h-full absolute right-0 bg-colorBarra2 ajustes flex-col items-start pt-3 text-colorLetra">
         <figure class="w-7 h-7 ml-2 logoCancel btnAjustes cursor-pointer"></figure>
         <h1 class="text-3xl self-center mb-2">AJUSTES</h1>
@@ -216,7 +206,8 @@
             @endif
         </div>
     </div>
-    <div class="enlace z-10 absolute top-0 h-full w-full hidden justify-center md:items-center pt-40 md:pt-0 items-start bg-colorFondo bg-opacity-60">
+
+    <div class="enlace z-30 absolute top-0 h-full w-full hidden justify-center md:items-center pt-40 md:pt-0 items-start bg-colorFondo bg-opacity-60">
         <div class="bg-colorSecundario text-white w-[90%] h-[20%] md:w-[60%] md:h-[50%] text-center flex flex-col justify-start rounded-xl">
             <figure class="w-10 volverPortal">
                 <img class=" inline-block" src="{{asset('imagenes/imagenesBasic/cerrar.png')}}" alt="">
@@ -226,19 +217,20 @@
             <p>El siguiente enlace permitirá unirse a cualquier persona que contenga este link.</p>
             <p>Compartalo solo con las personas que considere necesario</p>
             <hr class="mt-6">
-            <div class="direccionInvitacion hover:text-blue-500 flex justify-center items-center grow">
-                <h1 class=""></h1>
+            <div class="direccionInvitacion cursor-pointer flex flex-wrap justify-center items-center grow">
+                <h1 class="copiarEnlace  hover:text-blue-500"></h1>
+                <div class=" h-[10%] w-[80%] hidden bg-colorDetalles rounded-3xl">Se ha copiado el enlace de invitación</div>
             </div>
         </div>
     </div>
-    <div class="errorElim z-10 absolute top-0 h-full w-full hidden justify-center items-center bg-colorFondo bg-opacity-60">
+    <div class="errorElim z-30 absolute top-0 h-full w-full hidden justify-center items-center bg-colorFondo bg-opacity-60">
         <div class="bg-colorSecundario text-white w-[60%] py-10 text-center flex flex-col justify-start rounded-xl gap-5 items-center">
             <h1>No puedes eliminar participantes con cuentas pendientes.</h1>
             <h1>Asegurate de que el participante no deba ni le deban dinero.</h1>
             <button class="bg-colorDetalles w-1/4 rounded-xl btnCerrar">OK</button>
         </div>
     </div>
-    <div class="confirmElim z-10 absolute top-0 h-full w-full hidden justify-center items-center bg-colorFondo bg-opacity-60">
+    <div class="confirmElim z-30 absolute top-0 h-full w-full hidden justify-center items-center bg-colorFondo bg-opacity-60">
         <div class="bg-colorSecundario text-white w-[60%] py-10 text-center flex flex-col justify-start rounded-xl gap-5 items-center">
             <h1>¿Seguro que quieres abandonar el portal?</h1>
             <div class="space-x-4">
@@ -250,7 +242,7 @@
 
     @if (!$usuario)
         
-        <div class="absolute top-0 w-full h-full flex justify-center items-center bg-colorFondo bg-opacity-60">
+        <div class="absolute z-30 top-0 w-full h-full flex justify-center items-center bg-colorFondo bg-opacity-60">
 
             <div class="bg-colorDetalles w-[50%] max-h-[50%] text-center overflow-y-scroll border-2 border-black"> 
             <h2 class="sticky top-0 bg-colorSecundario text-colorLetra p-5 ">¿Eres alguno de estos participantes?</h2>

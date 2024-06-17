@@ -5,20 +5,22 @@ let ajustes;
 let contEnlace;
 let contConfirm;
 let contErrorElim;
-
+let timer;
 
 function iniciar(){
    //añadimos eventListeners y variables globales
-    document.querySelector('.btnCE').addEventListener('click',irChat);
-    document.querySelector('.btnCE2').addEventListener('click',irEncuestas);
+
+   //  document.querySelector('.btnCE').addEventListener('click',irChat);
+   //  document.querySelector('.btnCE2').addEventListener('click',irEncuestas);
     document.querySelector('.closeSession').addEventListener('click',volverPerfil);
     document.querySelectorAll('.btn').forEach(e=>e.addEventListener('click', redireccionar));
     document.querySelectorAll('.btnAjustes').forEach(e=>e.addEventListener('click', abrirCerrarAjustes));
     ajustes = document.querySelector('.ajustes');
     contEnlace = document.querySelector('.enlace');
     let enlace = document.querySelector('.btnEnlace');
-    enlace && enlace.addEventListener('click',abrirEnlace)
-    document.querySelector('.volverPortal').addEventListener('click',abrirEnlace)
+    enlace && enlace.addEventListener('click',abrirEnlace);
+    document.querySelector('.volverPortal').addEventListener('click',abrirEnlace);
+    document.querySelector('.copiarEnlace').addEventListener('click',enlaceCopiado);
     document.querySelector('.btnAband').addEventListener('click', eliminarPart);
     document.querySelector('.btnCerrar').addEventListener('click', cerrarError);
     document.querySelector('.btnCancConfirm').addEventListener('click',cerrarConfirm)
@@ -106,18 +108,19 @@ async function eliminarPart(evt){
 }
 
 async function abrirEnlace(){
-   if(contEnlace.classList.contains('hidden')){
-      await pedirToken();
-      contEnlace.classList.remove('hidden');
-      contEnlace.classList.add('flex');
-      setInterval(e=>{
-         contEnlace.classList.remove('flex');
-         contEnlace.classList.add('hidden');
-      },10000)
-   }else{
-      contEnlace.classList.remove('flex');
-      contEnlace.classList.add('hidden');
-   }
+    if(contEnlace.classList.contains('hidden')){
+       await pedirToken();
+       contEnlace.classList.remove('hidden');
+       contEnlace.classList.add('flex');
+       timer=setTimeout(()=>{
+          contEnlace.classList.remove('flex');
+          contEnlace.classList.add('hidden');
+       },10000)
+    }else{
+       contEnlace.classList.remove('flex');
+       contEnlace.classList.add('hidden');
+       clearTimeout(timer);
+    }
 }
 
 async function pedirToken(){
@@ -132,10 +135,20 @@ async function pedirToken(){
       // Limpiar eventos existentes
       contEnlace.firstElementChild.lastElementChild.firstElementChild.innerText = "http://127.0.0.1:8000/invitacion/"+data;
 
-
   } catch (error) {
       console.error('Error:', error);
   }
+}
+
+function enlaceCopiado(evt){
+   let textoCopiado=evt.currentTarget.textContent;
+   navigator.clipboard.writeText(textoCopiado);
+   let mensaje=evt.currentTarget.parentElement.lastElementChild; 
+   mensaje.classList.remove('hidden');
+   setTimeout(()=>{
+      console.log('borrando');
+      mensaje.classList.add('hidden');
+   },2000)
 }
 
 function abrirCerrarAjustes(evt){
@@ -158,12 +171,12 @@ function aniadirParticipante(evt){
        location.href = '/aniadirPar?par='+evt.target.value
 }
 
- function irChat(){
-    window.location.href = '/chat';
- }
- function irEncuestas(){
-    window.location.href="/encuestas";
- }
+//  function irChat(){
+//     window.location.href = '/chat';
+//  }
+//  function irEncuestas(){
+//     window.location.href="/encuestas";
+//  }
 
  function volverPerfil(){
    window.location.href='/perfil';

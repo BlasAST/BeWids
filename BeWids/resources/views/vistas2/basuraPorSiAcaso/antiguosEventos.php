@@ -87,3 +87,14 @@
                 </form>
 
             </div>
+
+
+
+
+
+            {{-- <figure class=" btnCE row-[10] col-[1] w-[80%] h-[40%] self-end mb-5 justify-self-center">
+        <img src="{{asset('imagenes/imagenesBasic/chat2.png')}}" alt="">
+    </figure>
+    <figure class=" btnCE2 row-[10] col-[2] w-[80%] h-[40%] self-end mb-5 justify-self-end">
+        <img src="{{asset('imagenes/imagenesBasic/encuestas.png')}}" alt="">
+    </figure> --}}

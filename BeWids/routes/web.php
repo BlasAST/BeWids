@@ -82,6 +82,7 @@ Route::get('/encuestas',[Chat_Y_Encuestas::class, 'index'])->middleware(['autent
 Route::post('/nuevaEncuesta',[Chat_Y_Encuestas::class, 'newEncuesta'])->middleware(['autenticar','verified','portal'])->name('newEncuesta');
 Route::get('/pedirDatos',[Chat_Y_Encuestas::class,'pedirDatos'])->middleware(['autenticar','verified','portal']);
 Route::get('/chat/photo/{id}', [Chat_Y_Encuestas::class, 'pedirFoto'])->middleware(['autenticar','verified','portal'])->name('foto.mensaje');
+Route::get('/updateEncuesta',[Chat_Y_Encuestas::class,'updateEncuestas'])->middleware(['autenticar','verified','portal']);
 
 
 

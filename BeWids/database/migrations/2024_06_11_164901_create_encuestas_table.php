@@ -21,7 +21,7 @@ return new class extends Migration
             $table->json('votado_por')->nullable();
             $table->integer('num_votos_totales');
             $table->integer('num_votos_hechos')->default(0);
-            $table->json('opciones_votos');
+            $table->json('opciones_votos')->nullable();
             $table->date('fecha_final')->nullable();
             $table->boolean('finalizada')->default(0);
             $table->foreign('id_portal')->references('id')->on('portales')->onDelete('cascade');

@@ -4,7 +4,7 @@
 @endphp
 @extends('partials/plantillaServicios')
 @section('rutaJs','js/calendario.js')
-
+@include('componentes.componenteChatEncuestas')
 @section('categorias')
 
 <div id= "mes"class="flex-grow flex justify-center items-stretch flex-wrap">

@@ -4,8 +4,8 @@ $uri = request()->path();
 <div class="lista bg-colorBarra2 basis-1/4 flex flex-col rounded-bl-2xl">
     <header class="flex border-b-2 border-b-blue-600 justify-center items-center h-1/6 mx-4"  >
 
-        <select type="text" value="" wire:change='participanteSelecionado($event.target.value)' class="rounded-3xl">
-            <option value="">Buscar participante</option>
+        <select type="text" value="" wire:change='participanteSelecionado($event.target.value)' class="rounded-3xl indent-1 w-[80%]">
+            <option value="" >Buscar participante</option>
             @foreach($participantes as $participante)
             <option value="{{$participante->nombre_en_portal}}">{{$participante->nombre_en_portal}}</option>
             @endforeach

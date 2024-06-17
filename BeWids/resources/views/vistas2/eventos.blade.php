@@ -43,7 +43,7 @@
 
 @endsection
 @section('contenidoServicio')
-
+@include('componentes.componenteChatEncuestas')
 
 <section id="buscador" class="@if($pantalla == 'buscador' || !$pantalla) mostrar flex @else hidden @endif items-stretch h-full w-full p-3 relative overflow-y-auto contenedor">
     <figure class="fixed w-7 h-7 m-2 logoCancel logoDesp btnBurger z-10"></figure>
