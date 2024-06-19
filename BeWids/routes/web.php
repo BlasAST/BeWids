@@ -142,6 +142,10 @@ Route::post('/password/reset', [Contrasenia::class, 'reset'])->name('password.up
 
 Route::post('/salir',[Salir::class,'guardarPantalla'])->middleware(['autenticar','verified','portal']);
 
+Route::get('/error',function () {
+    return view('error');
+} );
+
 
 
 

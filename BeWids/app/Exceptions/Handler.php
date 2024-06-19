@@ -27,4 +27,10 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        // Redirigir a la vista de error genérica para cualquier tipo de error
+        return response()->view('error', [], 500);
+    }
 }

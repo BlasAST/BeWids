@@ -371,26 +371,16 @@ function desplegCat(evt){
   //mostrar y quitar barra de categorias
     if(categorias.style.display == 'none'){
         categorias.style.display = 'flex';
-        categorias.nextElementSibling.classList.remove('basis-4/4')
-        if (window.innerWidth >= 768){
-          categorias.nextElementSibling.classList.add('basis-3/4')
-        }else{
-          categorias.nextElementSibling.classList.add('basis-11/12')
-        }
-        
-        evt.target.classList.remove('logoDesp')
-        evt.target.classList.add('logoCancel')
+        categorias.nextElementSibling.classList.add('basis-3/4')
+        evt.target.style.backgroundImage = 'url(../../imagenes/imagenesEventos/cancel.svg)'
+
     }else{
         categorias.style.display = 'none';
-        if (window.innerWidth >= 768){
-          categorias.nextElementSibling.classList.remove('basis-3/4')
-        }else{
-          categorias.nextElementSibling.classList.remove('basis-11/12')
-        }
+        
+        categorias.nextElementSibling.classList.remove('basis-3/4')
         
         categorias.nextElementSibling.classList.add('basis-4/4')
-        evt.target.classList.remove('logoCancel')
-        evt.target.classList.add('logoDesp')
+        evt.target.style.backgroundImage = 'url(../../imagenes/imagenesEventos/burger.svg)'
     }
 }
 function buscador(evt){
