@@ -237,7 +237,7 @@ async function datos(url) {
 
       let boton
       // Añadir nuevos eventos
-      data.eventos.forEach(divHtml => {
+      await data.eventos.forEach(divHtml => {
           contEventos.insertAdjacentHTML('beforeend', divHtml);
           contEventos.lastElementChild.addEventListener('click',abrirEvento);
           if(contEventos.lastElementChild.lastElementChild.previousElementSibling.lastElementChild && !contEventos.lastElementChild.lastElementChild.previousElementSibling.lastElementChild.id)

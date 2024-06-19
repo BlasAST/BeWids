@@ -14,7 +14,7 @@
     @yield('pusher')
     @vite('public/css/tailwindBase.css')
 </head>
-<body class="md:h-screen @if($fondo) fondoFoto @else fondoBewids @endif" @if($fondo) style="background-image: url('data:image/jpeg;base64,{{$fondo}}')" @endif>
+<body class=" md:max-h-screen @if($fondo) fondoFoto @else fondoBewids @endif" @if($fondo) style="background-image: url('data:image/jpeg;base64,{{$fondo}}')" @endif>
     @yield('contenido')
 </body>
 </html>
