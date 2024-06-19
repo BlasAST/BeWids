@@ -46,8 +46,8 @@
 @include('componentes.componenteChatEncuestas')
 
 <section id="buscador" class="@if($pantalla == 'buscador' || !$pantalla) mostrar flex @else hidden @endif items-stretch h-full w-full p-3 relative overflow-y-auto contenedor">
-    <figure class="fixed w-7 h-7 m-2 logoCancel logoDesp btnBurger z-10"></figure>
-    <div class="bg-colorCabera text-white text-center basis-[10%] md:basis-1/4 flex flex-col justify-evenly min-h-[550px] md:min-h-[500px] text-sm p-2 py-7 md:py-5 space-y-2 categorias">
+    <figure class="fixed w-7 h-7 m-2 logoDesp md:logoCancel mt-12 left-2 md:left-auto md:mt-6  btnBurger z-10"></figure>
+    <div class="bg-colorCabera absolute hidden mt-10 md:mt-2 left-1 md:left-auto md:static text-white text-center basis-[10%] md:basis-1/4 md:flex flex-col justify-evenly min-h-[550px] md:min-h-[500px] text-sm p-2 py-7 md:py-5 space-y-2 categorias">
         <h1 class="mt-2">Categorias</h1>
         @foreach ($categorias as $categoria)
         <button class="bg-colorComplem py-1 border-colorDetalles" id={{str_replace(" ","-",$categoria)}}>{{$categoria}}</button>
@@ -56,7 +56,7 @@
         <button class="bg-colorDetalles py-2 btnCat">Buscar</button>
 
     </div>
-    <div class="basis-[90%] sm:basis-11/12 md:basis-3/4 flex flex-col sm:pl-2 space-y-1">
+    <div class="grow md:basis-3/4 flex flex-col sm:pl-2 space-y-1">
         <div class="basis-1/12 w-[90%] flex flex-col items-center pb-1 relative">
             <form action="" class="w-[90%] md:w-3/4 lg:w-1/2 bg-colorCabera rounded-2xl  items-stretch p-1 flex contBusc text-sm ">
                 <button id="btnBuscar" type="submit" class="basis-1/12 logoBuscador m-[2px]"></button>
@@ -93,7 +93,7 @@
         <div class="contPag flex justify-center items-stretch w-[80%] md:w-3/4 lg:w-1/2 sm:text-base text-xs self-center sm:gap-3 pt-4 text-colorLetra">
             
         </div>
-        <div class="space-y-4 w-[90%] pt-2 contEventos">           
+        <div class="space-y-4  pt-2 contEventos">           
         </div>
         <div class="contPag flex justify-center items-stretch w-[80%] md:w-3/4 lg:w-1/2 mx-auto gap-3 self-center py-4 text-colorLetra">
             
@@ -108,11 +108,11 @@
     @foreach ($nuestrosEventos as $evento)
         {{view('partials.divMiEvento', ['evento' => $evento])}}
     @endforeach
-    <form class="formNuevoEvt w-full hidden" action="" method="POST">
+    <form class="formNuevoEvt w-full hidden" action="/crearEvento" method="POST">
         @csrf
         <div class="flex flex-wrap justify-center w-1/2 mx-auto text-center gap-3 py-4">
             <label for="titulo" class="basis-full text-colorLetra">Título del evento:</label>
-            <input type="text" name="titulo" class="basis-full rounded-xl border border-colorDetalles mb-4">
+            <input type="text" required name="titulo" class="basis-full rounded-xl border border-colorDetalles mb-4">
             <label for="descripción" class="basis-full text-colorLetra">Descripción:</label>
             <textarea name="descripcion" cols="30" rows="5" class="mb-4 basis-full rounded-xl border border-colorDetalles"></textarea>
             <label for="fecha" class="basis-full text-colorLetra">Fecha y hora:</label>

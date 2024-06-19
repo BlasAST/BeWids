@@ -18,7 +18,6 @@ let idTemp;
 let formNuevo;
 let formCal;
 let fechaCal;
-
 async function iniciar(){
   //añadimos los eventoListeners y las variables globales
     document.querySelector('.btnBurger').addEventListener('click', desplegCat);
@@ -58,8 +57,6 @@ async function iniciar(){
       script.defer = true;
       document.body.appendChild(script);
     }
-
-    
 }
 function confirmarCal(evt){
   //añadir evento a calendario
@@ -68,7 +65,6 @@ function confirmarCal(evt){
     evt.target.submit();
 
 }
-
 function aniadirCal(evt){
   //mostrar form para meter fecha y añadir al calendario
   if(formCal.classList.contains('hidden')){
@@ -81,7 +77,6 @@ function aniadirCal(evt){
   }
   
 }
-
 function abrirForm(evt){
   //abrir form para crear evento personalizado
   if(evt.target.innerText == 'Evento personalizado'){
@@ -101,12 +96,8 @@ async function eliminarEvt(evt){
         throw new Error('Error al eliminar el evento');
     }
     let data = await response.json();
-
     //recibe el evento añadido a la bd y lo añadimos al DOM
     data && evt.target.parentElement.parentElement.parentElement.remove();
-
-
-
   } catch (error) {
       console.error('Error:', error);
   }
@@ -325,37 +316,6 @@ function actualizarPaginacion(currentPage, totalPages, contenedor) {
 
   contenedor.childNodes.forEach(e=>e.addEventListener('click', cambPag))
 }
-
-// async function datos(url){
-
-//   try {
-//     let response = await fetch(url);
-
-//     if (!response.ok) {
-//         throw new Error('Error al obtener los divs');
-//     }
-//     let data = await response.json();
-
-//     data.forEach(divHtml => {
-//         contEventos.insertAdjacentHTML('beforeend', divHtml);
-//         contEventos.insertAdjacentHTML('beforeend', '<hr class="my-6">');
-//     });
-
-// } catch (error) {
-//     console.error('Error:', error);
-// }
-  // fetch(url)
-  //       .then(response => response.json())
-  //       .then(data => {
-  //           // Insertar cada div recibido en el DOM
-  //           data.forEach(divHtml => {
-  //             contEventos.appendChild(divHtml);
-  //             console.log(contEventos)
-  //           });
-  //       })
-  //       .catch(error => console.error('Error:', error));
-// }
-
 function abrirEvento(evt){
   //Mostrar más información del evento
     if(mapa.contains(evt.target) || mapa == evt.target )return
@@ -387,16 +347,7 @@ function abrirEvento(evt){
 
       evt.currentTarget.removeEventListener('click',abrirEvento)
       if(mapa.id)initMap();
-
-
     }
-    // let coordsArr = mapa.id.split('-');
-    // let coords = {lat:coordsArr[0],lon:coordsArr[1]}
-    // let script = document.createElement('script');
-    // script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAOsoMk-1yucFTUwhzq4oummSkyyjReN58&libraries=places&callback=initMap`;
-    // script.async = true;
-    // script.defer = true;
-    //document.body.appendChild(script);
 }
 function initMap(){
   //Creamos el mapa correspondiente al evento
@@ -420,26 +371,16 @@ function desplegCat(evt){
   //mostrar y quitar barra de categorias
     if(categorias.style.display == 'none'){
         categorias.style.display = 'flex';
-        categorias.nextElementSibling.classList.remove('basis-4/4')
-        if (window.innerWidth >= 768){
-          categorias.nextElementSibling.classList.add('basis-3/4')
-        }else{
-          categorias.nextElementSibling.classList.add('basis-11/12')
-        }
-        
-        evt.target.classList.remove('logoDesp')
-        evt.target.classList.add('logoCancel')
+        categorias.nextElementSibling.classList.add('basis-3/4')
+        evt.target.style.backgroundImage = 'url(../../imagenes/imagenesEventos/cancel.svg)'
+
     }else{
         categorias.style.display = 'none';
-        if (window.innerWidth >= 768){
-          categorias.nextElementSibling.classList.remove('basis-3/4')
-        }else{
-          categorias.nextElementSibling.classList.remove('basis-11/12')
-        }
+        
+        categorias.nextElementSibling.classList.remove('basis-3/4')
         
         categorias.nextElementSibling.classList.add('basis-4/4')
-        evt.target.classList.remove('logoCancel')
-        evt.target.classList.add('logoDesp')
+        evt.target.style.backgroundImage = 'url(../../imagenes/imagenesEventos/burger.svg)'
     }
 }
 function buscador(evt){

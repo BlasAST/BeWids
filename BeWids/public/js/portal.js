@@ -63,8 +63,6 @@ async function cambiarConf(evt){
          console.log('ajustes NO modif')
 
       }
-
-
   } catch (error) {
       console.log('Error:', error);
   }
@@ -85,6 +83,8 @@ function cerrarError(){
 }
 
 async function eliminarPart(evt){
+   //Solicita la disponibilidad del participante para ser eliminando
+   //Se tendra en cuenta si tiene deudas o no
    try {
        let response = await fetch('/comprobarCuentas');
        if(!response.ok){
@@ -108,6 +108,7 @@ async function eliminarPart(evt){
 }
 
 async function abrirEnlace(){
+   //Muestra popUp de enlace de invitación
     if(contEnlace.classList.contains('hidden')){
        await pedirToken();
        contEnlace.classList.remove('hidden');
@@ -124,6 +125,7 @@ async function abrirEnlace(){
 }
 
 async function pedirToken(){
+   //Solicita el token de portal al servidor que generará uno nuevo
    try {
       let response = await fetch('/crearEnlace');
 
@@ -141,6 +143,7 @@ async function pedirToken(){
 }
 
 function enlaceCopiado(evt){
+   //Copiar enlace al clickar
    let textoCopiado=evt.currentTarget.textContent;
    navigator.clipboard.writeText(textoCopiado);
    let mensaje=evt.currentTarget.parentElement.lastElementChild; 
@@ -152,6 +155,7 @@ function enlaceCopiado(evt){
 }
 
 function abrirCerrarAjustes(evt){
+   //Mostrar - Ocultar Ajustes
    if(ajustes.classList.contains('hidden')){
       ajustes.classList.remove('hidden');
       ajustes.classList.add('flex');

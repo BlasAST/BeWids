@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('edad')->nullable();
             $table -> string('categoria')->nullable();
             $table -> string('url')->nullable();
-            $table->string('api');
+            $table->string('api')->nullable();
             
 
 

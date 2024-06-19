@@ -25,44 +25,32 @@ function iniciar(){
     negativos = document.querySelectorAll('.negativo');
     window.addEventListener('resize',grafResponsive);
     grafResponsive();
-
 }
-
 function grafResponsive(){
     if (window.innerWidth >= 768) {
         [...positivos].forEach(e=>{
             e.style.backgroundImage = "linear-gradient(to top, #4465B8,#2B2C30 "+e.dataset.porcentaje+"%, #2B2C30 100%)";
             e.firstElementChild.style.bottom=e.dataset.porcentaje+ "%";
             e.firstElementChild.style.left="50%";
-
-
         });
         [...negativos].forEach(e=>{
             e.style.backgroundImage = "linear-gradient(to top, #D63865,#2B2C30 "+e.dataset.porcentaje+"%, #2B2C30 100%)"
             e.firstElementChild.style.bottom=e.dataset.porcentaje+ "%";
             e.firstElementChild.style.left="50%";
-
-
         });
     } else {
         [...positivos].forEach(e=>{
             e.style.backgroundImage = "linear-gradient(to right, #4465B8,#2B2C30 "+e.dataset.porcentaje+"%, #2B2C30 100%)"
             e.firstElementChild.style.left=Number(e.dataset.porcentaje) - 5 + "%";
             e.firstElementChild.style.bottom="50%";
-
-            
-
         });
         [...negativos].forEach(e=>{
             e.style.backgroundImage = "linear-gradient(to right, #D63865,#2B2C30 "+e.dataset.porcentaje+"%, #2B2C30 100%)"
             e.firstElementChild.style.left=Number(e.dataset.porcentaje) - 5 + "%";
             e.firstElementChild.style.bottom="50%";
-
-
         });
     }
 }
-
 function crearGasto(evt){
     //validación para añadir gasto
     evt.preventDefault();
@@ -77,10 +65,7 @@ function crearGasto(evt){
     }else{
         evt.target.lastElementChild.classList.remove('hidden');
         evt.target.lastElementChild.classList.add('flex');
-
     }
-       
-
 }
 
 function abrirGasto(evt){
@@ -99,7 +84,6 @@ function abrirGasto(evt){
 
     }
 }
-
 function reembolsar(evt){
     //solicitar reembolso siempre y cuando no esté ya solicitado
     !evt.target.nextElementSibling && evt.target.firstElementChild.submit();
@@ -111,7 +95,6 @@ function responderNotificacion(evt){
     form.submit();
     
 }
-
 async function salir(){
     //guardar pestaña en la que se sale para que al entrar se abra en esa
     let actual;

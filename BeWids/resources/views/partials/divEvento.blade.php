@@ -1,9 +1,9 @@
 @php
     $cat = explode(" ",$evento->categoria)[0] . ".jpg";
 @endphp
-<div class="min-h-32 md:min-h-20 w-[80%] sm:w-full  flex items-stretch justify-center flex-wrap evento my-6 sh" >
-    <figure class="basis-3/12  m-0 imagenEvento" style="background-image: url('{{ asset('imagenes/imagenesEventos/' . $cat) }}');"></figure>
-    <div class="flex flex-col md:flex-row md:flex-wrap basis-9/12 justify-evenly space-y-2 font-bold">
+<div class="min-h-20 sm:w-full  flex items-stretch justify-center flex-wrap evento my-6 sh" >
+    <figure class="basis-3/12  m-0 imagenEventoPeque md:imagenEvento" style="background-image: url('{{ asset('imagenes/imagenesEventos/' . $cat) }}');"></figure>
+    <div class="flex flex-row flex-wrap basis-9/12 justify-evenly space-y-2 font-bold">
 
         {{-- TITULO --}}
         @if ($evento->titulo)
@@ -75,7 +75,7 @@
 
        </div> --}}
     </div>
-    <div class="hidden basis-full min-h-96 items-stretch m-4">
+    <div class="hidden basis-full flex-col md:flex-row min-h-96 items-stretch m-4">
         @if ($evento->latitud)
             <div class="basis-1/2" id={{$evento->latitud.'|'.$evento->longitud}}></div>
         @else
