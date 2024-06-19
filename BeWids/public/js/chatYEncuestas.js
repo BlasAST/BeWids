@@ -123,7 +123,10 @@ function mostrarParticipantesChat() {
 }
 // mostrarListaParticipantes
 function eventosEncuestas() {
-    scrollEncuestas();
+    
+    if(window.innerWidth>400){
+        scrollEncuestas();
+    }
     coloresTablaEncuestas();
     mostrarFormulario();
     crearInputs();
@@ -208,6 +211,9 @@ function seleccionadosEnFormulario() {
             participante.setAttribute('required', 'true');
             participante.addEventListener('click', function () {
                 participantesSeleccionados.forEach(participante => participante.removeAttribute('required'));
+                participante.addEventListener('click', function () {
+                    participante.setAttribute('required', 'true');
+                })
             })
         });
     });
@@ -413,7 +419,9 @@ function pintarInfoEncuesta(datos){
     let tablaFinalizados=document.querySelector('.tablaFinalizados');
     boton.addEventListener('click',function(){
         tablaActuales.classList.toggle('hidden');
+        tablaActuales.classList.toggle('md:hidden');
         tablaFinalizados.classList.toggle('hidden');
+        tablaFinalizados.classList.toggle('md:hidden');
         
         if (tablaActuales.classList.contains('hidden')) {
             boton.classList.add('bg-colorComplem');
