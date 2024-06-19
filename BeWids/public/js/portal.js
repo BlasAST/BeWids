@@ -135,7 +135,7 @@ async function pedirToken(){
       let data = await response.json();
 
       // Limpiar eventos existentes
-      contEnlace.firstElementChild.lastElementChild.firstElementChild.innerText = "http://127.0.0.1:8000/invitacion/"+data;
+      contEnlace.firstElementChild.lastElementChild.firstElementChild.innerText = "https://bewids.blasast.me/invitacion/"+data;
 
   } catch (error) {
       console.error('Error:', error);

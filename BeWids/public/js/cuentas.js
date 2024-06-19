@@ -103,7 +103,7 @@ async function salir(){
         actual = e.id;
     });
     let referencia = window.location.href;
-    referencia = referencia.replaceAll('http://127.0.0.1:8000/','');
+    referencia = referencia.replaceAll('https://bewids.blasast.me/','');
 
     if(actual){
       const formData = new FormData();
