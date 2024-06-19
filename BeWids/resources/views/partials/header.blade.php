@@ -6,7 +6,7 @@
         <span></span>
 
         @endif
-        <div class="logo"></div>
+        <div class="logo" style="cursor: pointer"></div>
         <img class="icoPerfil" src="{{ asset('imagenes/imagenesBase/perfil.svg')}}" alt="">
         <div class="ajustes">
             <div>
