@@ -108,11 +108,11 @@
     @foreach ($nuestrosEventos as $evento)
         {{view('partials.divMiEvento', ['evento' => $evento])}}
     @endforeach
-    <form class="formNuevoEvt w-full hidden" action="" method="POST">
+    <form class="formNuevoEvt w-full hidden" action="/crearEvento" method="POST">
         @csrf
         <div class="flex flex-wrap justify-center w-1/2 mx-auto text-center gap-3 py-4">
             <label for="titulo" class="basis-full text-colorLetra">Título del evento:</label>
-            <input type="text" name="titulo" class="basis-full rounded-xl border border-colorDetalles mb-4">
+            <input type="text" required name="titulo" class="basis-full rounded-xl border border-colorDetalles mb-4">
             <label for="descripción" class="basis-full text-colorLetra">Descripción:</label>
             <textarea name="descripcion" cols="30" rows="5" class="mb-4 basis-full rounded-xl border border-colorDetalles"></textarea>
             <label for="fecha" class="basis-full text-colorLetra">Fecha y hora:</label>

@@ -41,9 +41,7 @@
 @section('contenidoServicio')
 
 
-<section id="gastos" class="@if($pantalla == 'gastos' || !$pantalla) mostrar flex @else hidden @endif items-stretch h-full flex-col lg:flex-row-reverse text-colorLetra w-full p-3 space-y-5 lg:space-y-0">
-
-    
+<section id="gastos" class="@if($pantalla == 'gastos' || !$pantalla) mostrar flex @else hidden @endif items-stretch h-full flex-col lg:flex-row-reverse text-colorLetra w-full p-3 space-y-5 lg:space-y-0"> 
     @if ($participanteUser->admin || !$ajustes->aniadir_gasto)
         <div class="lg:basis-1/2">
 
@@ -51,56 +49,41 @@
                 <h1 class="text-xl text-center">Añadir gasto</h1>
                 <form action="{{route('aniadirGasto')}}" method="POST" autocomplete="off" class="flex flex-col mt-4 gap-2 formGasto">
                     @csrf
-                    
-                        <label for="titulo">Título:</label>
-                        <input type="text" name="titulo" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem inputG">
-                        
-                    
-                    
-                        <label for="tipo">Tipo:</label>
-                        <select name="tipo" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem inputG">
-                            @foreach($tipos as $tipo)
-                                <option value="{{$tipo}}">{{$tipo}}</option>
-                            @endforeach
-                            <option value="">Otro</option>
-                        </select>
-                    
-                    
-                        <label for="cantidad">Cantidad</label>
-                        <input type="number" step="0.01" min="0" name="cantidad" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem inputG">
-                    
-                    {{-- 
-                        <select name="divisa">
-                            @foreach($divisas as $divisa)
-                                <option value="">{{$divisa}}</option>
-                            @endforeach
-                        </select>
-                        <label for="divisa">Divisa</label>
-                    --}}
-                    
-                        <label for="fecha">Fecha</label>
-                        <input type="date" name="fecha" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem inputG">
-                    
-                    
-                        <label for="pagador">Pagado por:</label>
-                        <select name="pagador" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem inputG">
-                            @foreach($participantes as $user)
-                                <option value="{{$user->nombre_en_portal}}" @if(Auth::id() == $user->id_usuario)
-                                    selected
-                                @endif>{{$user->nombre_en_portal}}</option>
-                            @endforeach
-                        </select>
-                    
-                    
-                        <label for="">A pagar por:</label>
-                        <div class="participantes">
-                            @foreach ($participantes as $user)
-                            <div>
-                                <input type="checkbox" value="{{$user->nombre_en_portal}}" name="participantes[]" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem peer checkBoxes">
-                                <label for="participantes[]" class="peer-checked:text-colorComplem">{{$user->nombre_en_portal}}</label>
-                            </div>
-                            @endforeach
+                    <label for="titulo">Título:</label>
+                    <input type="text" name="titulo" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem inputG">
+                
+                    <label for="tipo">Tipo:</label>
+                    <select name="tipo" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem inputG">
+                        @foreach($tipos as $tipo)
+                            <option class="text-colorCabera" value="{{$tipo}}">{{$tipo}}</option>
+                        @endforeach
+                    </select>
+                    <label for="cantidad">Cantidad</label>
+                    <input type="number" step="0.01" min="0" name="cantidad" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem inputG">
+                
+                    <label for="fecha">Fecha</label>
+                    <input type="date" name="fecha" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem inputG">
+                
+                
+                    <label for="pagador">Pagado por:</label>
+                    <select name="pagador" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem inputG">
+                        @foreach($participantes as $user)
+                            <option class="text-colorCabera" value="{{$user->nombre_en_portal}}" @if(Auth::id() == $user->id_usuario)
+                                selected
+                            @endif>{{$user->nombre_en_portal}}</option>
+                        @endforeach
+                    </select>
+                
+                
+                    <label for="">A pagar por:</label>
+                    <div class="participantes">
+                        @foreach ($participantes as $user)
+                        <div>
+                            <input type="checkbox" value="{{$user->nombre_en_portal}}" name="participantes[]" class="bg-transparent border-b border-colorLetra focus:outline-none focus:border-colorComplem peer checkBoxes">
+                            <label for="participantes[]" class="peer-checked:text-colorComplem">{{$user->nombre_en_portal}}</label>
                         </div>
+                        @endforeach
+                    </div>
                     
                     <button class="bg-colorCabera w-1/2 rounded-xl self-center hover:text-colorComplem">enviar</button>
 

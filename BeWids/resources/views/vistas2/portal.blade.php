@@ -9,10 +9,10 @@
     $participantes=Participantes::where('id_portal',$portal->id)->get();
 
 @endphp
-<div class="contenedor md:h-screen w-screen grid grid-cols-1 auto-rows-auto md:grid-cols-12 md:grid-rows-12 gap-4 relative px-[2.5%] py-[4dvh]">
+<div class="contenedor pb-[80px] md:h-screen w-screen grid grid-cols-1 auto-rows-auto md:grid-cols-12 md:grid-rows-12 gap-4 relative px-[2.5%] md:py-[4dvh]">
 
     {{-- CUENTAS --}}
-    <div class="row-start-5 min-h-[500px] md:col-start-1 md:col-span-3 md:row-start-2 md:row-span-9 h-full flex flex-col self-end gap-6 items-center w-[75%] justify-self-center">
+    <div class="row-start-5 h-[500px] md:col-start-1 md:col-span-3 md:row-start-2 md:row-span-9 md:h-full flex flex-col self-end gap-6 items-center w-[75%] justify-self-center">
         <div class="bg-colorCaberaTras border-colorCabera border-2 justify-self-center flex items-stretch grow w-full">
             @include('partials.contabilidadMini')
         </div>
@@ -36,7 +36,7 @@
 
 
     {{-- EVENTOS --}}
-    <div class=" md:col-start-10 row-start-4 min-h-[400px] md:min-h-0  md:col-span-3 md:row-start-2 md:row-span-6 w-[75%] justify-self-center h-full">
+    <div class=" md:col-start-10 row-start-4 h-[400px] md:min-h-0  md:col-span-3 md:row-start-2 md:row-span-6 w-[75%] justify-self-center md:h-full">
         <div class="bg-colorCaberaTras border-colorCabera border-2  flex flex-col items-center text-colorLetra h-full">
             @if (count($eventos) == 0)
                 <h1 class="text-center text-colorLetra mt-6">No se han añadido eventos a la lista</h1>

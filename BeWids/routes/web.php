@@ -91,6 +91,7 @@ Route::get('/buscarEventos',[EventosC::class,'mostrarEventos'])->middleware(['au
 Route::get('/buscador',[EventosC::class,'buscador'])->middleware(['autenticar','verified','portal']);
 Route::get('/aniadir',[EventosC::class, 'aniadirEvento'])->middleware(['autenticar','verified','portal']);
 Route::get('/eliminarEvt',[EventosC::class, 'eliminar'])->middleware(['autenticar','verified','portal']);
+Route::post('/crearEvento',[EventosC::class, 'crearEvento'])->middleware(['autenticar','verified','portal']);
 
 
 

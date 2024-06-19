@@ -24,7 +24,7 @@
 
         <div class="basis-3/6 px-2">
             @if ($evento->inicio)
-                <p>Inicio: <span class="font-normal text-xs">{{ date('d M Y',strtotime(explode(" ",$evento['inicio'])[0]))}} - {{date('H:i',strtotime(explode(" ",$evento['inicio'])[1]))}}</span></p>
+                <p>Inicio: <span class="font-normal text-xs">{{ date('d M Y',strtotime(explode(" ",$evento['inicio'])[0]))}} @if( count(explode(" ",$evento['inicio'])) > 1) - {{date('H:i',strtotime(explode(" ",$evento['inicio'])[1]))}}@endif</span></p>
             @endif
             @if ($evento->fin)
                 <p>Fin: <span class="font-normal text-xs">{{ date('d M Y',strtotime(explode(" ",$evento['fin'])[0]))}} - {{date('H:i',strtotime(explode(" ",$evento['fin'])[1]))}}</span></p>                
