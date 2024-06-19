@@ -19,7 +19,7 @@
         <div class="inicio @if($dir == 'iniciar') mostrar @endif">
                 <h1>INICIAR SESIÓN</h1>
                 <p>Si ya tienes una cuenta con nosotros, indica tus credenciales y accede a tus sesiones</p>
-                <form action="{{route('sesionF')}}" method="POST">
+                <form action="{{route('sesionF')}}" method="POST" autocomplete="off">
                     @csrf
                     <input type="hidden" value="iniciar" name="tipo">
                     <div>
@@ -60,7 +60,7 @@
         <div class="crear @if($dir == 'registrar') mostrar @endif">
             <h1>CREAR CUENTA</h1>
             <p>Crea una cuenta con nosotros para descubrir los servicios que ofrecemos</p>
-            <form action="{{route('sesionF')}}" method="POST">
+            <form action="{{route('sesionF')}}" method="POST" autocomplete="off">
                 @csrf
                 <input type="hidden" value="crear" name="tipo">
                 <div>

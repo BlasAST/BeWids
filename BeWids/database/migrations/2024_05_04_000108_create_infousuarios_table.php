@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('infousuarios', function (Blueprint $table) {
             $table->id();
-            $table->string('id_user')->nullable();
+            $table->string('id_user');
             $table->string('nombre');
             $table->date('fecha_nacimiento')->nullable();
             $table->string('descripcion')->nullable();
@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('provincia')->nullable();
             $table->string('foto_perfil');
             $table->timestamps();
+
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('set null');
+
         });
     }
 

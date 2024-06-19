@@ -138,6 +138,19 @@ class EventosC extends Controller
         $titulos = Eventos::where('titulo','LIKE','%'.$valor.'%')->orWhere('lugar','LIKE','%'.$valor.'%')->pluck('titulo')->toArray();
         return $titulos;
     }
+
+    public function crearEvento(){
+        $evt = new MisEventos();
+        $evt-> id_portal = Session::get('portal')->id;
+        $evt -> titulo = request('titulo') ?? '';
+        $evt -> descripcion = request('descripcion') ?? '';
+        $evt -> inicio = request('fecha') ?? '';
+        $evt -> horas = request('hora') ?? '';
+        $evt->categoria = 'personalizado';
+        $evt->save();
+        return redirect()->to('/eventos');
+
+    }
     
 
 }

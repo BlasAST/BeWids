@@ -39,7 +39,7 @@ class perfil extends Controller
 
         if ($request->hasFile('foto_perfil')) {
 
-            if (str_contains($infoUser->foto_perfil,'default')) {
+            if (!str_contains($infoUser->foto_perfil,'default')) {
                 Storage::disk('fotos_perfil')->delete($infoUser->foto_perfil);
             }
             // Sube la nueva foto de perfil
