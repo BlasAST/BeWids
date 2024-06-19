@@ -3,7 +3,7 @@
 namespace App\Livewire\Chat;
 
 use App\Models\Conversacion;
-use App\Models\infousuario;
+use App\Models\Infousuario;
 use App\Models\Mensaje;
 use App\Models\Participantes;
 use Illuminate\Support\Str;
@@ -39,7 +39,7 @@ class ContenedorMensajes extends Component
 
         $this->participanteSeleccionado = False;
         $this->participantesSeleccionados = $participantes;
-        // $this->arrayParticipantes = $arrayPar;
+        $this->arrayParticipantes = $arrayPar;
         $this->conversacionSeleccionada = $conversacion;
 
         $this->buscarMensajes();
@@ -82,7 +82,7 @@ class ContenedorMensajes extends Component
     public function buscarInfoParticipantes($participe)
     {
         $this->participanteBuscado = Participantes::where('id_portal', FacadesSession::get('portal')->id)->where('nombre_en_portal', $participe)->first();
-        $this->inforParticipante = infousuario::where('id_user', $this->participanteBuscado->id_usuario)->first();
+        $this->inforParticipante = Infousuario::where('id_user', $this->participanteBuscado->id_usuario)->first();
     }
     //Cierra la conversación en caso de no querer tener seleccionada ninguna
     public function cerrarConversacion()
@@ -90,6 +90,7 @@ class ContenedorMensajes extends Component
         $this->participanteSeleccionado = NULL;
         $this->participantesSeleccionados = NULL;
         $this->inforParticipante = NULL;
+        return redirect()->route('chat');
     }
     // Oculta la información en caso de que se le de al boton
     public function cerrarInfo()
@@ -123,11 +124,11 @@ class ContenedorMensajes extends Component
     #[On('actualizandoChat')]
     public function actualizacion($datos)
     {
+
         if ($this->conversacionSeleccionada != NULL) {
 
             if ($datos['conversacion'] == $this->conversacionSeleccionada->id) {
                 
-                $actual = Participantes::where('id_usuario', auth()->user()->id)->where('id_portal', FacadesSession::get('portal')->id)->first();
                 $updateBody = $this->mensajes->body ? json_decode($this->mensajes->body, true) : [];
                 $mensajeExistente = collect($updateBody)->where('id', $datos['id'])->first();
                 if (!$mensajeExistente) {
@@ -138,13 +139,45 @@ class ContenedorMensajes extends Component
     
                 $this->mensajes->body = $updateBody;
                 $this->mensajes->update(['body' => $updateBody]);
-    
                 $this->mensajes->save();
+                $this->lectores();
                 // Evento manejado desde js para que cada vez que se manda un mensaje
                 // se reinicie el scroll empezando desde abajo
                 $this->dispatch('scrollFixed');
             }
         }
+    }
+    public $guardado=True;
+    public function lectores(){
+        $this->conversacionSeleccionada->leido_por=NULL;
+        if($this->conversacionSeleccionada!=NULL){
+        if($this->conversacionSeleccionada->name_group!=NULL&&$this->conversacionSeleccionada->chat_global!=True){
+            if($this->guardado==True){
+                foreach ($this->participantesSeleccionados as $nombreParticipante){
+                    $par=Participantes::where('id_portal',FacadesSession::get('portal')->id)->where('nombre_en_portal',$nombreParticipante)->first();
+                    if($par->leyendo==$this->conversacionSeleccionada->name_group){
+                        $array=[];
+                        $array[]=['lector'=>$par->nombre_en_portal];
+                        $array=json_encode($array);
+                        $this->conversacionSeleccionada->leido_por=$array;
+                        $this->conversacionSeleccionada->save();
+                    }
+                }
+                $this->guardado=False;
+            }
+            
+        }elseif($this->conversacionSeleccionada->name_group==NULL&&$this->conversacionSeleccionada->chat_global!=True){
+            
+        }else{
+            
+        }
+    }
+        
+        
+        
+    
+        
+        
     }
 
 

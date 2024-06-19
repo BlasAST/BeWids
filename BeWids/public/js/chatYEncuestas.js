@@ -33,6 +33,7 @@ function eventosListaChat() {
         cambioSeleccionado();
     })
     crearNuevoGrupo();
+    mostrarMenu();
 }
 
 function cambioSeleccionado() {
@@ -89,6 +90,26 @@ function crearNuevoGrupo() {
     })
 
 
+}
+
+function mostrarMenu(){
+    let botonAbrir=document.querySelector('.open');
+    let botonCerrar=document.querySelector('.close');
+    let contenedor=document.querySelector('.lista');
+    botonAbrir.addEventListener('click',()=>{
+        contenedor.classList.add('flex');
+        contenedor.classList.remove('hidden');
+        botonCerrar.classList.remove('hidden');
+        botonAbrir.classList.add('hidden');
+        botonAbrir.parentElement.classList.remove('items-start');
+    });
+    botonCerrar.addEventListener('click',()=>{
+        contenedor.classList.remove('flex');
+        contenedor.classList.add('hidden');
+        botonCerrar.classList.add('hidden');
+        botonAbrir.classList.remove('hidden');
+        botonAbrir.parentElement.classList.add('items-start');
+    });
 }
 
 function mostrarParticipantesChat() {

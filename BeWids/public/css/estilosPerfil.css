@@ -31,10 +31,10 @@ header img {
     display: none;
 }
 
-main {
-    width: min(1200px, 100%);
-    margin: 0 auto;
-}
+/* main { */
+    /* width: min(1200px, 100%); */
+    /* margin: 0 auto; */
+/* } */
 
 /* Colocacion movil quitando este flex? */
 .contenedor {
@@ -51,27 +51,31 @@ main {
     margin: 10px;
     background-color: var(--color-terciario);
     border: 0;
-    /* padding: 0 40px; */
-    flex-basis: 15%;
+    height: 600px;
+    width: 15%;
     border-radius: 40px;
 }
 
+h3:not(.no){
+    text-decoration: underline;
+}
+.no{
+    text-align: center;
+}
 .bperfil {
     display: none;
 }
 
-.perfil {
-    flex-basis: 80%;
-}
 
 .perfil>h1 {
     text-align: center;
-    margin: 10% 0;
+    font-size: var(--mediano);
+    margin: 2% 0;
 }
 
 .parte1 {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 
@@ -82,7 +86,9 @@ main {
 }
 
 .parte1>div {
-    /* width: 350px; */
+     width: 350px;
+     display: flex;
+     flex-direction: column;
 }
 
 .sesiones {
@@ -99,10 +105,19 @@ main {
     margin: 10px 0;
     text-align: center;
 }
+.formPerfil{
+    display: flex;
+}
+.perfil h3{
+    display: inline-block;
+}
 
 
 .noVisible {
     margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
 .bajustes{
     display: block;
@@ -113,8 +128,8 @@ main {
     background-color: inherit;
     right: 2%;
     top: 100px;
-    width: 400px;
-    height: 100px;
+    padding: 2vw;
+    width: 20vw;
     color: white;
 }
 
@@ -132,7 +147,7 @@ main {
 }
 
 .ajustes>div>* {
-    font-size: var(--mediano);
+    font-size: calc (var(--mediano) - 2vw);
     margin: 2%;
 }
 
@@ -197,4 +212,67 @@ main {
     padding:0;
     height:90px;
     margin: 0 10px 0 0;
+}
+
+@media screen and  (max-width:920px){
+
+    .contenedor{
+        flex-direction: column;
+        align-items: center;
+    }
+    .bperfil,
+    .bsesiones {
+    height: 100px;
+    width: 90%;
+    border-radius: 40px;
+    }
+    h2{
+        font-size: 4vw;
+    }
+}
+@media screen and  (max-width:780px){
+
+    h3{
+        font-size: 2vw;
+    }
+    .no{
+        font-size: 2.5vw;
+    }
+    .perfil{
+        display: flex;
+        flex-direction: column;
+    }
+    .parte1 img{
+        width: 150px;
+        height: 150px;
+    }
+    .parte1>div {
+        width: 180px;
+        display: flex;
+        flex-direction: column;
+   }
+   .bperfil,
+    .bsesiones {
+    height: 50px;
+    width: 90%;
+    border-radius: 40px;
+    }
+}
+@media screen and  (max-width:525px){
+    .parte1{
+        flex-direction: column;
+    }
+    .parte1 img{
+        width: 150px;
+        height: 150px;
+    }
+    .parte1>div {
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+   }
+
+   body{
+    min-width: 300px;
+}
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\encuestas as EventsEncuestas;
 use App\Livewire\Encuestas\Encuestas;
+use App\Models\Ajustes;
 use App\Models\encuesta;
 use App\Models\Infousuario;
 use App\Models\Participantes;
@@ -24,8 +25,9 @@ class Chat_Y_Encuestas extends Controller
             ->where('id_usuario', auth()->user()->id)->first();
         $encuestas = encuesta::where('id_portal', Session::get('portal')->id)->where('participantes', 'LIKE', '%"' . $participanteActual->nombre_en_portal . '"%')->where('finalizada', '!=', true)->get();
         $encuestasFinalizadas = encuesta::where('id_portal', Session::get('portal')->id)->where('participantes', 'LIKE', '%"' . $participanteActual->nombre_en_portal . '"%')->where('finalizada', true)->get();
+        $ajustes=Ajustes::where('id_portal',Session::get('portal')->id)->first();
         $participantes = Participantes::where('id_portal', Session::get('portal')->id)->get();
-        return view('vistas2/chatYEncuestas', ['ruta' => $ruta, 'encuestas' => $encuestas, 'participantes' => $participantes,'encuestasF'=>$encuestasFinalizadas ,'participanteActual' => $participanteActual]);
+        return view('vistas2/chatYEncuestas', ['ruta' => $ruta, 'encuestas' => $encuestas, 'participantes' => $participantes,'encuestasF'=>$encuestasFinalizadas ,'participanteActual' => $participanteActual,'ajustes'=>$ajustes]);
     }
 
     public function newEncuesta(Request $request)
@@ -88,7 +90,6 @@ class Chat_Y_Encuestas extends Controller
         $seleccion = $request->seleccion;
         $encuesta = encuesta::where('id', $id)->where('id_portal', Session::get('portal')->id)->first();
         $participanteActual = Participantes::where('id', auth()->user()->id)->where('id_portal', Session::get('portal')->id)->first();
-        
 
         if (!$encuesta->finalizada) {
             if ($encuesta->fecha_final) {

@@ -1,15 +1,15 @@
 @php
 $uri = request()->path();
 @endphp
-<div class="lista bg-colorBarra2 basis-1/4 flex flex-col rounded-bl-2xl">
-    <header class="flex border-b-2 border-b-blue-600 justify-center items-center h-1/6 mx-4"  >
-
-        <select type="text" value="" wire:change='participanteSelecionado($event.target.value)' class="rounded-3xl indent-1 w-[80%]">
+<div class="lista bg-colorBarra2 basis-[80%] md:basis-1/4 hidden flex-col rounded-bl-2xl md:flex">
+    <header class="flex border-b-2 border-b-blue-600 justify-center items-center h-1/6 mx-4 relative">
+        <select type="text" value="" wire:change='participanteSelecionado($event.target.value)' class="rounded-3xl indent-1 w-full">
             <option value="" >Buscar participante</option>
             @foreach($participantes as $participante)
             <option value="{{$participante->nombre_en_portal}}">{{$participante->nombre_en_portal}}</option>
             @endforeach
         </select>
+        <img src="{{asset('imagenes/imagenesBasic/imagenCerrar.svg')}}" alt="" class="close hidden md:hidden w-14">
     </header>
     <div class="bg-blue-500 text-center newChat @if(!$participant) hidden @endif">
         <p>Crear Chat con:</p>
@@ -47,12 +47,18 @@ $uri = request()->path();
                 @foreach ($conversacionesGrupales as $chatGrupal)
                 @if (!$chatGrupal->chat_global)
                 <li class="my-4 hover:bg-opacity-100" wire:click="chatGrupalSeleccionado({{$chatGrupal}})">
+                        @if ($chatGrupal->leido_por)
+                            @foreach(json_decode($chatGrupal->leido_por) as $valor)
+                                @if($valor->lector!=$participanteActual->nombre_en_portal)
+                                @include('componentes.notificacion')
+                                @endif
+                            @endforeach
+                        @endif
+                    
+
                     {{$chatGrupal->name_group}}
                 </li> 
                 @endif
-                    
-                    
-                    
                 @endforeach
         </ul>
 
