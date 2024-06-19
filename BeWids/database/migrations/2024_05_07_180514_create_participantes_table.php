@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('admin')->default(false);
             $table->string('nombre_en_portal');
             $table->decimal('deuda')->default(0);
+            $table->string('leyendo')->nullable();
             $table->timestamps();
 
             $table->unique(['id_portal','nombre_en_portal']);

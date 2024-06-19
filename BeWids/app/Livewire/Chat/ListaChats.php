@@ -38,7 +38,7 @@ class ListaChats extends Component
     // Comprueba la existencia de una conversación en su momento de crearción
     public function comprobarChat($valor)
     {
-        $this->render(); //NO borrar por ahora nose si da fallo
+        // $this->render(); //NO borrar por ahora nose si da fallo
         $comprobarConversacion = Conversacion::where('receptor', $this->participanteActual->nombre_en_portal)->where('emisor', $valor)
             ->orwhere('receptor', $valor)->where('emisor', $this->participanteActual->nombre_en_portal)->get();
 
@@ -92,14 +92,19 @@ class ListaChats extends Component
     public $conversacionSeleccionada;
     public function chatIndividualSeleccionado(Conversacion $conversacion)
     {
+        $this->participanteActual->leyendo=NULL;
+
         $this->conversacionSeleccionada = NULL;
         $participantePA = NULL;
         $this->conversacionSeleccionada = $conversacion;
         if ($this->conversacionSeleccionada->emisor == $this->participanteActual->nombre_en_portal) {
             $participantePA = $conversacion->receptor;
+            $this->participanteActual->leyendo=$participantePA;
         } else {
             $participantePA = $conversacion->emisor;
+            $this->participanteActual->leyendo=$participantePA;
         }
+        $this->participanteActual->save();
         $participanteSeleccionado = Participantes::where('id_portal', $this->portal->id)->where('nombre_en_portal', $participantePA)->get();
         // Evento a contenedorMensajes para observar la conversación
         $this->dispatch('newChatSimple', $this->conversacionSeleccionada, $participanteSeleccionado);
@@ -107,6 +112,19 @@ class ListaChats extends Component
     // Envia un evento con dispatch con los datos necesarios para mostrar la conversación seleccionada
     public function chatGrupalSeleccionado(Conversacion $conversacion)
     {
+        $resultado=[];
+        foreach(json_decode($conversacion->leido_por) as $lector){
+            if($this->participanteActual->leyendo == $lector->lector){
+                $resultado []=$lector;
+                $resultado=json_encode($resultado);
+                $conversacion->leido_por=$resultado;
+                $conversacion->save();
+            }
+        }
+        $this->participanteActual->leyendo=NULL;
+        $this->participanteActual->leyendo=$conversacion->name_group;
+        $this->participanteActual->save();
+
         $this->conversacionSeleccionada = NULL;
         $this->conversacionSeleccionada = $conversacion;
         $participantesGrupoSeleccionados = json_decode($this->conversacionSeleccionada->participantes_group);
@@ -115,10 +133,11 @@ class ListaChats extends Component
             $arrayParticipantes[] = Participantes::where('id_portal', $this->portal->id)
                 ->where('nombre_en_portal', $participe)->first();
         }
-        $actual = $this->participanteActual;
-        $arrayParticipantes[] = $actual;
+        
+        // $actual = $this->participanteActual;
+        // $arrayParticipantes[] = $actual;
 
-        $resultado = json_encode($arrayParticipantes);
+        // $resultado = json_encode($arrayParticipantes);
 
 
         // Evento a contenedorMensajes para observar la conversación
@@ -128,9 +147,11 @@ class ListaChats extends Component
     public function chatGlobalSeleccionado()
     {
         $this->conversacionGlobal = Conversacion::where('id_portal', Session::get('portal')->id)->where('chat_global', true)->first();
+        $this->participanteActual->leyendo='global';
+        $this->participanteActual->save();
         $this->dispatch('newChatGroup', $this->conversacionGlobal, json_decode($this->conversacionGlobal->participantes_group));
+        
     }
-
 
     // Inicializador de el apartado de listados
     public function render()
