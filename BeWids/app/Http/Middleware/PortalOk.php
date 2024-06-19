@@ -20,6 +20,7 @@ class PortalOk
     {
 
         if(Session::get('portal') && (Participantes::where('id_portal',Session::get('portal')->id)->where('id_usuario', Auth::user()->id)->exists() || Session::get('invitacion'))){
+
             return $next($request);
         }else{
             return redirect()->to('/');

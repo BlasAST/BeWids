@@ -10,7 +10,7 @@
 <main>
     <div class="contenedor">
         <button class="bperfil" style="cursor: pointer">
-            <h1>Perfil</h1>
+            <h3>Perfil</h3>
         </button>
         <form class="formPerfil" action="{{route('guardar')}}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -22,23 +22,26 @@
                         <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*">
                     </div>
                     <div>
-                        <h3>Nombre->{{$infoUsuario->nombre ??''}} <input type="text" name="nombre" placeholder="Nombre identificativo"></h3>
-                        <h4>Edad: </h4>
-                        <p>Descripcion Breve->{{$infoUsuario->descripcion ??''}}<input type="text" name="descripcion" placeholder="Añadir una descripción" value="{{$infoUsuario->descripcion ??''}}"></p>
+                        <h3>Nombre: {{$infoUsuario->nombre ??''}} </h3>
+                        <input type="text" name="nombre" placeholder="Nombre identificativo">
+                        <h3>Descripcion Breve: {{$infoUsuario->descripcion ??''}}</p>
+                        <input type="text" name="descripcion" placeholder="Añadir una descripción" value="{{$infoUsuario->descripcion ??''}}">
                     </div>
                 </div>
 
-                <p>La siguiente información no estará disponibles para los usuarios por defecto</p>
+                <h3 class="no">La siguiente información no estará disponibles para el resto de usuarios</h3>
                 <div class="noVisible">
-                    <h3>Numero de grupos a los que perteneces</h3>
-                    <h3>Fecha de nacimiento->{{$infoUsuario->fecha_nacimiento ??''}} <input type="date" name="fecha_nacimiento"></h3>
-                    <h3>Numero de contacto->{{$infoUsuario->numero_contacto ??''}} <input type="number" name="numero_contacto"></h3>
-                    <h3>Provincia->{{$infoUsuario->provincia ??''}}<input type="text" name="provincia"></h3>
+                    <h3>Fecha de nacimiento: {{$infoUsuario->fecha_nacimiento ??''}} </h3>
+                    <input type="date" name="fecha_nacimiento">
+                    <h3>Numero de contacto: {{$infoUsuario->numero_contacto ??''}} </h3>
+                    <input type="number" name="numero_contacto">
+                    <h3>Provincia:{{$infoUsuario->provincia ??''}}</h3>
+                    <input type="text" name="provincia">
                 </div>
             </div>
         </form>
         <button class="bsesiones" style="cursor: pointer">
-            <h1>Sesiones</h1>
+            <h3>Sesiones</h3>
         </button>
         <div class="sesiones">
             <h2>Sesiones activas</h2>
@@ -70,5 +73,4 @@
         </div>
     </div>
 </main>
-@include('partials.footer')
 @endsection

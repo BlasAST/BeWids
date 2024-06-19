@@ -33,6 +33,7 @@ function eventosListaChat() {
         cambioSeleccionado();
     })
     crearNuevoGrupo();
+    mostrarMenu();
 }
 
 function cambioSeleccionado() {
@@ -91,6 +92,26 @@ function crearNuevoGrupo() {
 
 }
 
+function mostrarMenu(){
+    let botonAbrir=document.querySelector('.open');
+    let botonCerrar=document.querySelector('.close');
+    let contenedor=document.querySelector('.lista');
+    botonAbrir.addEventListener('click',()=>{
+        contenedor.classList.add('flex');
+        contenedor.classList.remove('hidden');
+        botonCerrar.classList.remove('hidden');
+        botonAbrir.classList.add('hidden');
+        botonAbrir.parentElement.classList.remove('items-start');
+    });
+    botonCerrar.addEventListener('click',()=>{
+        contenedor.classList.remove('flex');
+        contenedor.classList.add('hidden');
+        botonCerrar.classList.add('hidden');
+        botonAbrir.classList.remove('hidden');
+        botonAbrir.parentElement.classList.add('items-start');
+    });
+}
+
 function mostrarParticipantesChat() {
     let boton = document.querySelector('.mostrarListaParticipantes');
     let participantes = document.querySelector('.participantesList');
@@ -102,7 +123,10 @@ function mostrarParticipantesChat() {
 }
 // mostrarListaParticipantes
 function eventosEncuestas() {
-    scrollEncuestas();
+    
+    if(window.innerWidth>400){
+        scrollEncuestas();
+    }
     coloresTablaEncuestas();
     mostrarFormulario();
     crearInputs();
@@ -187,6 +211,9 @@ function seleccionadosEnFormulario() {
             participante.setAttribute('required', 'true');
             participante.addEventListener('click', function () {
                 participantesSeleccionados.forEach(participante => participante.removeAttribute('required'));
+                participante.addEventListener('click', function () {
+                    participante.setAttribute('required', 'true');
+                })
             })
         });
     });
@@ -392,7 +419,9 @@ function pintarInfoEncuesta(datos){
     let tablaFinalizados=document.querySelector('.tablaFinalizados');
     boton.addEventListener('click',function(){
         tablaActuales.classList.toggle('hidden');
+        tablaActuales.classList.toggle('md:hidden');
         tablaFinalizados.classList.toggle('hidden');
+        tablaFinalizados.classList.toggle('md:hidden');
         
         if (tablaActuales.classList.contains('hidden')) {
             boton.classList.add('bg-colorComplem');

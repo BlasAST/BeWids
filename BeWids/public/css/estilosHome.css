@@ -70,9 +70,11 @@ header{
 }
 .contenedor> div:nth-child(3){
     background-image: url(../imagenes/imagenesHome/imagenPersonasSombras.jpg);
+    
 }
 .contenedor> div:nth-child(3) div{
-    width: 500px;
+    width: 300px;
+    margin-right: 10%;
 }
 .contenedor> div:nth-child(4){
     background-image: url(../imagenes/imagenesHome/imagenCampo.jpg);
@@ -91,9 +93,11 @@ header{
 }
 .contenedor> div:nth-child(6){
     background-image: url(../imagenes/imagenesHome/imagenPareja.jpg);
+    
 }
 .contenedor> div:nth-child(6) div{
-    width: 400px;
+    width: 300px;
+    margin-left: 10%;
 }
 
 .contenedor #eleccion,
@@ -258,11 +262,52 @@ header{
     }
     h2{
         font-size: calc(var(--mediano) - 80%);
-}
+    }
     .contenedor div:nth-child(n+3){
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+}
+
+
+@media screen and  (max-width:520px){
+    .hero h2{
+        font-size: 0.5rem;
+    }
+    .hero{
+        height: 200px;
+    }
+    h2{
+        font-size: calc(var(--pequenio) - 20%);
+    }
+    p{
+        font-size: calc(var(--pequenio) - 40%);
+    }
+    .botonesMuestra{
+        display: flex;
+        flex-direction: column;
+    }
+    #muestraBreve button{
+        margin: 4% 0;
+    }
+    .contenedor> div:nth-child(3) div{
+        margin-right: 0;
+    }
+    .contenedor> div:nth-child(6) div{
+        margin-left: 0;
+    }
+}
+@media screen and  (max-width:400px){
+
+    h2{
+        font-size: calc(var(--pequenio) - 40%);
+    }
+    p{
+        font-size: calc(var(--pequenio) - 60%);
+    }
+    body{
+        min-width: 300px;
     }
 }

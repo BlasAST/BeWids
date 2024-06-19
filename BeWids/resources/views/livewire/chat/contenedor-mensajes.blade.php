@@ -16,7 +16,7 @@
                     class="hover:bg-colorFondo">
                     <p>Mostrar información</p>
                 </button>
-                <button wire:click="cerrarConversacion" class="hover:bg-colorFondo"> Cerrar conversación</button>
+                <button wire:click="cerrarConversacion" class="cerraduras hover:bg-colorFondo"> Cerrar conversación</button>
 
             </div>
             @if ($inforParticipante)
@@ -64,7 +64,7 @@
                         </figure>
                     </li>
                 @endforeach
-                <button wire:click="cerrarConversacion" class="hover:bg-colorFondo">Cerrar conversación</button>
+                <button wire:click="cerrarConversacion" class="cerraduras hover:bg-colorFondo">Cerrar conversación</button>
             </ul>
             @if ($inforParticipante)
                 <div class="bg-colorMain absolute top-12 right-[42%] w-[50%] p-10  mostrarInfo">
@@ -139,6 +139,11 @@
 
 
         });
+
+        function cerrarConversacion(){
+            
+        }
+
         // Reiniciador de scroll a la parte inferior
         window.addEventListener('scrollFixed',function(){
             setTimeout(() => {
